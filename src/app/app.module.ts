@@ -1,4 +1,6 @@
 import { NgModule } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatTabsModule } from '@angular/material/tabs';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -9,6 +11,7 @@ import { GameComponent } from './components/game/game.component';
 import { RoundComponent } from './components/round/round.component';
 import { ScoreboardComponent } from './components/scoreboard/scoreboard.component';
 import { ThrowResultComponent } from './components/throw-result/throw-result.component';
+import { RoundThrowsComponent } from './components/round-throws/round-throws.component';
 
 @NgModule({
   declarations: [
@@ -16,12 +19,15 @@ import { ThrowResultComponent } from './components/throw-result/throw-result.com
     ThrowResultComponent,
     RoundComponent,
     GameComponent,
-    ScoreboardComponent
+    ScoreboardComponent,
+    RoundThrowsComponent
   ],
   imports: [
     AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
+    MatButtonModule,
+    MatButtonToggleModule,
     MatTabsModule
   ],
   providers: [],

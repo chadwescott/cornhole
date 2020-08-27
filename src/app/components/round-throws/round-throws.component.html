@@ -1,0 +1,6 @@
+<div class="container" *ngFor="let throw of throws">
+    <div>{{throws.indexOf(throw) + 1}}</div>
+    <div>
+        <ch-throw-result [throw]="throw"></ch-throw-result>
+    </div>
+</div>
