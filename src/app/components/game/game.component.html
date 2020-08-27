@@ -1,0 +1,7 @@
+<p>{{game.team1Name}}</p>
+<p>{{game.team2Name}}</p>
+<mat-tab-group>
+    <mat-tab *ngFor="let round of game.rounds" [label]="game.rounds.indexOf(round) + 1">
+        <ch-round [round]="round"></ch-round>
+    </mat-tab>
+</mat-tab-group>
