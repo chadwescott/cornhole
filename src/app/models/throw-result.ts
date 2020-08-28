@@ -1,5 +1,5 @@
 export enum ThrowResult {
-    OffBoard,
-    OnBoard,
-    Cornhole
+    OffBoard = 1,
+    OnBoard = 2,
+    Cornhole = 3
 }

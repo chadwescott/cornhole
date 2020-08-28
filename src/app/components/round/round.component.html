@@ -1,8 +1,16 @@
 <div class="container">
     <div>
-        <ch-round-throws [throws]="round.team1Throws"></ch-round-throws>
+        <ch-round-throws [throws]="round.team1Throws" (throwResultChanged)="onThrowResultChanged($event)">
+        </ch-round-throws>
     </div>
     <div>
-        <ch-round-throws [throws]="round.team2Throws"></ch-round-throws>
+        <ch-round-throws [throws]="round.team2Throws" (throwResultChanged)="onThrowResultChanged($event)">
+        </ch-round-throws>
     </div>
+</div>
+<div>
+    <div>Total {{ round.team1TotalScore}}</div>
+    <div>Total {{ round.team2TotalScore}}</div>
+    <div>Net {{ round.team1NetScore}}</div>
+    <div>Net {{ round.team2NetScore}}</div>
 </div>

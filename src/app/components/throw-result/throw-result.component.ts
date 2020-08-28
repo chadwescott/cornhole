@@ -15,15 +15,22 @@ export class ThrowResultComponent implements OnInit {
   @Output()
   throwResultChanged = new EventEmitter<Throw>();
 
+  private throwPoints = {};
+
   throwResult = ThrowResult;
 
-  constructor() { }
+  constructor() {
+    this.throwPoints[ThrowResult.OffBoard] = 0;
+    this.throwPoints[ThrowResult.OnBoard] = 1;
+    this.throwPoints[ThrowResult.Cornhole] = 3;
+  }
 
   ngOnInit(): void {
   }
 
   onThrowResult(event: MatButtonToggleChange): void {
     this.throw.result = event.value;
+    this.throw.points = this.throwPoints[event.value];
     this.throwResultChanged.emit(this.throw);
   }
 }

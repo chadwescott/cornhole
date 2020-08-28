@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Throw } from 'src/app/models/throw';
 
 @Component({
@@ -10,13 +10,16 @@ export class RoundThrowsComponent implements OnInit {
   @Input()
   throws: Throw[];
 
+  @Output()
+  throwResultChanged = new EventEmitter<Throw>();
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  onThrowResult(target: Throw): void {
-    console.log(target);
+  onThrowResultChanged(target: Throw): void {
+    this.throwResultChanged.emit(target);
   }
 
 }

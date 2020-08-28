@@ -15,6 +15,16 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.game = this.gameService.createGame('Chad', 'Nancy');
+    const player1 = this.gameService.createPlayer('Chad');
+    const player2 = this.gameService.createPlayer('Nancy');
+    const player3 = this.gameService.createPlayer('Molly');
+    const player4 = this.gameService.createPlayer('Elizabeth');
+    const team1 = this.gameService.createTeam([player1, player2]);
+    const team2 = this.gameService.createTeam([player3, player4]);
+    this.game = this.gameService.createGame(team1, team2);
+  }
+
+  onAddRound(game: Game): void {
+    this.gameService.addRound(game);
   }
 }
