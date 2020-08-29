@@ -18,7 +18,21 @@ export class GameService {
   teams: Team[] = [];
   games: Game[] = [];
 
-  constructor() { }
+  constructor() {
+    this.games = JSON.parse(localStorage.getItem(this.gamesKey));
+    this.players = JSON.parse(localStorage.getItem(this.playersKey));
+    this.teams = JSON.parse(localStorage.getItem(this.gamesKey));
+  }
+
+  clearData(): void {
+    this.players = [];
+    this.teams = [];
+    this.games = [];
+
+    this.savePlayers();
+    this.saveTeams();
+    this.saveGames();
+  }
 
   private savePlayers(): void {
     localStorage.setItem(this.playersKey, JSON.stringify(this.players));
@@ -30,6 +44,10 @@ export class GameService {
 
   private saveGames(): void {
     localStorage.setItem(this.gamesKey, JSON.stringify(this.games));
+  }
+
+  getGames(): Game[] {
+    return this.games;
   }
 
   createPlayer(name: string): Player {
@@ -62,5 +80,8 @@ export class GameService {
     }
     game.rounds.push(new Round(team1Throws, team2Throws));
     this.saveGames();
+  }
+
+  completeGame(game: Game): void {
   }
 }

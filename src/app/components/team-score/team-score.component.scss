@@ -1,0 +1,28 @@
+.team {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    // border: solid 1px red;
+
+    // & > * {
+    //     flex: 0 1 300px;
+    // }
+
+    & .players {
+        font-size: 1.1em;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        justify-content: flex-start;
+
+        & > div {
+            margin: 5px;
+        }
+    }
+    & .score {
+        font-size: 3em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}

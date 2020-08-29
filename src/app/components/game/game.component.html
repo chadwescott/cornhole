@@ -4,6 +4,9 @@
         <ch-round [round]="round" (roundChanged)="onRoundChanged($event)"></ch-round>
     </mat-tab>
 </mat-tab-group>
-<button *ngIf="game.rounds[game.rounds.length - 1].complete && !game.complete" mat-raised-button color="primary"
-    (click)="this.addRound.emit(game)">Add
-    Round</button>
+<ng-container *ngIf="game.rounds[game.rounds.length - 1].complete">
+    <button *ngIf="!game.complete" mat-raised-button color="primary" (click)="addRound.emit(game)">Add
+        Round</button>
+    <button *ngIf="game.complete" mat-raised-button color="primary" (click)="completeGame.emit(game)">Complete
+        Game</button>
+</ng-container>

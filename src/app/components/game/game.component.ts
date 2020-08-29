@@ -15,12 +15,15 @@ export class GameComponent implements OnInit {
   @Output()
   addRound = new EventEmitter<Game>();
 
+  @Output()
+  completeGame = new EventEmitter<Game>();
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  onRoundChanged(target: Round): void {
+  onRoundChanged(round: Round): void {
     let team1Score = 0;
     this.game.rounds.map(x => team1Score += x.team1NetScore);
     this.game.team1Score = team1Score;

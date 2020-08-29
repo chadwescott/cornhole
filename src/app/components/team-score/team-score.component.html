@@ -1,4 +1,6 @@
 <div class="team">
-    <div *ngFor="let player of team.players">{{player.name}}</div>
+    <div class="players">
+        <div *ngFor="let player of team.players">{{player.name}}</div>
+    </div>
     <div class="score">{{score}}</div>
 </div>
