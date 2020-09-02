@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 
+import { GameConstants } from '../constants/game.constants';
 import { Game } from '../models/game';
 import { Player } from '../models/player';
 import { Round } from '../models/round';
@@ -71,6 +72,49 @@ export class GameService {
     return game;
   }
 
+  throwChanged(game: Game): void {
+
+  }
+
+  roundScoreChanged(round: Round): void {
+    let team1Score = 0;
+    round.team1Throws.map(x => team1Score += x.points);
+    round.team1TotalScore = team1Score;
+
+    let team2Score = 0;
+    round.team2Throws.map(x => team2Score += x.points);
+    round.team2TotalScore = team2Score;
+
+    round.team1NetScore = Math.max(round.team1TotalScore - round.team2TotalScore, 0);
+    round.team2NetScore = Math.max(round.team2TotalScore - round.team1TotalScore, 0);
+    round.complete = !round.team1Throws.find(x => !x.result) && !round.team2Throws.find(x => !x.result);
+
+    const game = this.games.find(x => x.rounds.includes(round));
+    if (game) {
+      this.calculateGameScore(game);
+    }
+  }
+
+  private calculateGameScore(game: Game): void {
+    let team1Score = 0;
+    game.rounds.map(x => team1Score += x.team1NetScore);
+    game.team1Score = team1Score;
+
+    let team2Score = 0;
+    game.rounds.map(x => team2Score += x.team2NetScore);
+    game.team2Score = team2Score;
+
+    if (!game.rounds.find(x => !x.complete)) {
+      game.complete = game.team1Score >= GameConstants.WINNING_SCORE || game.team2Score >= GameConstants.WINNING_SCORE;
+      if (game.complete) {
+        game.winner = game.team1Score >= GameConstants.WINNING_SCORE ? game.team1 : game.team2;
+      } else {
+        game.complete = false;
+        game.winner = null;
+      }
+    }
+  }
+
   addRound(game: Game): void {
     const team1Throws: Throw[] = [];
     const team2Throws: Throw[] = [];
@@ -83,5 +127,6 @@ export class GameService {
   }
 
   completeGame(game: Game): void {
+    console.log(game.winner);
   }
 }

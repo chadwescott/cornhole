@@ -1,1 +1,3 @@
-<ch-game [game]="game" (addRound)="onAddRound($event)" (completeGame)="onCompleteGame($event)"></ch-game>
+<ch-game [game]="game" [activeRound]="activeRound" (addRound)="onAddRound($event)"
+    (roundScoreChanged)="onRoundScoreChanged($event)" (roundChanged)="onRoundChanged($event)"
+    (completeGame)="onCompleteGame($event)"></ch-game>

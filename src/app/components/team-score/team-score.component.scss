@@ -1,28 +1,69 @@
-.team {
-    display: grid;
-    grid-template-columns: 1fr 400px;
-    // border: solid 1px red;
+$winner-width: 100px;
+$player-width: 100px;
+$score-width: 100px;
 
-    // & > * {
-    //     flex: 0 1 300px;
-    // }
+.team1 {
+    display: grid;
+    grid-template-columns: $winner-width $player-width $score-width;
+    grid-template-areas: 'winner players score';
 
     & .players {
-        font-size: 1.1em;
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-        align-items: flex-start;
-        justify-content: flex-start;
+        align-items: flex-end;
+        text-align: right;
+    }
+}
 
-        & > div {
-            margin: 5px;
+.team2 {
+    display: grid;
+    grid-template-columns: $score-width $player-width $winner-width;
+    grid-template-areas: 'score players winner';
+
+    & .players {
+        align-items: flex-start;
+        text-align: left;
+    }
+}
+
+.winner {
+    grid-area: 'winner';
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+    &.icon:before {
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 900;
+        font-size: 2em;
+        content: '\f521';
+        background-color: blue;
+        border-radius: 50%;
+        padding: 0.3em;
+        border: solid 2px darkblue;
+        box-shadow: 0 0 2px rgba(200, 200, 200, 0.4), 2px 2px 4px 2px rgba(0, 0, 0, 0.4);
+        color: yellow;
+    }
+}
+.players {
+    grid-area: players;
+    font-size: 1.1em;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 5px;
+
+    & > div {
+        width: 100%;
+        &:not(:last-child) {
+            margin-bottom: 4px;
         }
     }
-    & .score {
-        font-size: 3em;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+}
+
+.score {
+    grid-area: score;
+    font-size: 4em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

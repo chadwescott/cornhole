@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { GameConstants } from './constants/game.constants';
 import { Game } from './models/game';
+import { Round } from './models/round';
 import { GameService } from './services/game.service';
 
 @Component({
@@ -11,6 +11,7 @@ import { GameService } from './services/game.service';
 })
 export class AppComponent implements OnInit {
   game: Game;
+  activeRound: Round;
 
   constructor(private gameService: GameService) {
   }
@@ -28,22 +29,25 @@ export class AppComponent implements OnInit {
     const team1 = this.gameService.createTeam([player1, player2]);
     const team2 = this.gameService.createTeam([player3, player4]);
     this.game = this.gameService.createGame(team1, team2);
+    this.activateLastRound(this.game);
+  }
+
+  onRoundChanged(round: Round): void {
+    this.activeRound = round;
   }
 
   onAddRound(game: Game): void {
     this.gameService.addRound(game);
+    this.activateLastRound(game);
   }
 
-  onRoundChanged(game: Game): void {
-    let team1Score = 0;
-    game.rounds.map(x => team1Score += x.team1NetScore);
-    game.team1Score = team1Score;
+  activateLastRound(game: Game): void {
+    this.activeRound = game.rounds ? game.rounds[game.rounds.length - 1] : null;
+    console.log(this.activeRound);
+  }
 
-    let team2Score = 0;
-    game.rounds.map(x => team2Score += x.team2NetScore);
-    game.team2Score = team2Score;
-
-    game.complete = game.team1Score >= GameConstants.WINNING_SCORE || game.team2Score >= GameConstants.WINNING_SCORE;
+  onRoundScoreChanged(round: Round): void {
+    this.gameService.roundScoreChanged(round);
   }
 
   onCompleteGame(game: Game): void {

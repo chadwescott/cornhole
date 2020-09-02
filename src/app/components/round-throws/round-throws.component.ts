@@ -17,9 +17,4 @@ export class RoundThrowsComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-  onThrowResultChanged(target: Throw): void {
-    this.throwResultChanged.emit(target);
-  }
-
 }

@@ -1,7 +1,7 @@
 <ch-scoreboard [game]="game"></ch-scoreboard>
-<mat-tab-group>
+<mat-tab-group [selectedIndex]="game.rounds.indexOf(activeRound)" (selectedIndexChange)="onRoundChanged($event)">
     <mat-tab *ngFor="let round of game.rounds" [label]="game.rounds.indexOf(round) + 1">
-        <ch-round [round]="round" (roundChanged)="onRoundChanged($event)"></ch-round>
+        <ch-round [round]="round" (roundScoreChanged)="roundScoreChanged.emit($event)"></ch-round>
     </mat-tab>
 </mat-tab-group>
 <ng-container *ngIf="game.rounds[game.rounds.length - 1].complete">

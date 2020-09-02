@@ -8,10 +8,16 @@ import { Team } from 'src/app/models/team';
 })
 export class TeamScoreComponent implements OnInit {
   @Input()
+  teamNumber: number;
+
+  @Input()
   team: Team;
 
   @Input()
   score: number;
+
+  @Input()
+  winner: boolean;
 
   constructor() { }
 

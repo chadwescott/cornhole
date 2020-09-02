@@ -1,6 +1,6 @@
 <div class="container" *ngFor="let throw of throws">
     <div>
-        <ch-throw-result [throw]="throw" (throwResultChanged)="onThrowResultChanged($event)"></ch-throw-result>
+        <ch-throw-result [throw]="throw" (throwResultChanged)="throwResultChanged.emit($event)"></ch-throw-result>
     </div>
     <div>
         <ng-container *ngIf="throw.result">{{throw?.points}}</ng-container>

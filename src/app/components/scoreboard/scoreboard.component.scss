@@ -1,10 +1,7 @@
 .container {
     display: flex;
     align-items: center;
-    // justify-content: space-evenly;
     justify-content: center;
 
-    & * {
-        // flex: 0 1 400px;
-    }
+    background-color: red;
 }
