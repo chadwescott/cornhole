@@ -7,6 +7,7 @@ export class Game {
     public team2Score = 0;
     public complete = false;
     public winner: Team;
+    public startTime = Date.now;
 
     constructor(
         public team1: Team,

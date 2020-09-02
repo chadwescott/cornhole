@@ -2,15 +2,25 @@
     <div>
         <ch-round-throws [throws]="round.team1Throws" (throwResultChanged)="onThrowResultChanged($event)">
         </ch-round-throws>
+        <div class="score-container">
+            <div>Total</div>
+            <div class="score">{{ round.team1TotalScore}}</div>
+        </div>
+        <div class="score-container">
+            <div>Net</div>
+            <div class="score">{{ round.team1NetScore}}</div>
+        </div>
     </div>
     <div>
         <ch-round-throws [throws]="round.team2Throws" (throwResultChanged)="onThrowResultChanged($event)">
         </ch-round-throws>
+        <div class="score-container">
+            <div>Total</div>
+            <div class="score">{{ round.team2TotalScore}}</div>
+        </div>
+        <div class="score-container">
+            <div>Net</div>
+            <div class="score">{{ round.team2NetScore}}</div>
+        </div>
     </div>
-</div>
-<div>
-    <div>Total {{ round.team1TotalScore}}</div>
-    <div>Total {{ round.team2TotalScore}}</div>
-    <div>Net {{ round.team1NetScore}}</div>
-    <div>Net {{ round.team2NetScore}}</div>
 </div>

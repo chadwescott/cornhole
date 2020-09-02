@@ -13,6 +13,9 @@ import { ScoreboardComponent } from './components/scoreboard/scoreboard.componen
 import { ThrowResultComponent } from './components/throw-result/throw-result.component';
 import { RoundThrowsComponent } from './components/round-throws/round-throws.component';
 import { TeamScoreComponent } from './components/team-score/team-score.component';
+import { GameSetupComponent } from './components/game-setup/game-setup.component';
+import { TeamSelectorComponent } from './components/team-selector/team-selector.component';
+import { PlayerSelectorComponent } from './components/player-selector/player-selector.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,10 @@ import { TeamScoreComponent } from './components/team-score/team-score.component
     GameComponent,
     ScoreboardComponent,
     RoundThrowsComponent,
-    TeamScoreComponent
+    TeamScoreComponent,
+    GameSetupComponent,
+    TeamSelectorComponent,
+    PlayerSelectorComponent
   ],
   imports: [
     AppRoutingModule,

@@ -30,9 +30,9 @@ export class GameService {
     this.teams = [];
     this.games = [];
 
-    this.savePlayers();
-    this.saveTeams();
-    this.saveGames();
+    localStorage.removeItem(this.gamesKey);
+    localStorage.removeItem(this.teamsKey);
+    localStorage.removeItem(this.playersKey);
   }
 
   private savePlayers(): void {
@@ -69,11 +69,8 @@ export class GameService {
     const game = new Game(team1, team2);
     this.games.push(game);
     this.addRound(game);
+    this.saveGames();
     return game;
-  }
-
-  throwChanged(game: Game): void {
-
   }
 
   roundScoreChanged(round: Round): void {
@@ -93,6 +90,8 @@ export class GameService {
     if (game) {
       this.calculateGameScore(game);
     }
+
+    this.saveGames();
   }
 
   private calculateGameScore(game: Game): void {

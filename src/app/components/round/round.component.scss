@@ -1,5 +1,25 @@
 .container {
     display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
+    flex-wrap: wrap;
+
+    & > div {
+        margin: 1em;
+
+        & > * {
+            margin-top: 1em;
+        }
+    }
+
+    & .score-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        & .score {
+            text-align: right;
+        }
+    }
 }

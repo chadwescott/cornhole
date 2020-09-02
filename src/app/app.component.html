@@ -1,3 +1,5 @@
-<ch-game [game]="game" [activeRound]="activeRound" (addRound)="onAddRound($event)"
+<ch-game *ngIf="game" [game]="game" [activeRound]="activeRound" (addRound)="onAddRound($event)"
     (roundScoreChanged)="onRoundScoreChanged($event)" (roundChanged)="onRoundChanged($event)"
     (completeGame)="onCompleteGame($event)"></ch-game>
+
+<button *ngIf="!game" mat-button (click)="createNewGame()">New Game</button>
