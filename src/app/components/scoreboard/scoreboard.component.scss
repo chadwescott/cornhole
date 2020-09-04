@@ -1,5 +1,19 @@
+@import '../../../styles.scss';
+
 .container {
     display: flex;
-    align-items: center;
+    align-content: stretch;
     justify-content: center;
+
+    & .team1 {
+        flex: 1;
+        color: white;
+        background-color: $team1-color;
+    }
+
+    & .team2 {
+        flex: 1;
+        color: white;
+        background-color: $team2-color;
+    }
 }

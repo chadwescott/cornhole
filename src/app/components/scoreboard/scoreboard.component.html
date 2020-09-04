@@ -1,6 +1,12 @@
 <div class="container">
-    <ch-team-score [team]="game.team1" [score]="game.team1Score" teamNumber="1" [winner]="game.team1 === game.winner">
-    </ch-team-score>
-    <ch-team-score [team]="game.team2" [score]="game.team2Score" teamNumber="2" [winner]="game.team2 === game.winner">
-    </ch-team-score>
+    <div class="team1">
+        <ch-team-score [team]="game.team1" [score]="game.team1Score" teamNumber="1"
+            [winner]="game.team1 === game.winner">
+        </ch-team-score>
+    </div>
+    <div class="team2">
+        <ch-team-score [team]="game.team2" [score]="game.team2Score" teamNumber="2"
+            [winner]="game.team2 === game.winner">
+        </ch-team-score>
+    </div>
 </div>

@@ -1,17 +1,15 @@
-@import '../../../styles.scss';
-
-$winner-width: 6em;
+$winner-width: 1fr;
 $player-width: 7em;
 $score-width: 6em;
 
-@mixin icon {
+.icon {
     grid-area: 'winner';
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    padding: 0.5em;
 }
 
-@mixin winner-icon {
+.winner:before {
     font-family: 'Font Awesome 5 Free';
     font-weight: 900;
     font-size: 2em;
@@ -23,57 +21,38 @@ $score-width: 6em;
     color: yellow;
 }
 
+.team {
+    width: 100%;
+}
+
 .team1 {
     display: grid;
-    color: white;
-    background-color: $team1-color;
-    border-radius: 1em 0 0 1em;
     grid-template-columns: $winner-width $player-width $score-width;
-
-    & .icon:before {
-        @include icon;
-    }
-
-    & .winner:before {
-        @include winner-icon;
-        background-color: $team1-color;
-    }
     grid-template-areas: 'winner players score';
 
     & .players {
         align-items: flex-end;
         text-align: right;
     }
+
+    & .icon {
+        justify-content: flex-end;
+    }
 }
 
 .team2 {
     display: grid;
-    color: white;
-    background-color: $team2-color;
-    border-radius: 0 1em 1em 0;
     grid-template-columns: $score-width $player-width $winner-width;
-
-    & .icon:before {
-        @include icon;
-    }
-
-    & .winner:before {
-        @include winner-icon;
-        background-color: $team2-color;
-    }
     grid-template-areas: 'score players winner';
 
     & .players {
         align-items: flex-start;
         text-align: left;
     }
-}
 
-.icon {
-    grid-area: 'winner';
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
+    & .icon {
+        justify-content: flex-start;
+    }
 }
 
 .players {
@@ -83,7 +62,7 @@ $score-width: 6em;
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
-    margin: 5px;
+    padding: 0.5em;
 
     & > div {
         width: 100%;

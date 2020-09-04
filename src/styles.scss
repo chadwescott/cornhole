@@ -17,6 +17,13 @@ $team2-color: red;
 body {
     padding: 0;
     margin: 0;
+    font-size: 0.8rem;
+}
+
+@media (min-width: 800px) {
+    body {
+        font-size: 1rem;
+    }
 }
 
 .icon:before {
