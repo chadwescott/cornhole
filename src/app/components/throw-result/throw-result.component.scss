@@ -1,9 +1,33 @@
-.mat-button-toggle {
-    background-color: tan;
-}
+@import '../../../assets/scss/colors.scss';
 
-.mat-button-toggle-checked {
-    background-color: #d76b00;
+.mat-button-toggle {
+    &.board {
+        background-color: tan;
+    }
+
+    &.on-board {
+        &:not(.mat-button-toggle-checked) {
+            & i {
+                visibility: hidden;
+            }
+        }
+    }
+
+    &.cornhole {
+        &:not(.mat-button-toggle-checked) {
+            color: black;
+        }
+    }
+
+    &.off-board {
+        background-color: green;
+
+        &:not(.mat-button-toggle-checked) {
+            & i {
+                visibility: hidden;
+            }
+        }
+    }
 }
 
 i {

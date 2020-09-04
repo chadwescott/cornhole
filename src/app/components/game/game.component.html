@@ -1,6 +1,5 @@
 <ch-scoreboard [game]="game"></ch-scoreboard>
-<mat-tab-group headerPosition="below" [selectedIndex]="game.rounds.indexOf(activeRound)"
-    (selectedIndexChange)="onRoundChanged($event)">
+<mat-tab-group [selectedIndex]="game.rounds.indexOf(activeRound)" (selectedIndexChange)="onRoundChanged($event)">
     <mat-tab *ngFor="let round of game.rounds" [label]="'Round ' + (game.rounds.indexOf(round) + 1)">
         <ch-round [round]="round" (roundScoreChanged)="roundScoreChanged.emit($event)"></ch-round>
         <div class="button-bar" *ngIf="game.rounds[game.rounds.length - 1].complete">

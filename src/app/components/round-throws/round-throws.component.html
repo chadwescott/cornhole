@@ -1,5 +1,5 @@
-<div class="container" *ngFor="let throw of throws">
-    <div>
+<div class="container">
+    <div *ngFor="let throw of throws">
         <ch-throw-result [teamNumber]="teamNumber" [throw]="throw"
             (throwResultChanged)="throwResultChanged.emit($event)"></ch-throw-result>
     </div>
