@@ -1,9 +1,12 @@
-$winner-width: 100px;
-$player-width: 100px;
-$score-width: 100px;
+$winner-width: 6em;
+$player-width: 7em;
+$score-width: 6em;
 
 .team1 {
     display: grid;
+    color: white;
+    background-color: blue;
+    border-radius: 1em 0 0 1em;
     grid-template-columns: $winner-width $player-width $score-width;
     grid-template-areas: 'winner players score';
 
@@ -15,6 +18,9 @@ $score-width: 100px;
 
 .team2 {
     display: grid;
+    color: white;
+    background-color: red;
+    border-radius: 0 1em 1em 0;
     grid-template-columns: $score-width $player-width $winner-width;
     grid-template-areas: 'score players winner';
 
@@ -24,6 +30,49 @@ $score-width: 100px;
     }
 }
 
+.team1 {
+    & .icon {
+        grid-area: 'winner';
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+
+        &.winner:before {
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            font-size: 2em;
+            content: '\f521';
+            background-color: blue;
+            border-radius: 50%;
+            padding: 0.3em;
+            border: solid 2px darkblue;
+            box-shadow: 0 0 2px rgba(200, 200, 200, 0.4), 2px 2px 4px 2px rgba(0, 0, 0, 0.4);
+            color: yellow;
+        }
+    }
+}
+
+.team2 {
+    & .icon {
+        grid-area: 'winner';
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+
+        &.winner:before {
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            font-size: 2em;
+            content: '\f521';
+            background-color: red;
+            border-radius: 50%;
+            padding: 0.3em;
+            border: solid 2px darkred;
+            box-shadow: 0 0 2px rgba(200, 200, 200, 0.4), 2px 2px 4px 2px rgba(0, 0, 0, 0.4);
+            color: yellow;
+        }
+    }
+}
 .winner {
     grid-area: 'winner';
     display: flex;

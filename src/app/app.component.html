@@ -2,4 +2,5 @@
     (roundScoreChanged)="onRoundScoreChanged($event)" (roundChanged)="onRoundChanged($event)"
     (completeGame)="onCompleteGame($event)"></ch-game>
 
+<ch-game-setup *ngIf="!game"></ch-game-setup>
 <button *ngIf="!game" mat-button (click)="createNewGame()">New Game</button>

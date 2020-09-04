@@ -1,6 +1,7 @@
 <div>Team 1
-    <ch-team-selector></ch-team-selector>
+    <ch-team-selector (teamSelected)="team1 = $event"></ch-team-selector>
 </div>
 <div>Team 2
-    <ch-team-selector></ch-team-selector>
+    <ch-team-selector (teamSelected)="team2 = $event"></ch-team-selector>
 </div>
+<button *ngIf="team1 && team2" mat-raised-button>Create Game</button>

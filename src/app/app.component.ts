@@ -22,12 +22,19 @@ export class AppComponent implements OnInit {
 
   createNewGame(): void {
     this.gameService.clearData();
-    const player1 = this.gameService.createPlayer('Chad');
-    const player2 = this.gameService.createPlayer('Nancy');
-    const player3 = this.gameService.createPlayer('Molly');
-    const player4 = this.gameService.createPlayer('Elizabeth');
-    const team1 = this.gameService.createTeam([player1, player2]);
-    const team2 = this.gameService.createTeam([player3, player4]);
+    // const player1 = this.gameService.createPlayer('Chad');
+    // const player2 = this.gameService.createPlayer('Nancy');
+    // const player3 = this.gameService.createPlayer('Molly');
+    // const player4 = this.gameService.createPlayer('Elizabeth');
+    // const team1 = this.gameService.createTeam([player1, player2]);
+    // const team2 = this.gameService.createTeam([player3, player4]);
+    // this.game = this.gameService.createGame(team1, team2);
+    const player1 = this.gameService.createPlayer('Blue Team');
+    const player2 = this.gameService.createPlayer('Red Team');
+    // const player3 = this.gameService.createPlayer('Molly');
+    // const player4 = this.gameService.createPlayer('Elizabeth');
+    const team1 = this.gameService.createTeam([player1]);
+    const team2 = this.gameService.createTeam([player2]);
     this.game = this.gameService.createGame(team1, team2);
     this.activateLastRound(this.game);
   }

@@ -1,5 +1,5 @@
 <div [class]="'team' + teamNumber">
-    <div class="winner" [class]="winner ? 'icon' : ''"></div>
+    <div class="icon" [class]="winner ? 'winner' : ''"></div>
     <div class="players">
         <div *ngFor="let player of team.players">{{player.name}}</div>
     </div>

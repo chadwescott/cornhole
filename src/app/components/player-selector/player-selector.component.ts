@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Player } from 'src/app/models/player';
 
 @Component({
   selector: 'ch-player-selector',
@@ -6,6 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./player-selector.component.scss']
 })
 export class PlayerSelectorComponent implements OnInit {
+  @Input()
+  players: Player[];
+
+  @Output()
+  playerSelected = new EventEmitter<Player>();
+
+  @Output()
+  playerAdded = new EventEmitter<Player>();
 
   constructor() { }
 
