@@ -1,0 +1,18 @@
+$team1-color: blue;
+$team2-color: red;
+
+.team1-background {
+    background-color: $team1-color;
+}
+
+.team2-background {
+    background-color: $team2-color;
+}
+
+.team1-color {
+    color: $team1-color;
+}
+
+.team2-color {
+    color: $team2-color;
+}
