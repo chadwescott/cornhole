@@ -1,13 +1,9 @@
 .container {
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
 
     & > div {
         margin-bottom: 1em;
-
-        &:not(:last-child) {
-            margin-right: 2em;
-        }
     }
 }

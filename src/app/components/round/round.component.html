@@ -1,9 +1,10 @@
 <div class="container">
     <div>
         <mat-card class="team1">
-            <ch-round-throws [throws]="round.team1Throws" (throwResultChanged)="roundScoreChanged.emit(round)">
+            <ch-round-throws [teamNumber]="1" [throws]="round.team1Throws"
+                (throwResultChanged)="roundScoreChanged.emit(round)">
             </ch-round-throws>
-            <div class="score-container team1">
+            <div class="score-container">
                 <div>Total</div>
                 <div class="score">{{ round.team1TotalScore}}</div>
                 <div>Net</div>
@@ -13,9 +14,10 @@
     </div>
     <div>
         <mat-card class="team2">
-            <ch-round-throws [throws]="round.team2Throws" (throwResultChanged)="roundScoreChanged.emit(round)">
+            <ch-round-throws [teamNumber]="2" [throws]="round.team2Throws"
+                (throwResultChanged)="roundScoreChanged.emit(round)">
             </ch-round-throws>
-            <div class="score-container team2">
+            <div class="score-container">
                 <div>Total</div>
                 <div class="score">{{ round.team2TotalScore}}</div>
                 <div>Net</div>

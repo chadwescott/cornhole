@@ -2,23 +2,34 @@ $winner-width: 1fr;
 $player-width: 7em;
 $score-width: 4em;
 
+@keyframes winner {
+    0% {
+        font-size: 1em;
+    }
+    100% {
+        font-size: 1.5em;
+    }
+}
+
 .icon {
     grid-area: 'winner';
     display: flex;
     align-items: center;
     padding: 0.1em;
-}
 
-.winner:before {
-    font-family: 'Font Awesome 5 Free';
-    font-weight: 900;
-    font-size: 1.5em;
-    content: '\f521';
-    border-radius: 50%;
-    padding: 0.3em;
-    border: solid 2px black;
-    box-shadow: 0 0 2px rgba(200, 200, 200, 0.4), 2px 2px 4px 2px rgba(0, 0, 0, 0.4);
-    color: yellow;
+    &.winner:before {
+        font-size: 1.5em;
+        content: '\f521';
+        border-radius: 50%;
+        padding: 0.3em;
+        border: solid 2px black;
+        box-shadow: 0 0 2px rgba(200, 200, 200, 0.4), 2px 2px 4px 2px rgba(0, 0, 0, 0.4);
+        color: yellow;
+        animation-name: winner;
+        animation-duration: 400ms;
+        animation-iteration-count: 5;
+        animation-direction: alternate;
+    }
 }
 
 .team {

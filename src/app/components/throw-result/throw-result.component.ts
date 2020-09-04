@@ -10,6 +10,9 @@ import { ThrowResult } from 'src/app/models/throw-result';
 })
 export class ThrowResultComponent implements OnInit {
   @Input()
+  teamNumber: number;
+
+  @Input()
   throw: Throw;
 
   @Output()
