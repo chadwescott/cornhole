@@ -5,6 +5,9 @@ $accent: mat-palette($mat-teal);
 $warn: mat-palette($mat-red);
 $theme: mat-light-theme($primary, $accent, $warn);
 
+$team1-color: blue;
+$team2-color: red;
+
 @include angular-material-theme($theme);
 
 * {

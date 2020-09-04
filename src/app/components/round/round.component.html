@@ -1,26 +1,30 @@
 <div class="container">
     <div>
-        <ch-round-throws [throws]="round.team1Throws" (throwResultChanged)="onThrowResultChanged($event)">
-        </ch-round-throws>
-        <div class="score-container">
-            <div>Total</div>
-            <div class="score">{{ round.team1TotalScore}}</div>
-        </div>
-        <div class="score-container">
-            <div>Net</div>
-            <div class="score">{{ round.team1NetScore}}</div>
-        </div>
+        <mat-card class="team1">
+            <ch-round-throws [throws]="round.team1Throws" (throwResultChanged)="roundScoreChanged.emit(round)">
+            </ch-round-throws>
+            <div class="score-container team1">
+                <div>Total</div>
+                <div class="score">{{ round.team1TotalScore}}</div>
+            </div>
+            <div class="score-container team1">
+                <div>Net</div>
+                <div class="score">{{ round.team1NetScore}}</div>
+            </div>
+        </mat-card>
     </div>
     <div>
-        <ch-round-throws [throws]="round.team2Throws" (throwResultChanged)="onThrowResultChanged($event)">
-        </ch-round-throws>
-        <div class="score-container">
-            <div>Total</div>
-            <div class="score">{{ round.team2TotalScore}}</div>
-        </div>
-        <div class="score-container">
-            <div>Net</div>
-            <div class="score">{{ round.team2NetScore}}</div>
-        </div>
+        <mat-card class="team2">
+            <ch-round-throws [throws]="round.team2Throws" (throwResultChanged)="roundScoreChanged.emit(round)">
+            </ch-round-throws>
+            <div class="score-container team2">
+                <div>Total</div>
+                <div class="score">{{ round.team2TotalScore}}</div>
+            </div>
+            <div class="score-container team2">
+                <div>Net</div>
+                <div class="score">{{ round.team2NetScore}}</div>
+            </div>
+        </mat-card>
     </div>
 </div>

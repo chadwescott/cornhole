@@ -1,13 +1,43 @@
+@import '../../../styles.scss';
+
 $winner-width: 6em;
 $player-width: 7em;
 $score-width: 6em;
 
+@mixin icon {
+    grid-area: 'winner';
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+@mixin winner-icon {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 2em;
+    content: '\f521';
+    border-radius: 50%;
+    padding: 0.3em;
+    border: solid 2px black;
+    box-shadow: 0 0 2px rgba(200, 200, 200, 0.4), 2px 2px 4px 2px rgba(0, 0, 0, 0.4);
+    color: yellow;
+}
+
 .team1 {
     display: grid;
     color: white;
-    background-color: blue;
+    background-color: $team1-color;
     border-radius: 1em 0 0 1em;
     grid-template-columns: $winner-width $player-width $score-width;
+
+    & .icon:before {
+        @include icon;
+    }
+
+    & .winner:before {
+        @include winner-icon;
+        background-color: $team1-color;
+    }
     grid-template-areas: 'winner players score';
 
     & .players {
@@ -19,9 +49,18 @@ $score-width: 6em;
 .team2 {
     display: grid;
     color: white;
-    background-color: red;
+    background-color: $team2-color;
     border-radius: 0 1em 1em 0;
     grid-template-columns: $score-width $player-width $winner-width;
+
+    & .icon:before {
+        @include icon;
+    }
+
+    & .winner:before {
+        @include winner-icon;
+        background-color: $team2-color;
+    }
     grid-template-areas: 'score players winner';
 
     & .players {
@@ -30,68 +69,13 @@ $score-width: 6em;
     }
 }
 
-.team1 {
-    & .icon {
-        grid-area: 'winner';
-        display: flex;
-        align-items: center;
-        justify-content: space-evenly;
-
-        &.winner:before {
-            font-family: 'Font Awesome 5 Free';
-            font-weight: 900;
-            font-size: 2em;
-            content: '\f521';
-            background-color: blue;
-            border-radius: 50%;
-            padding: 0.3em;
-            border: solid 2px darkblue;
-            box-shadow: 0 0 2px rgba(200, 200, 200, 0.4), 2px 2px 4px 2px rgba(0, 0, 0, 0.4);
-            color: yellow;
-        }
-    }
-}
-
-.team2 {
-    & .icon {
-        grid-area: 'winner';
-        display: flex;
-        align-items: center;
-        justify-content: space-evenly;
-
-        &.winner:before {
-            font-family: 'Font Awesome 5 Free';
-            font-weight: 900;
-            font-size: 2em;
-            content: '\f521';
-            background-color: red;
-            border-radius: 50%;
-            padding: 0.3em;
-            border: solid 2px darkred;
-            box-shadow: 0 0 2px rgba(200, 200, 200, 0.4), 2px 2px 4px 2px rgba(0, 0, 0, 0.4);
-            color: yellow;
-        }
-    }
-}
-.winner {
+.icon {
     grid-area: 'winner';
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-
-    &.icon:before {
-        font-family: 'Font Awesome 5 Free';
-        font-weight: 900;
-        font-size: 2em;
-        content: '\f521';
-        background-color: blue;
-        border-radius: 50%;
-        padding: 0.3em;
-        border: solid 2px darkblue;
-        box-shadow: 0 0 2px rgba(200, 200, 200, 0.4), 2px 2px 4px 2px rgba(0, 0, 0, 0.4);
-        color: yellow;
-    }
 }
+
 .players {
     grid-area: players;
     font-size: 1.1em;

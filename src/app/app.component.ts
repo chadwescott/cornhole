@@ -18,6 +18,9 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.game = this.gameService.getGames().find(x => !x.complete);
+    if (this.game) {
+      this.activeRound = this.game.rounds[this.game.rounds.length - 1];
+    }
   }
 
   createNewGame(): void {
@@ -59,6 +62,7 @@ export class AppComponent implements OnInit {
 
   onCompleteGame(game: Game): void {
     this.gameService.completeGame(game);
-    this.game = null;
+    // this.game = null;
+    this.createNewGame();
   }
 }

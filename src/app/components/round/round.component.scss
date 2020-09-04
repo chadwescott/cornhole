@@ -1,3 +1,5 @@
+@import '../../../styles.scss';
+
 .container {
     display: flex;
     flex-direction: row;
@@ -22,4 +24,14 @@
             text-align: right;
         }
     }
+}
+
+.team1 {
+    background-color: $team1-color;
+    color: white;
+}
+
+.team2 {
+    background-color: $team2-color;
+    color: white;
 }
