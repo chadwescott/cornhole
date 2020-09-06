@@ -1,14 +1,16 @@
-<mat-button-toggle-group name="throwResult" vertical="true">
-    <mat-button-toggle [class]="'team' + teamNumber + '-color'" class="board cornhole" [value]="throwResult.Cornhole"
-        [checked]="throw?.result === throwResult.Cornhole" (change)="onThrowResult($event)">
-        <i class="fas fa-circle"></i>
-    </mat-button-toggle>
-    <mat-button-toggle [class]="'team' + teamNumber + '-color'" class="board on-board" [value]="throwResult.OnBoard"
-        [checked]="throw?.result === throwResult.OnBoard" (change)="onThrowResult($event)">
-        <i class="fas fa-square"></i>
-    </mat-button-toggle>
-    <mat-button-toggle [class]="'team' + teamNumber + '-color'" class="off-board" [value]="throwResult.OffBoard"
-        [checked]="throw?.result === throwResult.OffBoard" (change)="onThrowResult($event)">
-        <i class="fas fa-square"></i>
-    </mat-button-toggle>
-</mat-button-toggle-group>
+<div [class]="'team' + teamNumber">
+    <mat-button-toggle-group name="throwResult" vertical="true">
+        <mat-button-toggle class="board cornhole" [value]="throwResult.Cornhole"
+            [checked]="throw?.result === throwResult.Cornhole" (change)="onThrowResult($event)">
+            <i class="fas fa-circle"></i>
+        </mat-button-toggle>
+        <mat-button-toggle class="board on-board" [value]="throwResult.OnBoard"
+            [checked]="throw?.result === throwResult.OnBoard" (change)="onThrowResult($event)">
+            <i class="fas fa-square"></i>
+        </mat-button-toggle>
+        <mat-button-toggle class="off-board" [value]="throwResult.OffBoard"
+            [checked]="throw?.result === throwResult.OffBoard" (change)="onThrowResult($event)">
+            <i class="fas fa-square"></i>
+        </mat-button-toggle>
+    </mat-button-toggle-group>
+</div>

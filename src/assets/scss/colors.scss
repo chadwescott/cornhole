@@ -1,18 +1,22 @@
-$team1-color: blue;
-$team2-color: red;
-
-.team1-background {
-    background-color: $team1-color;
+:root {
+    --team1-background-color: blue;
+    --team2-background-color: red;
+    --team1-color: white;
+    --team2-color: white;
 }
 
-.team2-background {
-    background-color: $team2-color;
+.team1-background-color {
+    background-color: var(--team1-background);
+}
+
+.team2-background-color {
+    background-color: var(--team2-background);
 }
 
 .team1-color {
-    color: $team1-color;
+    color: var(--team1-color);
 }
 
 .team2-color {
-    color: $team2-color;
+    color: var(--team2-color);
 }

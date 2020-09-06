@@ -1,5 +1,17 @@
 @import '../../../assets/scss/colors.scss';
 
+.team1 {
+    & .mat-button-toggle-checked i {
+        color: var(--team1-background-color);
+    }
+}
+
+.team2 {
+    & .mat-button-toggle-checked i {
+        color: var(--team2-background-color);
+    }
+}
+
 .mat-button-toggle {
     &.board {
         background-color: tan;

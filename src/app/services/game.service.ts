@@ -5,6 +5,7 @@ import { Game } from '../models/game';
 import { Player } from '../models/player';
 import { Round } from '../models/round';
 import { Team } from '../models/team';
+import { TeamColor } from '../models/team-color';
 import { Throw } from '../models/throw';
 
 @Injectable({
@@ -51,6 +52,23 @@ export class GameService {
     return this.games;
   }
 
+  loadGame(game: Game): void {
+    console.log(game);
+    this.setTeamColor(game.team1);
+    this.setTeamColor(game.team2);
+  }
+
+  setTeamColor(team: Team): void {
+    const bgColor = team?.teamColor?.backgroundColor ?? (team.teamNumber === 1 ? 'yellow' : 'red');
+    const textColor = team?.teamColor?.textColor ?? (team.teamNumber === 1 ? 'black' : 'white');
+
+    document.documentElement.style.setProperty(`--team${team.teamNumber}-background-color`, bgColor);
+    document.documentElement.style.setProperty(`--team${team.teamNumber}-color`, textColor);
+    team.players[0].name = team?.teamColor?.name ?? `Team $team.teamNumber}`;
+    this.saveTeams();
+    this.saveGames();
+  }
+
   createPlayer(name: string): Player {
     const player = new Player(name);
     this.players.push(player);
@@ -58,8 +76,8 @@ export class GameService {
     return player;
   }
 
-  createTeam(players: Player[]): Team {
-    const team = new Team(players);
+  createTeam(players: Player[], teamNumber: number, teamColor: TeamColor): Team {
+    const team = new Team(players, teamNumber, teamColor);
     this.teams.push(team);
     this.saveTeams();
     return team;
@@ -70,7 +88,12 @@ export class GameService {
     this.games.push(game);
     this.addRound(game);
     this.saveGames();
+    this.loadGame(game);
     return game;
+  }
+
+  updateTeamColor(team: Team): void {
+    this.setTeamColor(team);
   }
 
   roundScoreChanged(round: Round): void {

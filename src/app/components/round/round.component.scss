@@ -32,11 +32,11 @@ mat-card {
 }
 
 .team1 {
-    background-color: $team1-color;
-    color: white;
+    background-color: var(--team1-background-color);
+    color: var(--team1-color);
 }
 
 .team2 {
-    background-color: $team2-color;
-    color: white;
+    background-color: var(--team2-background-color);
+    color: var(--team2-color);
 }

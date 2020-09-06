@@ -1,4 +1,4 @@
-@import '../../../styles.scss';
+$button-font-size: 2em;
 
 .container {
     display: flex;
@@ -7,13 +7,27 @@
 
     & .team1 {
         flex: 1;
-        color: white;
-        background-color: $team1-color;
+        display: flex;
+        align-content: center;
+        justify-content: space-between;
+        background-color: var(--team1-background-color);
+        color: var(--team1-color);
+
+        & button {
+            font-size: $button-font-size;
+        }
     }
 
     & .team2 {
         flex: 1;
-        color: white;
-        background-color: $team2-color;
+        display: flex;
+        align-content: center;
+        justify-content: space-between;
+        background-color: var(--team2-background-color);
+        color: var(--team2-color);
+
+        & button {
+            font-size: $button-font-size;
+        }
     }
 }

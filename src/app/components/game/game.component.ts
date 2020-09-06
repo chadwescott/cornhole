@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Game } from 'src/app/models/game';
 import { Round } from 'src/app/models/round';
+import { Team } from 'src/app/models/team';
 
 @Component({
   selector: 'ch-game',
@@ -25,6 +26,9 @@ export class GameComponent implements OnInit {
 
   @Output()
   completeGame = new EventEmitter<Game>();
+
+  @Output()
+  teamColorChanged = new EventEmitter<Team>();
 
   constructor() { }
 

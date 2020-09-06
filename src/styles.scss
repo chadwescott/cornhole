@@ -1,15 +1,12 @@
 @use './assets/scss/colors.scss';
 @import '~@angular/material/theming';
 @include mat-core();
-$primary: mat-palette($mat-brown, 600);
+$primary: mat-palette($mat-brown, 500);
 $accent: mat-palette($mat-green, 600);
 $warn: mat-palette($mat-red);
 $theme: mat-light-theme($primary, $accent, $warn);
 
 @include angular-material-theme($theme);
-
-$team1-color: blue;
-$team2-color: red;
 
 * {
     font-family: Roboto, 'Helvetica Neue', sans-serif, 'FoundrySterling-Book', Arial;
@@ -35,20 +32,4 @@ body {
     font-variant: normal;
     text-rendering: auto;
     -webkit-font-smoothing: antialiased;
-}
-
-.team1-background {
-    background-color: $team1-color;
-}
-
-.team2-background {
-    background-color: $team2-color;
-}
-
-.team1-color {
-    color: $team1-color;
-}
-
-.team2-color {
-    color: $team2-color;
 }
