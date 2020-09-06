@@ -5,6 +5,11 @@ $button-font-size: 2em;
     align-content: stretch;
     justify-content: center;
 
+    & > div {
+        border-top: solid 0.2em rgba(0, 0, 0, 0.4);
+        border-bottom: solid 0.2em rgba(0, 0, 0, 0.4);
+    }
+
     & .team1 {
         flex: 1;
         display: flex;
