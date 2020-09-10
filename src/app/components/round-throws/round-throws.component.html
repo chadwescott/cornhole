@@ -1,6 +1,6 @@
 <div class="container">
     <div *ngFor="let throw of throws">
-        <ch-throw-result [teamNumber]="teamNumber" [throw]="throw"
+        <ch-throw-result [teamNumber]="teamNumber" [throw]="throw" [disabled]="disabled"
             (throwResultChanged)="throwResultChanged.emit($event)"></ch-throw-result>
     </div>
 </div>

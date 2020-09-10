@@ -1,6 +1,6 @@
 <div class="container">
     <div>
-        <ch-round-throws [teamNumber]="1" [throws]="round.team1Throws"
+        <ch-round-throws [teamNumber]="1" [throws]="round.team1Throws" [disabled]="disabled"
             (throwResultChanged)="roundScoreChanged.emit(round)">
         </ch-round-throws>
         <div class="team1">
@@ -9,7 +9,7 @@
         </div>
     </div>
     <div>
-        <ch-round-throws [teamNumber]="2" [throws]="round.team2Throws"
+        <ch-round-throws [teamNumber]="2" [throws]="round.team2Throws" [disabled]="disabled"
             (throwResultChanged)="roundScoreChanged.emit(round)">
         </ch-round-throws>
         <div class="team2">

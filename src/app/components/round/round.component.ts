@@ -22,6 +22,9 @@ import { Round } from 'src/app/models/round';
 })
 export class RoundComponent implements OnInit {
   @Input()
+  disabled = false;
+
+  @Input()
   round: Round;
 
   @Output()

@@ -8,6 +8,9 @@ import { Throw } from 'src/app/models/throw';
 })
 export class RoundThrowsComponent implements OnInit {
   @Input()
+  disabled = false;
+
+  @Input()
   teamNumber: number;
 
   @Input()

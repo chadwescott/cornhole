@@ -10,6 +10,12 @@ $button-font-size: 2em;
         border-bottom: solid 0.2rem rgba(0, 0, 0, 0.4);
     }
 
+    & .palette {
+        display: flex;
+        align-items: center;
+        justify-items: center;
+    }
+
     & .team1 {
         flex: 1;
         display: flex;
