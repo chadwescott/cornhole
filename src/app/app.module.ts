@@ -7,6 +7,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GameSetupComponent } from './components/game-setup/game-setup.component';
 import { GameComponent } from './components/game/game.component';
@@ -17,6 +18,7 @@ import { ScoreboardComponent } from './components/scoreboard/scoreboard.componen
 import { TeamColorPickerDialogComponent } from './components/team-color-picker-dialog/team-color-picker-dialog.component';
 import { TeamScoreComponent } from './components/team-score/team-score.component';
 import { TeamSelectorComponent } from './components/team-selector/team-selector.component';
+import { ThrowResultIconComponent } from './components/throw-result-icon/throw-result-icon.component';
 import { ThrowResultComponent } from './components/throw-result/throw-result.component';
 
 @NgModule({
@@ -31,10 +33,11 @@ import { ThrowResultComponent } from './components/throw-result/throw-result.com
     GameSetupComponent,
     TeamSelectorComponent,
     PlayerSelectorComponent,
-    TeamColorPickerDialogComponent
+    TeamColorPickerDialogComponent,
+    ThrowResultIconComponent
   ],
   imports: [
-    // AppRoutingModule,
+    AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
     MatButtonModule,

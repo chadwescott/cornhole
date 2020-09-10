@@ -53,7 +53,6 @@ export class GameService {
   }
 
   loadGame(game: Game): void {
-    console.log(game);
     this.setTeamColor(game.team1);
     this.setTeamColor(game.team2);
   }

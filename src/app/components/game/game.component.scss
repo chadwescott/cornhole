@@ -1,3 +1,43 @@
+@import '../../../styles.scss';
+
+.round-results {
+    display: flex;
+
+    & > div {
+        display: flex;
+
+        &:first-child {
+            margin-right: 1em;
+        }
+
+        & > * {
+            padding: 0.1em 0.3em;
+
+            &:first-child {
+                padding-left: 0.6em;
+            }
+
+            &:last-child {
+                padding-right: 0.6em;
+            }
+        }
+    }
+}
+
+.team1 {
+    border-top: solid 1px var(--team1-background-color);
+    border-bottom: solid 1px var(--team1-background-color);
+    background-color: var(--team1-color);
+    color: var(--team1-background-color);
+}
+
+.team2 {
+    border-top: solid 1px var(--team2-background-color);
+    border-bottom: solid 1px var(--team2-background-color);
+    background-color: var(--team2-color);
+    color: var(--team2-background-color);
+}
+
 .button-bar {
     margin: 0.5em 0 1em 0;
     display: flex;

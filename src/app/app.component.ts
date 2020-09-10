@@ -57,7 +57,7 @@ export class AppComponent implements OnInit {
   }
 
   activateLastRound(game: Game): void {
-    this.activeRound = game.rounds ? game.rounds[game.rounds.length - 1] : null;
+    setTimeout(() => this.activeRound = game.rounds ? game.rounds[game.rounds.length - 1] : null, 400);
   }
 
   onRoundScoreChanged(round: Round): void {
