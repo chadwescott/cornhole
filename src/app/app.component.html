@@ -1,4 +1,4 @@
-<ch-game *ngIf="game" [game]="game" [activeRound]="activeRound" (addRound)="onAddRound($event)"
+<ch-game *ngIf="game" [game]="game" [activeRound]="activeRound" (completeRound)="onCompleteRound($event)"
     (roundScoreChanged)="onRoundScoreChanged($event)" (roundChanged)="onRoundChanged($event)"
     (teamColorChanged)="onTeamColorChanged($event)" (completeGame)="onCompleteGame($event)"></ch-game>
 

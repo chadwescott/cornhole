@@ -20,7 +20,7 @@
         </ng-template>
         <ch-round [round]="round" (roundScoreChanged)="roundScoreChanged.emit($event)"></ch-round>
         <div class="button-bar" *ngIf="game.rounds[game.rounds.length - 1].complete">
-            <button *ngIf="!game.complete" mat-raised-button color="primary" (click)="addRound.emit(game)">Complete
+            <button *ngIf="!game.complete" mat-raised-button color="primary" (click)="completeRound.emit(game)">Complete
                 Round</button>
             <button *ngIf="game.complete" mat-raised-button color="primary" (click)="completeGame.emit(game)">Complete
                 Game</button>

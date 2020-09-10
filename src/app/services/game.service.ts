@@ -136,6 +136,22 @@ export class GameService {
     }
   }
 
+  completeRound(game: Game): void {
+    this.updateScoreStreak(game);
+    this.addRound(game);
+  }
+
+  private updateScoreStreak(game: Game): void {
+    const lastRound = game.rounds[game.rounds.length - 1];
+    if (lastRound.team1NetScore > 0) {
+      game.team1.scoreStreak += lastRound.team1NetScore;
+      game.team2.scoreStreak = 0;
+    } else if (lastRound.team2NetScore > 0) {
+      game.team2.scoreStreak += lastRound.team2NetScore;
+      game.team1.scoreStreak = 0;
+    }
+  }
+
   addRound(game: Game): void {
     const team1Throws: Throw[] = [];
     const team2Throws: Throw[] = [];
@@ -148,6 +164,7 @@ export class GameService {
   }
 
   completeGame(game: Game): void {
+    this.updateScoreStreak(game);
     console.log(game.winner);
   }
 }

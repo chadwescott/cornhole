@@ -3,22 +3,18 @@
         <ch-round-throws [teamNumber]="1" [throws]="round.team1Throws"
             (throwResultChanged)="roundScoreChanged.emit(round)">
         </ch-round-throws>
-        <div class="score-container team1">
-            <div>Total</div>
-            <div class="score" [@scoreChanged]="round.team1TotalScore">{{ round.team1TotalScore}}</div>
-            <div>Net</div>
-            <div class="score" [@scoreChanged]="round.team1NetScore">{{ round.team1NetScore}}</div>
+        <div class="team1">
+            <ch-round-team-score [totalScore]="round.team1TotalScore" [netScore]="round.team1NetScore">
+            </ch-round-team-score>
         </div>
     </div>
     <div>
         <ch-round-throws [teamNumber]="2" [throws]="round.team2Throws"
             (throwResultChanged)="roundScoreChanged.emit(round)">
         </ch-round-throws>
-        <div class="score-container team2">
-            <div>Total</div>
-            <div class="score" [@scoreChanged]="round.team2TotalScore">{{ round.team2TotalScore}}</div>
-            <div>Net</div>
-            <div class="score" [@scoreChanged]="round.team2NetScore">{{ round.team2NetScore}}</div>
+        <div class="team2">
+            <ch-round-team-score [totalScore]="round.team2TotalScore" [netScore]="round.team2NetScore">
+            </ch-round-team-score>
         </div>
     </div>
 </div>

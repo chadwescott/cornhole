@@ -51,8 +51,8 @@ export class AppComponent implements OnInit {
     this.activeRound = round;
   }
 
-  onAddRound(game: Game): void {
-    this.gameService.addRound(game);
+  onCompleteRound(game: Game): void {
+    this.gameService.completeRound(game);
     this.activateLastRound(game);
   }
 

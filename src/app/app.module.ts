@@ -20,6 +20,8 @@ import { TeamScoreComponent } from './components/team-score/team-score.component
 import { TeamSelectorComponent } from './components/team-selector/team-selector.component';
 import { ThrowResultIconComponent } from './components/throw-result-icon/throw-result-icon.component';
 import { ThrowResultComponent } from './components/throw-result/throw-result.component';
+import { RoundTeamScoreComponent } from './components/round-team-score/round-team-score.component';
+import { TeamScoreStreakComponent } from './components/team-score-streak/team-score-streak.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { ThrowResultComponent } from './components/throw-result/throw-result.com
     TeamSelectorComponent,
     PlayerSelectorComponent,
     TeamColorPickerDialogComponent,
-    ThrowResultIconComponent
+    ThrowResultIconComponent,
+    RoundTeamScoreComponent,
+    TeamScoreStreakComponent
   ],
   imports: [
     AppRoutingModule,

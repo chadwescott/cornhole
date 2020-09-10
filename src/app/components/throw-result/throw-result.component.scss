@@ -34,10 +34,12 @@
     &.off-board {
         background-color: green;
 
-        &:not(.mat-button-toggle-checked) {
-            & i {
-                visibility: hidden;
-            }
+        &.mat-button-toggle-checked i {
+            color: red;
+        }
+
+        &:not(.mat-button-toggle-checked) i {
+            visibility: hidden;
         }
     }
 }

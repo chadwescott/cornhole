@@ -50,6 +50,10 @@ $score-width: 4em;
     & .icon {
         justify-content: flex-end;
     }
+
+    & .streak {
+        right: 3rem;
+    }
 }
 
 .team2 {
@@ -64,6 +68,10 @@ $score-width: 4em;
 
     & .icon {
         justify-content: flex-start;
+    }
+
+    & .streak {
+        left: 3rem;
     }
 }
 
@@ -86,8 +94,15 @@ $score-width: 4em;
 
 .score {
     grid-area: score;
-    font-size: 3em;
+    font-size: 3rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+
+    & .streak {
+        position: absolute;
+        top: 0.1rem;
+        font-size: 0.8rem;
+    }
 }

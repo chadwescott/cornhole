@@ -19,7 +19,7 @@ export class GameComponent implements OnInit {
   roundChanged = new EventEmitter<Round>();
 
   @Output()
-  addRound = new EventEmitter<Game>();
+  completeRound = new EventEmitter<Game>();
 
   @Output()
   roundScoreChanged = new EventEmitter<Round>();
