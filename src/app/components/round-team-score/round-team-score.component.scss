@@ -1,5 +1,34 @@
+$border: solid gold 4px;
+
+@keyframes four-bagger {
+    0% {
+        border: $border;
+        transform: scale(0.5);
+        color: rgba(255, 255, 255, 0);
+        background: rgba(0, 0, 0, 0.2);
+    }
+    25% {
+        border: $border;
+        transform: scale(1);
+        color: rgba(255, 255, 255, 1);
+        background: rgba(0, 0, 0, 0.8);
+    }
+    75% {
+        border: $border;
+        transform: scale(1);
+        color: rgba(255, 255, 255, 1);
+        background: rgba(0, 0, 0, 0.8);
+    }
+    100% {
+        border: $border;
+        transform: scale(0.5);
+        color: rgba(255, 255, 255, 0);
+        background: rgba(0, 0, 0, 0.2);
+    }
+}
+
 .score-container {
-    padding: 0.2em 0.6em;
+    padding: 0.2rem 0.6rem;
     border-top: solid 0.2rem rgba(0, 0, 0, 0.4);
     border-bottom: solid 0.2rem rgba(0, 0, 0, 0.4);
     display: flex;
@@ -9,5 +38,24 @@
 
     & .score {
         text-align: right;
+    }
+}
+
+.four-bagger {
+    position: relative;
+    text-align: center;
+
+    &:before {
+        position: absolute;
+        content: '4 Bagger!';
+        z-index: 2;
+        color: rgba(0, 0, 0, 0);
+        top: -0.2rem;
+        bottom: -0.2rem;
+        left: 0;
+        right: 0;
+        animation-name: four-bagger;
+        animation-duration: 1000ms;
+        animation-timing-function: linear;
     }
 }
