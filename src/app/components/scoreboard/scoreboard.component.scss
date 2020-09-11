@@ -1,9 +1,8 @@
 $button-font-size: 2em;
+$padding: 0.5rem;
 
 .container {
     display: flex;
-    align-content: stretch;
-    justify-content: center;
 
     & > div {
         border-top: solid 0.2rem rgba(0, 0, 0, 0.4);
@@ -16,13 +15,18 @@ $button-font-size: 2em;
         justify-items: center;
     }
 
+    & .team-score {
+        flex-basis: 100%;
+    }
+
     & .team1 {
         flex: 1;
         display: flex;
-        align-content: center;
+        align-items: center;
         justify-content: space-between;
         background-color: var(--team1-background-color);
         color: var(--team1-color);
+        padding-right: $padding;
 
         & button {
             font-size: $button-font-size;
@@ -32,10 +36,11 @@ $button-font-size: 2em;
     & .team2 {
         flex: 1;
         display: flex;
-        align-content: center;
+        align-items: center;
         justify-content: space-between;
         background-color: var(--team2-background-color);
         color: var(--team2-color);
+        padding-left: $padding;
 
         & button {
             font-size: $button-font-size;

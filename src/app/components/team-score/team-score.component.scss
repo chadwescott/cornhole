@@ -1,6 +1,7 @@
-$winner-width: 1fr;
-$player-width: 7em;
-$score-width: 4em;
+$winner-width: 0.5fr;
+$player-width: 1fr;
+$score-width: 4rem;
+$row-height: 3rem 1.2rem;
 
 @keyframes winner {
     0% {
@@ -11,11 +12,31 @@ $score-width: 4em;
     }
 }
 
+.team1 {
+    display: grid;
+    grid-template-columns: $winner-width $player-width $score-width;
+    grid-template-rows: $row-height;
+    grid-template-areas:
+        'winner players score'
+        'winner streak streak';
+    text-align: right;
+}
+
+.team2 {
+    display: grid;
+    grid-template-columns: $score-width $player-width $winner-width;
+    grid-template-rows: $row-height;
+    grid-template-areas:
+        'score players winner'
+        'streak streak winner';
+    text-align: left;
+}
+
 .icon {
-    grid-area: 'winner';
-    display: flex;
-    align-items: center;
+    grid-area: winner;
     padding: 0.1em;
+    align-self: center;
+    justify-self: center;
 
     &.winner:before {
         font-size: 1.5em;
@@ -32,51 +53,9 @@ $score-width: 4em;
     }
 }
 
-.team {
-    width: 100%;
-    height: 4em;
-}
-
-.team1 {
-    display: grid;
-    grid-template-columns: $winner-width $player-width $score-width;
-    grid-template-areas: 'winner players score';
-
-    & .players {
-        align-items: flex-end;
-        text-align: right;
-    }
-
-    & .icon {
-        justify-content: flex-end;
-    }
-
-    & .streak {
-        right: 3rem;
-    }
-}
-
-.team2 {
-    display: grid;
-    grid-template-columns: $score-width $player-width $winner-width;
-    grid-template-areas: 'score players winner';
-
-    & .players {
-        align-items: flex-start;
-        text-align: left;
-    }
-
-    & .icon {
-        justify-content: flex-start;
-    }
-
-    & .streak {
-        left: 3rem;
-    }
-}
-
 .players {
     grid-area: players;
+    text-overflow: ellipsis;
     font-size: 1.1em;
     display: flex;
     flex-direction: column;
@@ -95,14 +74,8 @@ $score-width: 4em;
 .score {
     grid-area: score;
     font-size: 3rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
+}
 
-    & .streak {
-        position: absolute;
-        top: 0.1rem;
-        font-size: 0.8rem;
-    }
+.streak {
+    grid-area: streak;
 }
