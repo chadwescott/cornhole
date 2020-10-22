@@ -1,7 +1,7 @@
 $winner-width: 0.5fr;
 $player-width: 1fr;
 $score-width: 4rem;
-$row-height: 3rem 1.2rem;
+$row-height: 2rem 1.2rem;
 
 @keyframes winner {
     0% {
@@ -18,7 +18,7 @@ $row-height: 3rem 1.2rem;
     grid-template-rows: $row-height;
     grid-template-areas:
         'winner players score'
-        'winner streak streak';
+        'winner streak score';
     text-align: right;
 }
 
@@ -28,7 +28,7 @@ $row-height: 3rem 1.2rem;
     grid-template-rows: $row-height;
     grid-template-areas:
         'score players winner'
-        'streak streak winner';
+        'score streak winner';
     text-align: left;
 }
 
@@ -56,12 +56,11 @@ $row-height: 3rem 1.2rem;
 .players {
     grid-area: players;
     text-overflow: ellipsis;
-    font-size: 1.1em;
+    font-size: 1.2em;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
-    padding: 0.5em;
 
     & > div {
         width: 100%;
@@ -78,4 +77,5 @@ $row-height: 3rem 1.2rem;
 
 .streak {
     grid-area: streak;
+    font-style: italic;
 }

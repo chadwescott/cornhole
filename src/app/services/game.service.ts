@@ -167,4 +167,17 @@ export class GameService {
     this.updateScoreStreak(game);
     console.log(game.winner);
   }
+
+  resetStreak(game: Game): void {
+    game.team1.scoreStreak = 0;
+    game.team2.scoreStreak = 0;
+    this.saveGames();
+  }
+
+  resetGame(game: Game): Game {
+    this.games.splice(this.games.indexOf(game), 1);
+    const newGame = this.createGame(game.team1, game.team2);
+    this.saveGames();
+    return newGame;
+  }
 }

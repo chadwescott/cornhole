@@ -10,6 +10,7 @@ $theme: mat-light-theme($primary, $accent, $warn);
 
 * {
     font-family: Roboto, 'Helvetica Neue', sans-serif, 'FoundrySterling-Book', Arial;
+    box-sizing: border-box;
 }
 
 body {

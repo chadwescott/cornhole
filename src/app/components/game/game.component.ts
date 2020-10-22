@@ -30,6 +30,12 @@ export class GameComponent implements OnInit {
   @Output()
   teamColorChanged = new EventEmitter<Team>();
 
+  @Output()
+  resetStreak = new EventEmitter<Game>();
+
+  @Output()
+  resetGame = new EventEmitter<Game>();
+
   constructor() { }
 
   ngOnInit(): void {

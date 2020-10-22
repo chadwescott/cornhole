@@ -125,7 +125,9 @@
         },
         "deploy": {
           "builder": "angular-cli-ghpages:deploy",
-          "options": {}
+          "options": {
+            "baseHref": "https://chadwescott.github.io/cornhole/"
+          }
         }
       }
     }

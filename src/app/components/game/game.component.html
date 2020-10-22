@@ -1,30 +1,38 @@
-<ch-scoreboard [game]="game" (teamColorChanged)="teamColorChanged.emit($event)"></ch-scoreboard>
-<mat-tab-group [selectedIndex]="game.rounds.indexOf(activeRound)" (selectedIndexChange)="onRoundChanged($event)">
-    <mat-tab *ngFor="let round of game.rounds">
-        <ng-template mat-tab-label>
-            <div>
+<div class="container">
+    <ch-scoreboard [game]="game" (teamColorChanged)="teamColorChanged.emit($event)"></ch-scoreboard>
+    <mat-tab-group [selectedIndex]="game.rounds.indexOf(activeRound)" (selectedIndexChange)="onRoundChanged($event)">
+        <mat-tab *ngFor="let round of game.rounds">
+            <ng-template mat-tab-label>
                 <div>
-                    Round {{(game.rounds.indexOf(round) + 1)}}
-                </div>
-                <div class="round-results">
-                    <div class="team1">
-                        <ch-throw-result-icon *ngFor="let i of [0, 1, 2, 3]" [throw]="round.team1Throws[i]">
-                        </ch-throw-result-icon>
+                    <div>
+                        Round {{(game.rounds.indexOf(round) + 1)}}
                     </div>
-                    <div class="team2">
-                        <ch-throw-result-icon *ngFor="let i of [0, 1, 2, 3]" [throw]="round.team2Throws[i]">
-                        </ch-throw-result-icon>
+                    <div class="round-results">
+                        <div class="team1">
+                            <ch-throw-result-icon *ngFor="let throw of round.team1Throws" [throw]="throw">
+                            </ch-throw-result-icon>
+                        </div>
+                        <div class="team2">
+                            <ch-throw-result-icon *ngFor="let throw of round.team2Throws" [throw]="throw">
+                            </ch-throw-result-icon>
+                        </div>
                     </div>
                 </div>
+            </ng-template>
+            <ch-round [round]="round" [disabled]="round.complete && round != game.rounds[game.rounds.length -1]"
+                (roundScoreChanged)="roundScoreChanged.emit($event)"></ch-round>
+            <div class="button-bar" *ngIf="game.rounds[game.rounds.length - 1].complete">
+                <button *ngIf="!game.complete" mat-raised-button color="primary"
+                    (click)="completeRound.emit(game)">Complete
+                    Round</button>
+                <button *ngIf="game.complete" mat-raised-button color="primary"
+                    (click)="completeGame.emit(game)">Complete
+                    Game</button>
             </div>
-        </ng-template>
-        <ch-round [round]="round" [disabled]="round.complete && round != game.rounds[game.rounds.length -1]"
-            (roundScoreChanged)="roundScoreChanged.emit($event)"></ch-round>
-        <div class="button-bar" *ngIf="game.rounds[game.rounds.length - 1].complete">
-            <button *ngIf="!game.complete" mat-raised-button color="primary" (click)="completeRound.emit(game)">Complete
-                Round</button>
-            <button *ngIf="game.complete" mat-raised-button color="primary" (click)="completeGame.emit(game)">Complete
-                Game</button>
-        </div>
-    </mat-tab>
-</mat-tab-group>
+        </mat-tab>
+    </mat-tab-group>
+</div>
+<div class="footer">
+    <button type="button" mat-raised-button color="primary" (click)="resetStreak.emit(game)">Reset Streak</button>
+    <button type="button" mat-raised-button color="primary" (click)="resetGame.emit(game)">Reset Game</button>
+</div>

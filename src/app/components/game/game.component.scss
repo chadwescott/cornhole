@@ -44,3 +44,22 @@
     align-items: center;
     justify-content: center;
 }
+
+.footer {
+    display: flex;
+    justify-content: flex-end;
+
+    & > button {
+        margin: 1em 1em 1em 0;
+
+        &:first-child {
+            margin-left: 1em;
+        }
+    }
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 5em);
+}

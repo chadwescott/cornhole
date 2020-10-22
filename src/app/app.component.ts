@@ -75,4 +75,12 @@ export class AppComponent implements OnInit {
     this.activateLastRound(this.game);
     // this.createNewGame();
   }
+
+  onResetStreak(game: Game): void {
+    this.gameService.resetStreak(game);
+  }
+
+  onResetGame(game: Game): void {
+    this.game = this.gameService.resetGame(game);
+  }
 }

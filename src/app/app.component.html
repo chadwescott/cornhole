@@ -1,6 +1,7 @@
 <ch-game *ngIf="game" [game]="game" [activeRound]="activeRound" (completeRound)="onCompleteRound($event)"
     (roundScoreChanged)="onRoundScoreChanged($event)" (roundChanged)="onRoundChanged($event)"
-    (teamColorChanged)="onTeamColorChanged($event)" (completeGame)="onCompleteGame($event)"></ch-game>
+    (teamColorChanged)="onTeamColorChanged($event)" (completeGame)="onCompleteGame($event)"
+    (resetStreak)="onResetStreak($event)" (resetGame)="onResetGame($event)"></ch-game>
 
 <ch-game-setup *ngIf="!game"></ch-game-setup>
 <button *ngIf="!game" mat-button (click)="createNewGame()">New Game</button>

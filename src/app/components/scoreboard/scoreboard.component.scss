@@ -13,6 +13,10 @@ $padding: 0.5rem;
         display: flex;
         align-items: center;
         justify-items: center;
+
+        i {
+            font-size: 0.8em;
+        }
     }
 
     & .team-score {
