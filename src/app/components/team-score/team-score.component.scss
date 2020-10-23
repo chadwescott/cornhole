@@ -1,7 +1,7 @@
 $winner-width: 0.5fr;
 $player-width: 1fr;
-$score-width: 4rem;
-$row-height: 2rem 1.2rem;
+$score-width: 4.4em;
+$row-height: 2em 0.9em;
 
 @keyframes winner {
     0% {
@@ -20,6 +20,8 @@ $row-height: 2rem 1.2rem;
         'winner players score'
         'winner streak score';
     text-align: right;
+    align-items: center;
+    padding-right: 0.4em;
 }
 
 .team2 {
@@ -30,6 +32,8 @@ $row-height: 2rem 1.2rem;
         'score players winner'
         'score streak winner';
     text-align: left;
+    align-items: center;
+    padding-left: 0.4em;
 }
 
 .icon {
@@ -56,7 +60,7 @@ $row-height: 2rem 1.2rem;
 .players {
     grid-area: players;
     text-overflow: ellipsis;
-    font-size: 1.2em;
+    font-size: 1.5em;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -72,7 +76,7 @@ $row-height: 2rem 1.2rem;
 
 .score {
     grid-area: score;
-    font-size: 3rem;
+    font-size: 3em;
 }
 
 .streak {

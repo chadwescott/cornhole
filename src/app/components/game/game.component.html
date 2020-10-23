@@ -1,5 +1,10 @@
-<div class="container">
-    <ch-scoreboard [game]="game" (teamColorChanged)="teamColorChanged.emit($event)"></ch-scoreboard>
+<div *ngIf="showOptions" class="overlay" (click)="showOptions = false;">
+    <ch-game-options [game]="game" (click)="$event.stopPropagation()" (teamColorChanged)="teamColorChanged.emit($event)"
+        (resetStreak)="resetStreak.emit(game)" (resetGame)="resetGame.emit(game)" (closeOptions)="showOptions = false">
+    </ch-game-options>
+</div>
+<div>
+    <ch-scoreboard [game]="game"></ch-scoreboard>
     <mat-tab-group [selectedIndex]="game.rounds.indexOf(activeRound)" (selectedIndexChange)="onRoundChanged($event)">
         <mat-tab *ngFor="let round of game.rounds">
             <ng-template mat-tab-label>
@@ -21,18 +26,22 @@
             </ng-template>
             <ch-round [round]="round" [disabled]="round.complete && round != game.rounds[game.rounds.length -1]"
                 (roundScoreChanged)="roundScoreChanged.emit($event)"></ch-round>
-            <div class="button-bar" *ngIf="game.rounds[game.rounds.length - 1].complete">
+        </mat-tab>
+    </mat-tab-group>
+    <div class="button-bar">
+        <div></div>
+        <div class="center">
+            <ng-container *ngIf="game.rounds[game.rounds.length - 1].complete">
                 <button *ngIf="!game.complete" mat-raised-button color="primary"
                     (click)="completeRound.emit(game)">Complete
                     Round</button>
                 <button *ngIf="game.complete" mat-raised-button color="primary"
                     (click)="completeGame.emit(game)">Complete
                     Game</button>
-            </div>
-        </mat-tab>
-    </mat-tab-group>
-</div>
-<div class="footer">
-    <button type="button" mat-raised-button color="primary" (click)="resetStreak.emit(game)">Reset Streak</button>
-    <button type="button" mat-raised-button color="primary" (click)="resetGame.emit(game)">Reset Game</button>
+            </ng-container>
+        </div>
+        <button type="button" class="button-icon" mat-icon-button (click)="showOptions = true">
+            <i class="fas fa-cog" [class.fa-spin]="showOptions"></i>
+        </button>
+    </div>
 </div>

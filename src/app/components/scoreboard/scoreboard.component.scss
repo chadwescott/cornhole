@@ -9,16 +9,6 @@ $padding: 0.5rem;
         border-bottom: solid 0.2rem rgba(0, 0, 0, 0.4);
     }
 
-    & .palette {
-        display: flex;
-        align-items: center;
-        justify-items: center;
-
-        i {
-            font-size: 0.8em;
-        }
-    }
-
     & .team-score {
         flex-basis: 100%;
     }

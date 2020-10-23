@@ -36,6 +36,8 @@ export class GameComponent implements OnInit {
   @Output()
   resetGame = new EventEmitter<Game>();
 
+  showOptions = false;
+
   constructor() { }
 
   ngOnInit(): void {

@@ -1,4 +1,4 @@
-<div class="score-container" [class]="totalScore === 12 ? 'four-bagger' : ''">
+<div class="score-container" [class.four-bagger]="totalScore === 12">
     <div>Total</div>
     <div class="score" [@scoreChanged]="totalScore">{{ totalScore}}</div>
     <div>Net</div>

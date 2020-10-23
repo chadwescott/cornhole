@@ -1,0 +1,35 @@
+<div class="card">
+    <div class="card__header">
+        <h2>Game Options</h2>
+        <button type="button" mat-icon-button class="button--close" (click)="closeOptions.emit()">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    <div class="card__content">
+        <div class="team-options">
+            <div class="team-options__name">
+                {{game.team1.teamColor.name}}
+            </div>
+            <div class="color-option team1-background-color team1-color">
+            </div>
+            <button mat-icon-button (click)="pickTeamColor(game.team1)">
+                <i class="fas fa-palette"></i>
+            </button>
+        </div>
+        <div class="team-options">
+            <div class="team-options__name">
+                {{game.team2.teamColor.name}}
+            </div>
+            <div class="color-option team2-background-color team2-color">
+            </div>
+            <button mat-icon-button (click)="pickTeamColor(game.team2)">
+                <i class="fas fa-palette"></i>
+            </button>
+        </div>
+        <div class="button-bar">
+            <button type="button" mat-raised-button color="primary" (click)="resetStreak.emit(game)">Reset
+                Streak</button>
+            <button type="button" mat-raised-button color="primary" (click)="resetGame.emit(game)">Reset Game</button>
+        </div>
+    </div>
+</div>
