@@ -76,6 +76,10 @@ export class AppComponent implements OnInit {
     // this.createNewGame();
   }
 
+  onResetStats(game: Game): void {
+    this.gameService.resetStats(game);
+  }
+
   onResetStreak(game: Game): void {
     this.gameService.resetStreak(game);
   }

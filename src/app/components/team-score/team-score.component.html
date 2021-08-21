@@ -1,14 +1,12 @@
-<div [class]="'team' + teamNumber">
-    <div class="icon" [class]="winner ? 'winner' : ''"></div>
+<div [class.team1]="teamNumber == 1" [class.team2]="teamNumber == 2" class="score-component">
+    <div class="icon" [class.winner]="winner"></div>
     <div class="players">
         <div *ngFor="let player of team.players">
             {{player.name}}
         </div>
     </div>
-    <div class="score">
-        {{score}}
-    </div>
-    <div class="streak" *ngIf="team.scoreStreak > 0">
-        <ch-team-score-streak [team]="team"></ch-team-score-streak>
-    </div>
+    <div class="score">{{score}}</div>
+    <div class="cornhole-rate">CR {{team.players[0].stats.cornholeRate | percent:'1.1-1'}}</div>
+    <div class="score-rate">SR {{team.players[0].stats.scoringRate | number: '1.2-2'}}</div>
+    <div class="streak" *ngIf="team.scoreStreak > 0">+{{team.scoreStreak}}</div>
 </div>

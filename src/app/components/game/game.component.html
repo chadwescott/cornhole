@@ -1,7 +1,11 @@
 <div *ngIf="showOptions" class="overlay" (click)="showOptions = false;">
     <ch-game-options [game]="game" (click)="$event.stopPropagation()" (teamColorChanged)="teamColorChanged.emit($event)"
-        (resetStreak)="resetStreak.emit(game)" (resetGame)="resetGame.emit(game)" (closeOptions)="showOptions = false">
+        (resetStats)="resetStats.emit($event)" (resetStreak)="resetStreak.emit(game)" (resetGame)="resetGame.emit(game)"
+        (closeOptions)="showOptions = false">
     </ch-game-options>
+</div>
+<div *ngIf="showPlayerStats" class="overlay" (click)="showPlayerStats = false;">
+    <ch-player-stats></ch-player-stats>
 </div>
 <div>
     <ch-scoreboard [game]="game"></ch-scoreboard>
@@ -33,11 +37,9 @@
         <div class="center">
             <ng-container *ngIf="game.rounds[game.rounds.length - 1].complete">
                 <button *ngIf="!game.complete" mat-raised-button color="primary"
-                    (click)="completeRound.emit(game)">Complete
-                    Round</button>
+                    (click)="completeRound.emit(game)">Complete Round</button>
                 <button *ngIf="game.complete" mat-raised-button color="primary"
-                    (click)="completeGame.emit(game)">Complete
-                    Game</button>
+                    (click)="completeGame.emit(game)">Complete Game</button>
             </ng-container>
         </div>
         <button type="button" class="button-icon" mat-icon-button (click)="showOptions = true">

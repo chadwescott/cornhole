@@ -18,6 +18,11 @@ body {
     margin: 0;
     font-size: 0.8rem;
     background-color: #d8d9e9;
+
+    -webkit-user-select: none; /* Chrome all / Safari all */
+    -moz-user-select: none; /* Firefox all */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none; /* Likely future */
 }
 
 @media (min-width: 800px) {
@@ -89,4 +94,12 @@ button {
 
 .fa-cog {
     color: dimgrey;
+}
+
+.fa-chart-bar {
+    color: red;
+    background: white;
+    padding: 0.25rem;
+    border-radius: 0.25rem;
+    border: solid 1px red;
 }

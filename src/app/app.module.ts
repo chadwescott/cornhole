@@ -9,9 +9,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { CardComponent } from './components/card/card.component';
+import { GameOptionsComponent } from './components/game-options/game-options.component';
 import { GameSetupComponent } from './components/game-setup/game-setup.component';
 import { GameComponent } from './components/game/game.component';
 import { PlayerSelectorComponent } from './components/player-selector/player-selector.component';
+import { PlayerStatsComponent } from './components/player-stats/player-stats.component';
+import { RoundTeamScoreComponent } from './components/round-team-score/round-team-score.component';
 import { RoundThrowsComponent } from './components/round-throws/round-throws.component';
 import { RoundComponent } from './components/round/round.component';
 import { ScoreboardComponent } from './components/scoreboard/scoreboard.component';
@@ -20,9 +24,6 @@ import { TeamScoreComponent } from './components/team-score/team-score.component
 import { TeamSelectorComponent } from './components/team-selector/team-selector.component';
 import { ThrowResultIconComponent } from './components/throw-result-icon/throw-result-icon.component';
 import { ThrowResultComponent } from './components/throw-result/throw-result.component';
-import { RoundTeamScoreComponent } from './components/round-team-score/round-team-score.component';
-import { TeamScoreStreakComponent } from './components/team-score-streak/team-score-streak.component';
-import { GameOptionsComponent } from './components/game-options/game-options.component';
 
 @NgModule({
   declarations: [
@@ -39,8 +40,9 @@ import { GameOptionsComponent } from './components/game-options/game-options.com
     TeamColorPickerDialogComponent,
     ThrowResultIconComponent,
     RoundTeamScoreComponent,
-    TeamScoreStreakComponent,
-    GameOptionsComponent
+    GameOptionsComponent,
+    PlayerStatsComponent,
+    CardComponent
   ],
   imports: [
     AppRoutingModule,

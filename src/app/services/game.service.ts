@@ -3,10 +3,12 @@ import { Injectable } from '@angular/core';
 import { GameConstants } from '../constants/game.constants';
 import { Game } from '../models/game';
 import { Player } from '../models/player';
+import { PlayerStats } from '../models/player-stats';
 import { Round } from '../models/round';
 import { Team } from '../models/team';
 import { TeamColor } from '../models/team-color';
 import { Throw } from '../models/throw';
+import { ThrowResult } from '../models/throw-result';
 
 @Injectable({
   providedIn: 'root'
@@ -21,9 +23,17 @@ export class GameService {
   games: Game[] = [];
 
   constructor() {
+    // this.clearData();
     this.games = JSON.parse(localStorage.getItem(this.gamesKey));
     this.players = JSON.parse(localStorage.getItem(this.playersKey));
     this.teams = JSON.parse(localStorage.getItem(this.gamesKey));
+    if (this.players) {
+      this.players.map(x => {
+        if (!x.stats) {
+          x.stats = new PlayerStats();
+        }
+      });
+    }
   }
 
   clearData(): void {
@@ -55,6 +65,8 @@ export class GameService {
   loadGame(game: Game): void {
     this.setTeamColor(game.team1);
     this.setTeamColor(game.team2);
+    game.team1.players.map(x => { if (!x.stats) { x.stats = new PlayerStats() }; });
+    game.team2.players.map(x => { if (!x.stats) { x.stats = new PlayerStats() }; });
   }
 
   setTeamColor(team: Team): void {
@@ -137,8 +149,32 @@ export class GameService {
   }
 
   completeRound(game: Game): void {
-    this.updateScoreStreak(game);
+    this.calculateStatsForLastRound(game);
     this.addRound(game);
+  }
+
+  private calculateStatsForLastRound(game: Game) {
+    const lastRound = game.rounds[game.rounds.length - 1];
+
+    lastRound.team1Throws.map(x => this.updateThrowResult(game.team1.players[0].stats, x.result));
+    lastRound.team2Throws.map(x => this.updateThrowResult(game.team2.players[0].stats, x.result));
+
+    this.calculateScoringRate(game.team1.players[0].stats);
+    this.calculateScoringRate(game.team2.players[0].stats);
+
+    this.updateScoreStreak(game);
+  }
+
+  private updateThrowResult(stats: PlayerStats, throwResult: ThrowResult): void {
+    stats.totalThrows++;
+    stats.throwResults[throwResult]++;
+    stats.cornholeRate = stats.throwResults[ThrowResult.Cornhole] / stats.totalThrows;
+  }
+
+  private calculateScoringRate(stats: PlayerStats): void {
+    const totalPoints = stats.throwResults[ThrowResult.Cornhole] * GameConstants.POINTS[ThrowResult.Cornhole]
+      + stats.throwResults[ThrowResult.OnBoard] * GameConstants.POINTS[ThrowResult.OnBoard];
+    stats.scoringRate = totalPoints / stats.totalThrows * 4;
   }
 
   private updateScoreStreak(game: Game): void {
@@ -164,8 +200,14 @@ export class GameService {
   }
 
   completeGame(game: Game): void {
+    this.calculateStatsForLastRound(game);
     this.updateScoreStreak(game);
-    console.log(game.winner);
+  }
+
+  resetStats(game: Game): void {
+    game.team1.players.map(x => x.stats = new PlayerStats());
+    game.team2.players.map(x => x.stats = new PlayerStats());
+    this.saveGames();
   }
 
   resetStreak(game: Game): void {

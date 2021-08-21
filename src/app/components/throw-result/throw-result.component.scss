@@ -12,6 +12,10 @@
     }
 }
 
+.container {
+    box-shadow: 0 0 2px rgba(200, 200, 200, 0.2), 2px 2px 4px 2px rgba(0, 0, 0, 0.2);
+}
+
 .mat-button-toggle {
     &.board {
         background-color: tan;

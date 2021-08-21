@@ -31,12 +31,16 @@ export class GameComponent implements OnInit {
   teamColorChanged = new EventEmitter<Team>();
 
   @Output()
+  resetStats = new EventEmitter<Game>();
+
+  @Output()
   resetStreak = new EventEmitter<Game>();
 
   @Output()
   resetGame = new EventEmitter<Game>();
 
   showOptions = false;
+  showPlayerStats = false;
 
   constructor() { }
 

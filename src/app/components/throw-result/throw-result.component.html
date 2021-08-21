@@ -1,4 +1,4 @@
-<div [class]="'team' + teamNumber">
+<div class="container" [class.team1]="teamNumber === 1" [class.team2]="teamNumber === 2">
     <mat-button-toggle-group name="throwResult" vertical="true">
         <mat-button-toggle class="board cornhole" [value]="throwResult.Cornhole" [disabled]="disabled"
             [checked]="throw?.result === throwResult.Cornhole" (change)="onThrowResult($event)">

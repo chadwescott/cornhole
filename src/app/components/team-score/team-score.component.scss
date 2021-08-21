@@ -1,7 +1,15 @@
-$winner-width: 0.5fr;
-$player-width: 1fr;
-$score-width: 4.4em;
-$row-height: 2em 0.9em;
+.score-component {
+    --winner-width: 1fr;
+    --cornhole-rate-width: 1fr;
+    --score-rate-width: 1fr;
+    --streak-width: 1fr;
+    --score-width: 1fr;
+    --row-height: 2em 3em;
+
+    @media (min-width: 600px) {
+        --row-height: 2em 0.9em;
+    }
+}
 
 @keyframes winner {
     0% {
@@ -13,26 +21,41 @@ $row-height: 2em 0.9em;
 }
 
 .team1 {
+    --gta: 'players players players score' 'cornhole-rate score-rate streak score';
+
+    grid-template-columns:
+        var(--cornhole-rate-width) var(--score-rate-width) var(--streak-width)
+        var(--score-width);
+
+    @media (min-width: 600px) {
+        --gta: 'winner players players players score' 'winner cornhole-rate score-rate streak score';
+        grid-template-columns:
+            var(--winner-width) var(--cornhole-rate-width) var(--score-rate-width) var(--streak-width)
+            var(--score-width);
+    }
     display: grid;
-    grid-template-columns: $winner-width $player-width $score-width;
-    grid-template-rows: $row-height;
-    grid-template-areas:
-        'winner players score'
-        'winner streak score';
+    grid-template-rows: var(--row-height);
+    grid-template-areas: var(--gta);
     text-align: right;
-    align-items: center;
+    align-items: flex-end;
     padding-right: 0.4em;
 }
 
 .team2 {
+    --gta: 'score players players players' 'score streak score-rate cornhole-rate';
+    grid-template-columns: var(--score-width) var(--streak-width) var(--score-rate-width) var(--cornhole-rate-width);
+
+    @media (min-width: 600px) {
+        --gta: 'score players players players winner' 'score streak score-rate cornhole-rate winner';
+        grid-template-columns:
+            var(--score-width) var(--streak-width) var(--score-rate-width) var(--cornhole-rate-width)
+            var(--winner-width);
+    }
     display: grid;
-    grid-template-columns: $score-width $player-width $winner-width;
-    grid-template-rows: $row-height;
-    grid-template-areas:
-        'score players winner'
-        'score streak winner';
+    grid-template-rows: var(--row-height);
+    grid-template-areas: var(--gta);
     text-align: left;
-    align-items: center;
+    align-items: flex-end;
     padding-left: 0.4em;
 }
 
@@ -77,6 +100,16 @@ $row-height: 2em 0.9em;
 .score {
     grid-area: score;
     font-size: 3em;
+}
+
+.cornhole-rate {
+    grid-area: cornhole-rate;
+    font-style: italic;
+}
+
+.score-rate {
+    grid-area: score-rate;
+    font-style: italic;
 }
 
 .streak {

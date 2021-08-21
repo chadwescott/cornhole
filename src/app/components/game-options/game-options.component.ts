@@ -21,6 +21,9 @@ export class GameOptionsComponent implements OnInit {
   resetStreak = new EventEmitter<Game>();
 
   @Output()
+  resetStats = new EventEmitter<Game>();
+
+  @Output()
   resetGame = new EventEmitter<Game>();
 
   @Output()

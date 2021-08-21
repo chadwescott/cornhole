@@ -1,24 +1,40 @@
 @import '../../../styles.scss';
+$min-width: 600px;
 
 .container {
-    margin-top: 0.2em;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
+    margin-top: 1em;
+    display: grid;
+    justify-content: center;
+    grid-template-areas: 'team1Throws' 'team1Score' 'team2Score' 'team2Throws';
 
-    & > div {
-        margin: 1em 0;
+    @media (min-width: $min-width) {
+        gap: 3em;
+        row-gap: 0.5em;
+        grid-template-areas: 'team1Throws team2Throws' 'team1Score team2Score';
     }
-}
 
-.team1 {
-    background-color: var(--team1-background-color);
-    color: var(--team1-color);
-}
+    .team1Throws {
+        grid-area: team1Throws;
+    }
 
-.team2 {
-    background-color: var(--team2-background-color);
-    color: var(--team2-color);
+    .team2Throws {
+        grid-area: team2Throws;
+    }
+
+    .team1Score {
+        grid-area: team1Score;
+        background-color: var(--team1-background-color);
+        color: var(--team1-color);
+    }
+
+    .team2Score {
+        grid-area: team2Score;
+        background-color: var(--team2-background-color);
+        color: var(--team2-color);
+        margin-bottom: 1em;
+
+        @media (min-width: $min-width) {
+            margin-bottom: 0;
+        }
+    }
 }
