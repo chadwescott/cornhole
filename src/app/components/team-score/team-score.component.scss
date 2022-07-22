@@ -21,18 +21,11 @@
 }
 
 .team1 {
-    --gta: 'players players players score' 'cornhole-rate score-rate streak score';
+    --gta: 'winner players players players score' 'winner cornhole-rate score-rate streak score';
 
     grid-template-columns:
-        var(--cornhole-rate-width) var(--score-rate-width) var(--streak-width)
+        var(--winner-width) var(--cornhole-rate-width) var(--score-rate-width) var(--streak-width)
         var(--score-width);
-
-    @media (min-width: 600px) {
-        --gta: 'winner players players players score' 'winner cornhole-rate score-rate streak score';
-        grid-template-columns:
-            var(--winner-width) var(--cornhole-rate-width) var(--score-rate-width) var(--streak-width)
-            var(--score-width);
-    }
     display: grid;
     grid-template-rows: var(--row-height);
     grid-template-areas: var(--gta);
@@ -42,15 +35,11 @@
 }
 
 .team2 {
-    --gta: 'score players players players' 'score streak score-rate cornhole-rate';
-    grid-template-columns: var(--score-width) var(--streak-width) var(--score-rate-width) var(--cornhole-rate-width);
+    --gta: 'score players players players winner' 'score streak score-rate cornhole-rate winner';
 
-    @media (min-width: 600px) {
-        --gta: 'score players players players winner' 'score streak score-rate cornhole-rate winner';
-        grid-template-columns:
-            var(--score-width) var(--streak-width) var(--score-rate-width) var(--cornhole-rate-width)
-            var(--winner-width);
-    }
+    grid-template-columns:
+        var(--score-width) var(--streak-width) var(--score-rate-width) var(--cornhole-rate-width)
+        var(--winner-width);
     display: grid;
     grid-template-rows: var(--row-height);
     grid-template-areas: var(--gta);
