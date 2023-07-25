@@ -1,12 +1,25 @@
 @use './assets/scss/colors.scss';
-@import '~@angular/material/theming';
-@include mat-core();
-$primary: mat-palette($mat-brown, 500);
-$accent: mat-palette($mat-green, 600);
-$warn: mat-palette($mat-red);
-$theme: mat-light-theme($primary, $accent, $warn);
+@use '@angular/material' as mat;
 
-@include angular-material-theme($theme);
+@include mat.core();
+
+$primary: mat.define-palette(mat.$brown-palette, 500);
+$accent: mat.define-palette(mat.$green-palette, 600);
+$warn: mat.define-palette(mat.$red-palette);
+$theme: mat.define-light-theme(
+    (
+        color: (
+            primary: $primary,
+            accent: $accent,
+            warn: $warn
+        ),
+        typography: mat.define-typography-config(),
+        density: 0
+    )
+);
+
+@include mat.core-theme($theme);
+@include mat.button-theme($theme);
 
 * {
     box-sizing: border-box;

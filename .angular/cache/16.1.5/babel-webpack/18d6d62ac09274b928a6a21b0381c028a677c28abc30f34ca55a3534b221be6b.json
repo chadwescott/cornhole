@@ -1,0 +1,1 @@
+{"ast":null,"code":"export class TeamColor {\n  constructor(name, backgroundColor, textColor) {\n    this.name = name;\n    this.backgroundColor = backgroundColor;\n    this.textColor = textColor;\n  }\n}","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}

@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { ThrowResult } from '../models/throw-result';\nexport class GameConstants {}\nGameConstants.WINNING_SCORE = 21;\nGameConstants.POINTS = {\n  [ThrowResult.OffBoard]: 0,\n  [ThrowResult.OnBoard]: 1,\n  [ThrowResult.Cornhole]: 3\n};","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}
