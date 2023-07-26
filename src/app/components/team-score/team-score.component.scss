@@ -2,6 +2,7 @@
     --winner-width: 1fr;
     --player-width: 3fr;
     --score-width: 1fr;
+    --streak-width: auto;
 }
 
 @keyframes winner {
@@ -23,16 +24,16 @@
 }
 
 .team1 {
-    --gta: 'winner players score';
+    --gta: 'winner streak players score';
 
-    grid-template-columns: var(--winner-width) var(--player-width) var(--score-width);
+    grid-template-columns: var(--winner-width) var(--streak-width) var(--player-width) var(--score-width);
     text-align: right;
 }
 
 .team2 {
-    --gta: 'score players winner';
+    --gta: 'score players streak winner';
 
-    grid-template-columns: var(--score-width) var(--player-width) var(--winner-width);
+    grid-template-columns: var(--score-width) var(--player-width) var(--streak-width) var(--winner-width);
     text-align: left;
 }
 
@@ -82,6 +83,44 @@
 }
 
 .streak {
+    position: relative;
     grid-area: streak;
-    font-style: italic;
+
+    &::after {
+        content: attr(streak);
+        position: absolute;
+        inset: 0;
+        padding-top: 25%;
+        border-radius: 50%;
+        font-size: 1rem;
+        font-style: italic;
+        font-weight: bold;
+        color: white;
+        text-align: center;
+        -webkit-text-stroke-width: 1px;
+        -webkit-text-stroke-color: red;
+    }
+}
+
+.fa-fire {
+    position: relative;
+    font-size: 1.5rem;
+    border-radius: 50%;
+    padding: 4px 6px;
+    border: solid 2px yellow;
+    background: linear-gradient(yellow, orange);
+    color: darkorange;
+
+    &::before {
+        -webkit-text-stroke-width: 1px;
+        -webkit-text-stroke-color: red;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        border: solid 2px red;
+    }
 }

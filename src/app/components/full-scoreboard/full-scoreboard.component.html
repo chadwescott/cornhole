@@ -1,4 +1,4 @@
-<ch-card title="Full Scoreboard">
+<ch-card title="Scoreboard">
     <ng-container header>
         <button type="button" mat-icon-button class="button--close" (click)="close.emit()">
             <i class="fas fa-times"></i>
@@ -15,7 +15,7 @@
                         <div class="round">
                             <div>{{(game.rounds.indexOf(round) + 1)}}</div>
                             <div *ngIf="round.team1NetScore > 0" class="team1">+{{round.team1NetScore}}</div>
-                            <div *ngIf="round.team2NetScore > 0" class="team2">+{{round.team2TotalScore}}</div>
+                            <div *ngIf="round.team2NetScore > 0" class="team2">+{{round.team2NetScore}}</div>
                         </div>
                         <div class="team team1 results">
                             <div *ngFor="let throw of round.team1Throws">
@@ -36,12 +36,12 @@
                 <div class="total-row">T</div>
                 <div class="total-row team team1">{{game.team1Score}}</div>
                 <div class="total-row team team2">{{game.team2Score}}</div>
-                <div class="total-row">CR</div>
-                <div class="team1 stats">{{game.team1.players[0].stats.cornholeRate | percent:'1.1-1'}}</div>
-                <div class="team2 stats">{{game.team2.players[0].stats.cornholeRate | percent:'1.1-1'}}</div>
                 <div class="total-row">SR</div>
                 <div class="team1 stats">{{game.team1.players[0].stats.scoringRate | number: '1.2-2'}}</div>
                 <div class="team2 stats">{{game.team2.players[0].stats.scoringRate | number: '1.2-2'}}</div>
+                <div class="total-row">CR</div>
+                <div class="team1 stats">{{game.team1.players[0].stats.cornholeRate | percent:'1.1-1'}}</div>
+                <div class="team2 stats">{{game.team2.players[0].stats.cornholeRate | percent:'1.1-1'}}</div>
                 <div class="total-row"><i class="fas fa-fire"></i></div>
                 <div class="team1 stats">
                     <ng-container *ngIf="game.team1.scoreStreak > 0">+{{game.team1.scoreStreak}}</ng-container>

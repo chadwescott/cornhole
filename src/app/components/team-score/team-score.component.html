@@ -5,6 +5,8 @@
             {{player.name}}
         </div>
     </div>
-    <div class="score">{{score}}</div>
-    <!-- <div class="streak" *ngIf="team.scoreStreak > 0">+{{team.scoreStreak}}</div> -->
+    <div class="score">{{score}}
+    </div>
+    <div class="streak" *ngIf="team.scoreStreak > 0" [attr.streak]="'+' + team.scoreStreak"><i class="fas fa-fire"></i>
+    </div>
 </div>

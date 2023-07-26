@@ -1,7 +1,7 @@
 .container {
     position: relative;
     overflow-y: auto;
-    max-height: 60vh;
+    max-height: 40vh;
 }
 
 .table {
@@ -88,8 +88,13 @@
     border-radius: 50%;
     padding: 2px 3px;
     border: solid 2px red;
-    background: yellow;
-    color: orange;
+    background: linear-gradient(yellow, orange);
+    color: darkorange;
+
+    &::before {
+        -webkit-text-stroke-width: 1px;
+        -webkit-text-stroke-color: red;
+    }
 }
 
 .total-row {
