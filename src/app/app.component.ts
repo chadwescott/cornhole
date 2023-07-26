@@ -41,8 +41,8 @@ export class AppComponent implements OnInit {
     const player2 = this.gameService.createPlayer('Red Team');
     // const player3 = this.gameService.createPlayer('Molly');
     // const player4 = this.gameService.createPlayer('Elizabeth');
-    const team1 = this.gameService.createTeam([player1], 1, new TeamColor('Blue', 'blue', 'white'));
-    const team2 = this.gameService.createTeam([player2], 2, new TeamColor('Red', 'red', 'white'));
+    const team1 = this.gameService.createTeam([player1], 1, new TeamColor('Blue', '0 0 255', '255 255 255'));
+    const team2 = this.gameService.createTeam([player2], 2, new TeamColor('Red', '255 0 0', '255 255 255'));
     this.game = this.gameService.createGame(team1, team2);
     this.activateLastRound(this.game);
   }

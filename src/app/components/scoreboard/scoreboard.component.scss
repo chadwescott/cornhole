@@ -18,8 +18,8 @@ $padding: 0.5rem;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        background-color: var(--team1-background-color);
-        color: var(--team1-color);
+        background-color: rgb(var(--team1-background-color));
+        color: rgb(var(--team1-color));
         padding-right: $padding;
 
         & button {
@@ -32,8 +32,8 @@ $padding: 0.5rem;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        background-color: var(--team2-background-color);
-        color: var(--team2-color);
+        background-color: rgb(var(--team2-background-color));
+        color: rgb(var(--team2-color));
         padding-left: $padding;
 
         & button {

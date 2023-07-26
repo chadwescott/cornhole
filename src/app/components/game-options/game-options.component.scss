@@ -1,3 +1,5 @@
+// @import '../../../styles.scss';
+
 .color-option {
     border-radius: 0.2em;
     margin: 0.2em;
@@ -22,11 +24,4 @@
         border-radius: 0.2em;
         border: solid 2px black;
     }
-}
-
-.button-bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.25em;
 }

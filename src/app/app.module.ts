@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CardComponent } from './components/card/card.component';
+import { FullScoreboardComponent } from './components/full-scoreboard/full-scoreboard.component';
 import { GameOptionsComponent } from './components/game-options/game-options.component';
 import { GameSetupComponent } from './components/game-setup/game-setup.component';
 import { GameComponent } from './components/game/game.component';
@@ -28,21 +29,22 @@ import { ThrowResultComponent } from './components/throw-result/throw-result.com
 @NgModule({
   declarations: [
     AppComponent,
-    ThrowResultComponent,
-    RoundComponent,
+    CardComponent,
+    FullScoreboardComponent,
     GameComponent,
-    ScoreboardComponent,
-    RoundThrowsComponent,
-    TeamScoreComponent,
-    GameSetupComponent,
-    TeamSelectorComponent,
-    PlayerSelectorComponent,
-    TeamColorPickerDialogComponent,
-    ThrowResultIconComponent,
-    RoundTeamScoreComponent,
     GameOptionsComponent,
+    GameSetupComponent,
+    PlayerSelectorComponent,
     PlayerStatsComponent,
-    CardComponent
+    RoundComponent,
+    RoundTeamScoreComponent,
+    RoundThrowsComponent,
+    ScoreboardComponent,
+    TeamColorPickerDialogComponent,
+    TeamScoreComponent,
+    TeamSelectorComponent,
+    ThrowResultComponent,
+    ThrowResultIconComponent
   ],
   imports: [
     AppRoutingModule,

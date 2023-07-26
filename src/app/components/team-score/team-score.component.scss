@@ -1,14 +1,7 @@
 .score-component {
     --winner-width: 1fr;
-    --cornhole-rate-width: 1fr;
-    --score-rate-width: 1fr;
-    --streak-width: 1fr;
+    --player-width: 3fr;
     --score-width: 1fr;
-    --row-height: 2em 3em;
-
-    @media (min-width: 600px) {
-        --row-height: 2em 0.9em;
-    }
 }
 
 @keyframes winner {
@@ -20,32 +13,27 @@
     }
 }
 
-.team1 {
-    --gta: 'winner players players players score' 'winner cornhole-rate score-rate streak score';
-
-    grid-template-columns:
-        var(--winner-width) var(--cornhole-rate-width) var(--score-rate-width) var(--streak-width)
-        var(--score-width);
+.team1,
+.team2 {
     display: grid;
-    grid-template-rows: var(--row-height);
+    gap: 0.4rem;
+    justify-content: center;
     grid-template-areas: var(--gta);
+    align-items: center;
+}
+
+.team1 {
+    --gta: 'winner players score';
+
+    grid-template-columns: var(--winner-width) var(--player-width) var(--score-width);
     text-align: right;
-    align-items: flex-end;
-    padding-right: 0.4em;
 }
 
 .team2 {
-    --gta: 'score players players players winner' 'score streak score-rate cornhole-rate winner';
+    --gta: 'score players winner';
 
-    grid-template-columns:
-        var(--score-width) var(--streak-width) var(--score-rate-width) var(--cornhole-rate-width)
-        var(--winner-width);
-    display: grid;
-    grid-template-rows: var(--row-height);
-    grid-template-areas: var(--gta);
+    grid-template-columns: var(--score-width) var(--player-width) var(--winner-width);
     text-align: left;
-    align-items: flex-end;
-    padding-left: 0.4em;
 }
 
 .icon {
@@ -60,7 +48,9 @@
         border-radius: 50%;
         padding: 0.3em;
         border: solid 2px black;
-        box-shadow: 0 0 2px rgba(200, 200, 200, 0.4), 2px 2px 4px 2px rgba(0, 0, 0, 0.4);
+        box-shadow:
+            0 0 2px rgba(200, 200, 200, 0.4),
+            2px 2px 4px 2px rgba(0, 0, 0, 0.4);
         color: yellow;
         animation-name: winner;
         animation-duration: 400ms;
@@ -89,16 +79,6 @@
 .score {
     grid-area: score;
     font-size: 3em;
-}
-
-.cornhole-rate {
-    grid-area: cornhole-rate;
-    font-style: italic;
-}
-
-.score-rate {
-    grid-area: score-rate;
-    font-style: italic;
 }
 
 .streak {

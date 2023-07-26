@@ -1,7 +1,8 @@
 <div class="container">
     <div class="color-options">
-        <button *ngFor="let color of teamColors" mat-icon-button [style]="'background-color: ' + color.backgroundColor"
-            class="color-option" (click)="selectColor(color)">
+        <button *ngFor="let color of teamColors" mat-icon-button
+            [style]="'background-color: rgb(' + color.backgroundColor + ')'" class="color-option"
+            (click)="selectColor(color)">
         </button>
     </div>
     <button mat-raised-button color="primary" (click)="onCancel()">Cancel</button>

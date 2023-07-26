@@ -1,0 +1,122 @@
+.container {
+    position: relative;
+    overflow-y: auto;
+    max-height: 60vh;
+}
+
+.table {
+    display: grid;
+    grid-template-columns: 4rem 1fr 1fr;
+    align-items: center;
+
+    .header {
+        font-weight: bold;
+        font-size: 1.2em;
+        position: sticky;
+        top: 0px;
+        background: white;
+        padding: 0.5em 0;
+
+        &.team1 {
+            padding: 0.5em;
+            color: rgb(var(--team1-color));
+            background-color: rgb(var(--team1-background-color));
+        }
+
+        &.team2 {
+            padding: 0.5em;
+            color: rgb(var(--team2-color));
+            background-color: rgb(var(--team2-background-color));
+        }
+    }
+
+    > * {
+        margin-right: 0.5rem;
+    }
+}
+
+.round {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .team1,
+    .team2 {
+        padding: 0.125rem 0.25rem;
+    }
+
+    .team1 {
+        background-color: rgb(var(--team1-background-color));
+        color: rgb(var(--team1-color));
+    }
+
+    .team2 {
+        background-color: rgb(var(--team2-background-color));
+        color: rgb(var(--team2-color));
+    }
+}
+
+.team1 {
+    --team-background-color: var(--team1-background-color);
+    --team-color: var(--team1-color);
+}
+
+.team2 {
+    --team-background-color: var(--team2-background-color);
+    --team-color: var(--team2-color);
+}
+
+.score {
+    color: black;
+    font-weight: bold;
+}
+
+.team {
+    color: rgb(var(--team-background-color));
+}
+
+.results {
+    padding: 0.25em;
+    gap: 0.5em;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    justify-items: center;
+    background: rgb(var(--team-background-color) / 0.2);
+}
+
+.fa-fire {
+    border-radius: 50%;
+    padding: 2px 3px;
+    border: solid 2px red;
+    background: yellow;
+    color: orange;
+}
+
+.total-row {
+    font-weight: bold;
+
+    &.team {
+        padding: 0.5em;
+    }
+
+    &.team1 {
+        text-align: right;
+        color: rgb(var(--team1-color));
+        background-color: rgb(var(--team1-background-color));
+    }
+
+    &.team2 {
+        color: rgb(var(--team2-color));
+        background-color: rgb(var(--team2-background-color));
+    }
+}
+
+.stats {
+    font-weight: bold;
+    padding: 0.5em;
+    background: rgb(var(--team-background-color) / 0.2);
+
+    &.team1 {
+        text-align: right;
+    }
+}

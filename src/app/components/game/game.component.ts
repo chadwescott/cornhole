@@ -41,6 +41,7 @@ export class GameComponent implements OnInit {
 
   showOptions = false;
   showPlayerStats = false;
+  showFullScoreboard = false;
 
   constructor() { }
 

@@ -36,6 +36,7 @@ body {
     -moz-user-select: none; /* Firefox all */
     -ms-user-select: none; /* IE 10+ */
     user-select: none; /* Likely future */
+    --clr-dark-brown: rgb(120 65 0);
 }
 
 @media (min-width: 800px) {
@@ -99,14 +100,16 @@ button {
     }
 }
 
-.button {
-    &--close {
-        color: #800000;
-    }
+.mat-mdc-icon-button.button--close {
+    color: #800000;
 }
 
 .fa-cog {
     color: dimgrey;
+}
+
+.fa-clipboard {
+    color: var(--clr-dark-brown);
 }
 
 .fa-chart-bar {
@@ -115,4 +118,11 @@ button {
     padding: 0.25rem;
     border-radius: 0.25rem;
     border: solid 1px red;
+}
+
+.button-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.25em;
 }

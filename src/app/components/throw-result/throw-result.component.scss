@@ -2,21 +2,25 @@
 
 .team1 {
     & .mat-button-toggle-checked i {
-        color: var(--team1-background-color);
+        color: rgb(var(--team1-background-color));
     }
 }
 
 .team2 {
     & .mat-button-toggle-checked i {
-        color: var(--team2-background-color);
+        color: rgb(var(--team2-background-color));
     }
 }
 
-.container {
-    box-shadow: 0 0 2px rgba(200, 200, 200, 0.2), 2px 2px 4px 2px rgba(0, 0, 0, 0.2);
+.container mat-button-toggle-group {
+    box-shadow:
+        0 0 2px rgba(200, 200, 200, 0.2),
+        2px 2px 4px 2px rgba(0, 0, 0, 0.2);
 }
 
 .mat-button-toggle {
+    line-height: 48px;
+
     &.board {
         background-color: tan;
     }
@@ -30,6 +34,7 @@
     }
 
     &.cornhole {
+        border-bottom: 1px solid var(--clr-dark-brown);
         &:not(.mat-button-toggle-checked) {
             color: black;
         }
