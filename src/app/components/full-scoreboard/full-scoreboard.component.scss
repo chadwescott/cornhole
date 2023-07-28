@@ -40,9 +40,27 @@
     justify-content: space-between;
     align-items: center;
 
+    .tie,
+    .team1,
+    .team2 {
+        min-height: 1.25rem;
+        min-width: 1.25rem;
+    }
+
     .team1,
     .team2 {
         padding: 0.125rem 0.25rem;
+        text-align: center;
+    }
+
+    .tie {
+        background: linear-gradient(
+            135deg,
+            rgb(var(--team1-background-color)),
+            rgb(var(--team1-background-color)) 50%,
+            rgb(var(--team2-background-color)) 50%,
+            rgb(var(--team2-background-color))
+        );
     }
 
     .team1 {
@@ -85,15 +103,24 @@
 }
 
 .fa-fire {
+    position: relative;
     border-radius: 50%;
     padding: 2px 3px;
-    border: solid 2px red;
+    border: solid 1px yellow;
     background: linear-gradient(yellow, orange);
     color: darkorange;
 
     &::before {
         -webkit-text-stroke-width: 1px;
         -webkit-text-stroke-color: red;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        border: solid 1px red;
     }
 }
 

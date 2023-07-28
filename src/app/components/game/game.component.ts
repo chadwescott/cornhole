@@ -53,4 +53,11 @@ export class GameComponent implements OnInit {
       this.roundChanged.emit(this.game.rounds[index]);
     }
   }
+
+  gameSummaryClosed(): void {
+    this.showFullScoreboard = false;
+    if (this.game.complete) {
+      this.completeGame.emit(this.game);
+    }
+  }
 }

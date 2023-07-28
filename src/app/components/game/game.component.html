@@ -10,7 +10,7 @@
 <div *ngIf="showFullScoreboard" class="overlay" (click)="showFullScoreboard = false;">
     <ch-full-scoreboard [game]="game" (click)="$event.stopPropagation()" (resetStats)="resetStats.emit($event)"
         (resetStreak)="resetStreak.emit(game)" (resetGame)="resetGame.emit(game)"
-        (close)="showFullScoreboard = false"></ch-full-scoreboard>
+        (close)="gameSummaryClosed()"></ch-full-scoreboard>
 </div>
 <div>
     <ch-scoreboard [game]="game"></ch-scoreboard>
@@ -21,8 +21,8 @@
         <ng-container *ngIf="game.rounds[game.rounds.length - 1].complete">
             <button *ngIf="!game.complete" mat-raised-button color="primary" (click)="completeRound.emit(game)">Complete
                 Round</button>
-            <button *ngIf="game.complete" mat-raised-button color="primary" (click)="completeGame.emit(game)">Complete
-                Game</button>
+            <button *ngIf="game.complete" mat-raised-button color="primary" (click)="showFullScoreboard = true">Game
+                Summary</button>
         </ng-container>
     </div>
     <div class="button-bar">

@@ -16,9 +16,6 @@ export class TeamScoreComponent implements OnInit {
   @Input()
   score: number;
 
-  @Input()
-  winner: boolean;
-
   constructor() { }
 
   ngOnInit(): void {

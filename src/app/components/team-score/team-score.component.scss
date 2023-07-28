@@ -1,17 +1,8 @@
 .score-component {
-    --winner-width: 1fr;
-    --player-width: 3fr;
-    --score-width: 1fr;
-    --streak-width: auto;
-}
-
-@keyframes winner {
-    0% {
-        font-size: 1em;
-    }
-    100% {
-        font-size: 1.5em;
-    }
+    --player-width: 1fr;
+    --score-width: auto;
+    --streak-width: 2rem;
+    margin: 0 0.5rem;
 }
 
 .team1,
@@ -24,40 +15,17 @@
 }
 
 .team1 {
-    --gta: 'winner streak players score';
+    --gta: 'streak players score';
 
-    grid-template-columns: var(--winner-width) var(--streak-width) var(--player-width) var(--score-width);
-    text-align: right;
-}
-
-.team2 {
-    --gta: 'score players streak winner';
-
-    grid-template-columns: var(--score-width) var(--player-width) var(--streak-width) var(--winner-width);
+    grid-template-columns: var(--streak-width) var(--player-width) var(--score-width);
     text-align: left;
 }
 
-.icon {
-    grid-area: winner;
-    padding: 0.1em;
-    align-self: center;
-    justify-self: center;
+.team2 {
+    --gta: 'score players streak';
 
-    &.winner:before {
-        font-size: 1.5em;
-        content: '\f521';
-        border-radius: 50%;
-        padding: 0.3em;
-        border: solid 2px black;
-        box-shadow:
-            0 0 2px rgba(200, 200, 200, 0.4),
-            2px 2px 4px 2px rgba(0, 0, 0, 0.4);
-        color: yellow;
-        animation-name: winner;
-        animation-duration: 400ms;
-        animation-iteration-count: 5;
-        animation-direction: alternate;
-    }
+    grid-template-columns: var(--score-width) var(--player-width) var(--streak-width);
+    text-align: right;
 }
 
 .players {
