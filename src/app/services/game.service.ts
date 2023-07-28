@@ -71,9 +71,11 @@ export class GameService {
   setTeamColor(team: Team): void {
     const bgColor = team?.teamColor?.backgroundColor ?? (team.teamNumber === 1 ? 'yellow' : 'red');
     const textColor = team?.teamColor?.textColor ?? (team.teamNumber === 1 ? 'black' : 'white');
+    const altColor = team?.teamColor?.altColor ?? (team.teamNumber === 1 ? 'white' : 'black');
 
     document.documentElement.style.setProperty(`--team${team.teamNumber}-background-color`, bgColor);
     document.documentElement.style.setProperty(`--team${team.teamNumber}-color`, textColor);
+    document.documentElement.style.setProperty(`--team${team.teamNumber}-alt-color`, altColor);
     this.saveTeams();
     this.saveGames();
   }

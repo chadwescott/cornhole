@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { DesignOptions } from 'src/app/models/design-options.enum';
 import { Team } from 'src/app/models/team';
 
 @Component({
@@ -15,6 +16,8 @@ export class TeamScoreComponent implements OnInit {
 
   @Input()
   score: number;
+
+  designOptions = DesignOptions;
 
   constructor() { }
 

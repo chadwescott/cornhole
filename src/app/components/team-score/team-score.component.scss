@@ -2,7 +2,8 @@
     --player-width: 1fr;
     --score-width: auto;
     --streak-width: 2rem;
-    margin: 0 0.5rem;
+    padding: 0 0.5rem;
+    --text-shadow-color: color-mix(in srgb, rgb(var(--background-color)), rgb(var(--highlight-color)) 20%);
 }
 
 .team1,
@@ -36,6 +37,8 @@
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
+    text-shadow: 2px 2px var(--text-shadow-color);
+    text-shadow: 1px 1px rgb(var(--alt-color));
 
     & > div {
         width: 100%;
@@ -48,6 +51,8 @@
 .score {
     grid-area: score;
     font-size: 3em;
+    text-shadow: 3px 3px var(--text-shadow-color);
+    text-shadow: 1px 1px rgb(var(--alt-color));
 }
 
 .streak {

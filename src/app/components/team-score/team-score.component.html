@@ -1,4 +1,7 @@
-<div [class.team1]="teamNumber == 1" [class.team2]="teamNumber == 2" class="score-component">
+<div [class.team1]="teamNumber == 1" [class.team2]="teamNumber == 2" [class.team1-background-color]="teamNumber == 1"
+    [class.team2-background-color]="teamNumber == 2" class="score-component bag"
+    [class.vertical-stripes]="team.teamColor.design === designOptions.VerticalStripes"
+    [class.diagonal-stripes]="team.teamColor.design === designOptions.DiagonalStripes">
     <div class="players">
         <div *ngFor="let player of team.players">
             {{player.name}}
