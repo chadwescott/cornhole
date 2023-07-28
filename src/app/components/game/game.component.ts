@@ -28,6 +28,9 @@ export class GameComponent implements OnInit {
   completeGame = new EventEmitter<Game>();
 
   @Output()
+  playersChanged = new EventEmitter();
+
+  @Output()
   teamColorChanged = new EventEmitter<Team>();
 
   @Output()

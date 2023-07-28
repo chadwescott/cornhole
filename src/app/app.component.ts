@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
+import { TEAM_COLORS } from './constants/team-color.constants';
 import { Game } from './models/game';
 import { Round } from './models/round';
 import { Team } from './models/team';
-import { TeamColor } from './models/team-color';
 import { GameService } from './services/game.service';
 
 @Component({
@@ -30,19 +30,10 @@ export class AppComponent implements OnInit {
 
   createNewGame(): void {
     this.gameService.clearData();
-    // const player1 = this.gameService.createPlayer('Chad');
-    // const player2 = this.gameService.createPlayer('Nancy');
-    // const player3 = this.gameService.createPlayer('Molly');
-    // const player4 = this.gameService.createPlayer('Elizabeth');
-    // const team1 = this.gameService.createTeam([player1, player2]);
-    // const team2 = this.gameService.createTeam([player3, player4]);
-    // this.game = this.gameService.createGame(team1, team2);
-    const player1 = this.gameService.createPlayer('Blue Team');
-    const player2 = this.gameService.createPlayer('Red Team');
-    // const player3 = this.gameService.createPlayer('Molly');
-    // const player4 = this.gameService.createPlayer('Elizabeth');
-    const team1 = this.gameService.createTeam([player1], 1, new TeamColor('Blue', '0 0 255', '255 255 255'));
-    const team2 = this.gameService.createTeam([player2], 2, new TeamColor('Red', '255 0 0', '255 255 255'));
+    const player1 = this.gameService.createPlayer('Player 1');
+    const player2 = this.gameService.createPlayer('Player 2');
+    const team1 = this.gameService.createTeam([player1], 1, TEAM_COLORS[0]);
+    const team2 = this.gameService.createTeam([player2], 2, TEAM_COLORS[2]);
     this.game = this.gameService.createGame(team1, team2);
     this.activateLastRound(this.game);
   }
@@ -68,12 +59,14 @@ export class AppComponent implements OnInit {
     this.gameService.updateTeamColor(team);
   }
 
+  onPlayersChanged(): void {
+    this.gameService.saveGames();
+  }
+
   onCompleteGame(game: Game): void {
     this.gameService.completeGame(game);
-    // this.game = null;
     this.game = this.gameService.createGame(game.team1, game.team2);
     this.activateLastRound(this.game);
-    // this.createNewGame();
   }
 
   onResetStats(game: Game): void {

@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { TeamColor } from 'src/app/models/team-color';
 import { Throw } from 'src/app/models/throw';
 
 @Component({
@@ -12,6 +13,9 @@ export class RoundThrowsComponent implements OnInit {
 
   @Input()
   teamNumber: number;
+
+  @Input()
+  teamColor: TeamColor;
 
   @Input()
   throws: Throw[];

@@ -1,13 +1,13 @@
 <div class="container">
-    <ch-round-throws class="team1Throws" [teamNumber]="1" [throws]="round.team1Throws" [disabled]="disabled"
-        (throwResultChanged)="roundScoreChanged.emit(round)">
+    <ch-round-throws class="team1Throws" [teamNumber]="1" [teamColor]="team1Color" [throws]="round.team1Throws"
+        [disabled]="disabled" (throwResultChanged)="roundScoreChanged.emit(round)">
     </ch-round-throws>
     <div class="team1Score">
         <ch-round-team-score [totalScore]="round.team1TotalScore" [netScore]="round.team1NetScore">
         </ch-round-team-score>
     </div>
-    <ch-round-throws class="team2Throws" [teamNumber]="2" [throws]="round.team2Throws" [disabled]="disabled"
-        (throwResultChanged)="roundScoreChanged.emit(round)">
+    <ch-round-throws class="team2Throws" [teamNumber]="2" [teamColor]="team2Color" [throws]="round.team2Throws"
+        [disabled]="disabled" (throwResultChanged)="roundScoreChanged.emit(round)">
     </ch-round-throws>
     <div class="team2Score">
         <ch-round-team-score [totalScore]="round.team2TotalScore" [netScore]="round.team2NetScore">

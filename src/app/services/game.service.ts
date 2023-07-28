@@ -23,7 +23,6 @@ export class GameService {
   games: Game[] = [];
 
   constructor() {
-    // this.clearData();
     this.games = JSON.parse(localStorage.getItem(this.gamesKey));
     this.players = JSON.parse(localStorage.getItem(this.playersKey));
     this.teams = JSON.parse(localStorage.getItem(this.gamesKey));
@@ -54,7 +53,7 @@ export class GameService {
     localStorage.setItem(this.teamsKey, JSON.stringify(this.teams));
   }
 
-  private saveGames(): void {
+  saveGames(): void {
     localStorage.setItem(this.gamesKey, JSON.stringify(this.games));
   }
 
@@ -75,7 +74,6 @@ export class GameService {
 
     document.documentElement.style.setProperty(`--team${team.teamNumber}-background-color`, bgColor);
     document.documentElement.style.setProperty(`--team${team.teamNumber}-color`, textColor);
-    team.players[0].name = team?.teamColor?.name ?? `Team $team.teamNumber}`;
     this.saveTeams();
     this.saveGames();
   }
@@ -202,12 +200,12 @@ export class GameService {
   completeGame(game: Game): void {
     this.calculateStatsForLastRound(game);
     this.updateScoreStreak(game);
+    this.resetStats(game);
   }
 
   resetStats(game: Game): void {
     game.team1.players.map(x => x.stats = new PlayerStats());
     game.team2.players.map(x => x.stats = new PlayerStats());
-    this.saveGames();
   }
 
   resetStreak(game: Game): void {

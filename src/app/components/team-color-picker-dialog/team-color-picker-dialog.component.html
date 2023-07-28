@@ -1,9 +1,16 @@
 <div class="container">
+    <h2>Design:</h2>
+    <mat-radio-group (change)="onDesignChanged($event)">
+        <mat-radio-button [value]="designOptions.Solid" checked>Solid</mat-radio-button>
+        <mat-radio-button [value]="designOptions.VerticalStripes">Vertical Stripes</mat-radio-button>
+        <mat-radio-button [value]="designOptions.DiagonalStripes">Diagonal Stripes</mat-radio-button>
+    </mat-radio-group>
     <div class="color-options">
-        <button *ngFor="let color of teamColors" mat-icon-button
-            [style]="'background-color: rgb(' + color.backgroundColor + ')'" class="color-option"
-            (click)="selectColor(color)">
-        </button>
+        <div *ngFor="let color of teamColors"
+            [style]="'--background-color: ' + color.backgroundColor + ';--highlight-color: ' + color.textColor + ';'"
+            class="color-option bag" [class.vertical-stripes]="design === 'vertical-stripes'"
+            [class.diagonal-stripes]="design === 'diagonal-stripes'" (click)="selectColor(color)">
+        </div>
     </div>
     <button mat-raised-button color="primary" (click)="onCancel()">Cancel</button>
 </div>

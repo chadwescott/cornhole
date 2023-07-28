@@ -2,15 +2,18 @@
     <mat-button-toggle-group name="throwResult" vertical="true">
         <mat-button-toggle class="board cornhole" [value]="throwResult.Cornhole" [disabled]="disabled"
             [checked]="throw?.result === throwResult.Cornhole" (change)="onThrowResult($event)">
-            <i class="fas fa-circle"></i>
+            <div class="bag" [class.vertical-stripes]="teamColor.design === designOptions.VerticalStripes"
+                [class.diagonal-stripes]="teamColor.design === designOptions.DiagonalStripes"></div>
         </mat-button-toggle>
         <mat-button-toggle class="board on-board" [value]="throwResult.OnBoard" [disabled]="disabled"
             [checked]="throw?.result === throwResult.OnBoard" (change)="onThrowResult($event)">
-            <i class="fas fa-square"></i>
+            <div class="bag" [class.vertical-stripes]="teamColor.design === designOptions.VerticalStripes"
+                [class.diagonal-stripes]="teamColor.design === designOptions.DiagonalStripes"></div>
         </mat-button-toggle>
         <mat-button-toggle class="off-board" [value]="throwResult.OffBoard" [disabled]="disabled"
             [checked]="throw?.result === throwResult.OffBoard" (change)="onThrowResult($event)">
-            <i class="fas fa-times"></i>
+            <div class="bag" [class.vertical-stripes]="teamColor.design === designOptions.VerticalStripes"
+                [class.diagonal-stripes]="teamColor.design === designOptions.DiagonalStripes"></div>
         </mat-button-toggle>
     </mat-button-toggle-group>
 </div>

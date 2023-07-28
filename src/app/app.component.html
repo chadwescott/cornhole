@@ -1,7 +1,8 @@
 <ch-game *ngIf="game" [game]="game" [activeRound]="activeRound" (completeRound)="onCompleteRound($event)"
     (roundScoreChanged)="onRoundScoreChanged($event)" (roundChanged)="onRoundChanged($event)"
-    (teamColorChanged)="onTeamColorChanged($event)" (completeGame)="onCompleteGame($event)"
-    (resetStats)="onResetStats($event)" (resetStreak)="onResetStreak($event)" (resetGame)="onResetGame($event)">
+    (playersChanged)="onPlayersChanged()" (teamColorChanged)="onTeamColorChanged($event)"
+    (completeGame)="onCompleteGame($event)" (resetStats)="onResetStats($event)" (resetStreak)="onResetStreak($event)"
+    (resetGame)="onResetGame($event)">
 </ch-game>
 
 <ch-game-setup *ngIf="!game"></ch-game-setup>

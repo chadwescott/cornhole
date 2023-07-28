@@ -1,7 +1,7 @@
 <div *ngIf="showOptions" class="overlay" (click)="showOptions = false;">
     <ch-game-options [game]="game" (click)="$event.stopPropagation()" (teamColorChanged)="teamColorChanged.emit($event)"
         (resetStats)="resetStats.emit($event)" (resetStreak)="resetStreak.emit(game)" (resetGame)="resetGame.emit(game)"
-        (closeOptions)="showOptions = false">
+        (playersChanged)="playersChanged.emit()" (closeOptions)="showOptions = false">
     </ch-game-options>
 </div>
 <div *ngIf="showPlayerStats" class="overlay" (click)="showPlayerStats = false;">
@@ -14,7 +14,7 @@
 </div>
 <div>
     <ch-scoreboard [game]="game"></ch-scoreboard>
-    <ch-round [round]="activeRound"
+    <ch-round [round]="activeRound" [team1Color]="game.team1.teamColor" [team2Color]="game.team2.teamColor"
         [disabled]="activeRound.complete && activeRound != game.rounds[game.rounds.length -1]"
         (roundScoreChanged)="roundScoreChanged.emit($event)"></ch-round>
     <div class="complete-round">

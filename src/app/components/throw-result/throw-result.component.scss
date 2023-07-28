@@ -1,14 +1,18 @@
 @import '../../../assets/scss/colors.scss';
 
 .team1 {
-    & .mat-button-toggle-checked i {
+    .mat-button-toggle-checked {
         color: rgb(var(--team1-background-color));
+        --background-color: var(--team1-background-color);
+        --highlight-color: var(--team1-color);
     }
 }
 
 .team2 {
-    & .mat-button-toggle-checked i {
+    .mat-button-toggle-checked {
         color: rgb(var(--team2-background-color));
+        --background-color: var(--team2-background-color);
+        --highlight-color: var(--team2-color);
     }
 }
 
@@ -16,43 +20,71 @@
     box-shadow:
         0 0 2px rgba(200, 200, 200, 0.2),
         2px 2px 4px 2px rgba(0, 0, 0, 0.2);
+    --clr-tan: 210, 180, 140;
 }
 
 .mat-button-toggle {
-    line-height: 48px;
+    height: 3.25rem;
+    width: 3.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     &.board {
-        background-color: tan;
+        background-color: rgb(210, 180, 140);
     }
 
     &.on-board {
         &:not(.mat-button-toggle-checked) {
-            & i {
-                visibility: hidden;
-            }
+            --background-color: var(--tan);
         }
+    }
+
+    .bag {
+        height: 2.25em;
+        width: 2.25em;
+        margin-left: 1px;
+        border: solid 1px rgb(var(--highlight-color));
+        border-radius: 0.4em;
     }
 
     &.cornhole {
         border-bottom: 1px solid var(--clr-dark-brown);
         &:not(.mat-button-toggle-checked) {
-            color: black;
+            --background-color: 0, 0, 0;
+            --highlight-color: 0, 0, 0;
+        }
+
+        .bag {
+            position: relative;
+            border-radius: 50%;
+            border: solid 0.25em white;
+            height: 2.5em;
+            width: 2.5em;
+
+            &::before {
+                content: '';
+                position: absolute;
+                border-radius: 50%;
+                inset: 0;
+                border: solid 1px black;
+            }
+
+            &::after {
+                content: '';
+                position: absolute;
+                border-radius: 50%;
+                inset: -0.25em;
+                border: solid 1px black;
+            }
         }
     }
 
     &.off-board {
         background-color: green;
-
-        &.mat-button-toggle-checked i {
-            color: red;
-        }
-
-        &:not(.mat-button-toggle-checked) i {
-            visibility: hidden;
-        }
     }
 }
 
 i {
-    font-size: 1.5em;
+    font-size: 2em;
 }

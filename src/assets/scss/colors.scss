@@ -5,12 +5,38 @@
     --team2-color: 255 255 255;
 }
 
+.bag {
+    background-color: rgb(var(--background-color));
+
+    &.vertical-stripes {
+        background: repeating-linear-gradient(
+            90deg,
+            rgb(var(--background-color)),
+            rgb(var(--background-color)) 2px,
+            color-mix(in srgb, rgb(var(--background-color)), rgb(var(--highlight-color)) 40%) 3px,
+            color-mix(in srgb, rgb(var(--background-color)), rgb(var(--highlight-color)) 40%) 4px
+        );
+    }
+
+    &.diagonal-stripes {
+        background: repeating-linear-gradient(
+            45deg,
+            rgb(var(--background-color)),
+            rgb(var(--background-color)) 2px,
+            color-mix(in srgb, rgb(var(--background-color)), rgb(var(--highlight-color)) 40%) 3px,
+            color-mix(in srgb, rgb(var(--background-color)), rgb(var(--highlight-color)) 40%) 4px
+        );
+    }
+}
+
 .team1-background-color {
-    background-color: rgb(var(--team1-background-color));
+    --background-color: var(--team1-background-color);
+    --highlight-color: var(--team1-color);
 }
 
 .team2-background-color {
-    background-color: rgb(var(--team2-background-color));
+    --background-color: var(--team2-background-color);
+    --highlight-color: var(--team2-color);
 }
 
 .team1-color {

@@ -1,6 +1,7 @@
 import { animate, animation, keyframes, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Round } from 'src/app/models/round';
+import { TeamColor } from 'src/app/models/team-color';
 
 @Component({
   selector: 'ch-round',
@@ -26,6 +27,12 @@ export class RoundComponent implements OnInit {
 
   @Input()
   round: Round;
+
+  @Input()
+  team1Color: TeamColor;
+
+  @Input()
+  team2Color: TeamColor;
 
   @Output()
   roundScoreChanged = new EventEmitter<Round>();
