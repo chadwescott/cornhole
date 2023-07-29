@@ -1,11 +1,10 @@
-import { DesignOptions } from "./design-options.enum";
+import { BagColor } from '../models/bag-color';
+import { DesignOptions } from './design-options.enum';
 
 export class TeamColor {
     constructor(
         public name: string,
-        public backgroundColor: string,
-        public textColor: string,
-        public altColor: string,
+        public bagColor: BagColor,
         public design: DesignOptions
     ) { }
 }

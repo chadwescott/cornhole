@@ -2,6 +2,7 @@
     display: grid;
     align-items: center;
     grid-template-columns: 1fr auto auto;
+    justify-content: center;
     gap: 1rem;
 
     .mat-icon-button {
@@ -21,7 +22,15 @@
 }
 
 .fa-palette {
-    color: var(--clr-dark-brown);
+    position: absolute;
+    left: -0.1rem;
+    top: -0.1rem;
+    color: rgb(var(--clr-tan));
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: black;
+    font-size: 2rem;
+    border-radius: 50%;
+    background-color: var(--clr-dark-brown);
+    border: solid 0.25rem rgb(0 0 0);
+    padding: 0.25rem;
 }

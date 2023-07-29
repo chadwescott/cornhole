@@ -9,8 +9,12 @@
             <div class="container">
                 <div class="table">
                     <div class="header">R</div>
-                    <div class="header team team1">{{game.team1.players[0].name}}</div>
-                    <div class="header team team2">{{game.team2.players[0].name}}</div>
+                    <div class="header team team1">
+                        <div *ngFor="let player of game.team1.players">{{player.name}}</div>
+                    </div>
+                    <div class="header team team2">
+                        <div *ngFor="let player of game.team2.players">{{player.name}}</div>
+                    </div>
                     <ng-container *ngFor="let round of game.rounds">
                         <div class="round">
                             <div>{{(game.rounds.indexOf(round) + 1)}}</div>

@@ -1,9 +1,22 @@
 .score-component {
+    position: relative;
     --player-width: 1fr;
     --score-width: auto;
     --streak-width: 2rem;
     padding: 0 0.5rem;
     --text-shadow-color: color-mix(in srgb, rgb(var(--background-color)), rgb(var(--highlight-color)) 20%);
+
+    &::before {
+        content: '';
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        background-color: rgb(var(--alt-color) / 0.1);
+    }
+
+    > * {
+        z-index: 1;
+    }
 }
 
 .team1,
@@ -37,7 +50,6 @@
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
-    text-shadow: 2px 2px var(--text-shadow-color);
     text-shadow: 1px 1px rgb(var(--alt-color));
 
     & > div {

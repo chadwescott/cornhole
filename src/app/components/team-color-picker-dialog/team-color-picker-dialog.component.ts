@@ -13,23 +13,33 @@ import { DesignOptions } from '../../models/design-options.enum';
 })
 export class TeamColorPickerDialogComponent {
   designOptions = DesignOptions;
-  design: DesignOptions;
   teamColors = TEAM_COLORS;
+  teamColor: TeamColor;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private dialogRef: MatDialogRef<TeamColorPickerDialogComponent>) { }
+    private dialogRef: MatDialogRef<TeamColorPickerDialogComponent>) {
+    this.teamColor = data.teamColor;
+    console.log(data.teamColor);
+    console.log(JSON.stringify(data.teamColor));
+    console.log(data.teamColor.design);
+    console.log(this.teamColor);
+  }
 
-  selectColor(color: TeamColor): void {
-    color.design = this.design;
-    this.dialogRef.close(color);
+  onDesignChanged(change: MatRadioChange): void {
+    this.teamColor.design = change.value;
+  }
+
+  selectBagColor(color: TeamColor): void {
+    this.teamColor.name = color.name
+    this.teamColor.bagColor = color.bagColor;
+  }
+
+  onOk(): void {
+    this.dialogRef.close(this.teamColor);
   }
 
   onCancel(): void {
     this.dialogRef.close();
-  }
-
-  onDesignChanged(change: MatRadioChange): void {
-    this.design = change.value;
   }
 }
