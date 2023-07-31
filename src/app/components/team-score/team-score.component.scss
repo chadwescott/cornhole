@@ -1,60 +1,45 @@
-$winner-width: 0.5fr;
-$player-width: 1fr;
-$score-width: 4.4em;
-$row-height: 2em 0.9em;
+.score-component {
+    position: relative;
+    --player-width: 1fr;
+    --score-width: auto;
+    --streak-width: 2rem;
+    padding: 0 0.5rem;
+    color: var(--text-color);
 
-@keyframes winner {
-    0% {
-        font-size: 1em;
+    &::before {
+        content: '';
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        // background-color: black;
     }
-    100% {
-        font-size: 1.5em;
+
+    > * {
+        z-index: 1;
     }
+}
+
+.team1,
+.team2 {
+    display: grid;
+    gap: 0.4rem;
+    justify-content: center;
+    grid-template-areas: var(--gta);
+    align-items: center;
 }
 
 .team1 {
-    display: grid;
-    grid-template-columns: $winner-width $player-width $score-width;
-    grid-template-rows: $row-height;
-    grid-template-areas:
-        'winner players score'
-        'winner streak score';
-    text-align: right;
-    align-items: center;
-    padding-right: 0.4em;
+    --gta: 'streak players score';
+
+    grid-template-columns: var(--streak-width) var(--player-width) var(--score-width);
+    text-align: left;
 }
 
 .team2 {
-    display: grid;
-    grid-template-columns: $score-width $player-width $winner-width;
-    grid-template-rows: $row-height;
-    grid-template-areas:
-        'score players winner'
-        'score streak winner';
-    text-align: left;
-    align-items: center;
-    padding-left: 0.4em;
-}
+    --gta: 'score players streak';
 
-.icon {
-    grid-area: winner;
-    padding: 0.1em;
-    align-self: center;
-    justify-self: center;
-
-    &.winner:before {
-        font-size: 1.5em;
-        content: '\f521';
-        border-radius: 50%;
-        padding: 0.3em;
-        border: solid 2px black;
-        box-shadow: 0 0 2px rgba(200, 200, 200, 0.4), 2px 2px 4px 2px rgba(0, 0, 0, 0.4);
-        color: yellow;
-        animation-name: winner;
-        animation-duration: 400ms;
-        animation-iteration-count: 5;
-        animation-direction: alternate;
-    }
+    grid-template-columns: var(--score-width) var(--player-width) var(--streak-width);
+    text-align: right;
 }
 
 .players {
@@ -65,6 +50,7 @@ $row-height: 2em 0.9em;
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
+    text-shadow: 1px 1px var(--alt-color);
 
     & > div {
         width: 100%;
@@ -77,9 +63,49 @@ $row-height: 2em 0.9em;
 .score {
     grid-area: score;
     font-size: 3em;
+    text-shadow: 1px 1px var(--alt-color);
 }
 
 .streak {
+    position: relative;
     grid-area: streak;
-    font-style: italic;
+
+    &::after {
+        content: attr(streak);
+        position: absolute;
+        inset: 0;
+        padding-top: 25%;
+        border-radius: 50%;
+        font-size: 1rem;
+        font-style: italic;
+        font-weight: bold;
+        color: white;
+        text-align: center;
+        -webkit-text-stroke-width: 1px;
+        -webkit-text-stroke-color: red;
+    }
+}
+
+.fa-fire {
+    position: relative;
+    font-size: 1.5rem;
+    border-radius: 50%;
+    padding: 4px 6px;
+    border: solid 0.125rem yellow;
+    outline: solid 0.125rem var(--background-color);
+    background: linear-gradient(yellow, orange);
+    color: darkorange;
+
+    &::before {
+        -webkit-text-stroke-width: 1px;
+        -webkit-text-stroke-color: red;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        border: solid 2px red;
+    }
 }

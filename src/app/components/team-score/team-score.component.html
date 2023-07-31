@@ -1,14 +1,12 @@
-<div [class]="'team' + teamNumber">
-    <div class="icon" [class]="winner ? 'winner' : ''"></div>
+<div [class.team1]="teamNumber == 1" [class.team2]="teamNumber == 2" class="score-component bag"
+    [attr.color-scheme]="team.teamColor.colorScheme" [attr.design]="team.teamColor.design">
     <div class="players">
         <div *ngFor="let player of team.players">
             {{player.name}}
         </div>
     </div>
-    <div class="score">
-        {{score}}
+    <div class="score">{{score}}
     </div>
-    <div class="streak" *ngIf="team.scoreStreak > 0">
-        <ch-team-score-streak [team]="team"></ch-team-score-streak>
+    <div class="streak" *ngIf="team.scoreStreak > 0" [attr.streak]="'+' + team.scoreStreak"><i class="fas fa-fire"></i>
     </div>
 </div>

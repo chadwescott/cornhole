@@ -1,0 +1,1 @@
+{"ast":null,"code":"export class Throw {\n  constructor(result) {\n    this.result = result;\n    this.points = 0;\n  }\n}","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}

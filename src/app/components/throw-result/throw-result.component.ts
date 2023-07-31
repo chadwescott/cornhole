@@ -1,7 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatButtonToggleChange } from '@angular/material/button-toggle';
+import { GameConstants } from 'src/app/constants/game.constants';
+import { DesignOptions } from 'src/app/models/design-options.enum';
+import { TeamColor } from 'src/app/models/team-color';
 import { Throw } from 'src/app/models/throw';
 import { ThrowResult } from 'src/app/models/throw-result';
+
 
 @Component({
   selector: 'ch-throw-result',
@@ -16,27 +20,25 @@ export class ThrowResultComponent implements OnInit {
   teamNumber: number;
 
   @Input()
+  teamColor: TeamColor;
+
+  @Input()
   throw: Throw;
 
   @Output()
   throwResultChanged = new EventEmitter<Throw>();
 
-  private throwPoints = {};
-
+  designOptions = DesignOptions;
   throwResult = ThrowResult;
 
-  constructor() {
-    this.throwPoints[ThrowResult.OffBoard] = 0;
-    this.throwPoints[ThrowResult.OnBoard] = 1;
-    this.throwPoints[ThrowResult.Cornhole] = 3;
-  }
+  constructor() { }
 
   ngOnInit(): void {
   }
 
   onThrowResult(event: MatButtonToggleChange): void {
     this.throw.result = event.value;
-    this.throw.points = this.throwPoints[event.value];
+    this.throw.points = GameConstants.POINTS[event.value];
     this.throwResultChanged.emit(this.throw);
   }
 }

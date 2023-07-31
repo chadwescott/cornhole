@@ -1,12 +1,25 @@
 @use './assets/scss/colors.scss';
-@import '~@angular/material/theming';
-@include mat-core();
-$primary: mat-palette($mat-brown, 500);
-$accent: mat-palette($mat-green, 600);
-$warn: mat-palette($mat-red);
-$theme: mat-light-theme($primary, $accent, $warn);
+@use '@angular/material' as mat;
 
-@include angular-material-theme($theme);
+@include mat.core();
+
+$primary: mat.define-palette(mat.$brown-palette, 500);
+$accent: mat.define-palette(mat.$green-palette, 600);
+$warn: mat.define-palette(mat.$red-palette);
+$theme: mat.define-light-theme(
+    (
+        color: (
+            primary: $primary,
+            accent: $accent,
+            warn: $warn
+        ),
+        typography: mat.define-typography-config(),
+        density: 0
+    )
+);
+
+@include mat.core-theme($theme);
+@include mat.button-theme($theme);
 
 * {
     box-sizing: border-box;
@@ -18,6 +31,11 @@ body {
     margin: 0;
     font-size: 0.8rem;
     background-color: #d8d9e9;
+
+    -webkit-user-select: none; /* Chrome all / Safari all */
+    -moz-user-select: none; /* Firefox all */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none; /* Likely future */
 }
 
 @media (min-width: 800px) {
@@ -81,12 +99,29 @@ button {
     }
 }
 
-.button {
-    &--close {
-        color: #800000;
-    }
+.mat-mdc-icon-button.button--close {
+    color: #800000;
 }
 
 .fa-cog {
     color: dimgrey;
+}
+
+.fa-clipboard {
+    color: var(--clr-dark-brown);
+}
+
+.fa-chart-bar {
+    color: red;
+    background: white;
+    padding: 0.25rem;
+    border-radius: 0.25rem;
+    border: solid 1px red;
+}
+
+.button-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25em;
 }

@@ -1,49 +1,83 @@
-@import '../../../assets/scss/colors.scss';
-
-.team1 {
-    & .mat-button-toggle-checked i {
-        color: var(--team1-background-color);
-    }
+.container mat-button-toggle-group {
+    box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.2);
 }
 
-.team2 {
-    & .mat-button-toggle-checked i {
-        color: var(--team2-background-color);
-    }
+.mat-button-toggle-vertical .mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
+    padding: 0;
+    display: flex;
+    justify-content: center;
 }
 
 .mat-button-toggle {
-    &.board {
-        background-color: tan;
+    height: 3.25rem;
+    width: 3.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:not(.mat-button-toggle-checked) .bag {
+        border: none;
+        box-shadow: none;
+        background: transparent;
     }
 
-    &.on-board {
-        &:not(.mat-button-toggle-checked) {
-            & i {
-                visibility: hidden;
+    &.board {
+        background: var(--clr-tan);
+        border: solid 1px var(--clr-dark-brown);
+    }
+
+    .bag {
+        position: relative;
+        height: 2.25rem;
+        width: 2.25rem;
+        border: solid 1px var(--text-color);
+        border-radius: 0.4rem;
+        box-shadow: 2px 2px 2px rgb(0 0 0 / 0.2);
+        left: -4px;
+    }
+
+    .mat-button-toggle-checked .bg {
+        border: solid 1px var(--text-color);
+    }
+
+    &.cornhole {
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+
+        &:not(.mat-button-toggle-checked) .bag {
+            background: radial-gradient(black, rgb(100 100 100) 90%);
+        }
+
+        .bag {
+            border-radius: 50%;
+            border: solid 0.25rem white;
+
+            &::before {
+                content: '';
+                position: absolute;
+                border-radius: 50%;
+                inset: 0;
+                border: solid 1px black;
+            }
+
+            &::after {
+                content: '';
+                position: absolute;
+                border-radius: 50%;
+                inset: -0.25rem;
+                border: solid 1px black;
             }
         }
     }
 
-    &.cornhole {
-        &:not(.mat-button-toggle-checked) {
-            color: black;
-        }
-    }
-
     &.off-board {
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px;
         background-color: green;
-
-        &.mat-button-toggle-checked i {
-            color: red;
-        }
-
-        &:not(.mat-button-toggle-checked) i {
-            visibility: hidden;
-        }
+        border: solid 1px green;
     }
 }
 
 i {
-    font-size: 1.5em;
+    font-size: 2em;
 }

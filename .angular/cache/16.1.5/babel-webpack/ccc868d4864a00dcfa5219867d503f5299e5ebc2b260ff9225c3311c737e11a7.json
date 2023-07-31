@@ -1,0 +1,1 @@
+{"ast":null,"code":"export class Game {\n  constructor(team1, team2) {\n    this.team1 = team1;\n    this.team2 = team2;\n    this.rounds = [];\n    this.team1Score = 0;\n    this.team2Score = 0;\n    this.complete = false;\n    this.startTime = Date.now;\n  }\n}","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}

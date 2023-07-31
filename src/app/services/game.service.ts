@@ -3,10 +3,12 @@ import { Injectable } from '@angular/core';
 import { GameConstants } from '../constants/game.constants';
 import { Game } from '../models/game';
 import { Player } from '../models/player';
+import { PlayerStats } from '../models/player-stats';
 import { Round } from '../models/round';
 import { Team } from '../models/team';
 import { TeamColor } from '../models/team-color';
 import { Throw } from '../models/throw';
+import { ThrowResult } from '../models/throw-result';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +26,13 @@ export class GameService {
     this.games = JSON.parse(localStorage.getItem(this.gamesKey));
     this.players = JSON.parse(localStorage.getItem(this.playersKey));
     this.teams = JSON.parse(localStorage.getItem(this.gamesKey));
+    if (this.players) {
+      this.players.map(x => {
+        if (!x.stats) {
+          x.stats = new PlayerStats();
+        }
+      });
+    }
   }
 
   clearData(): void {
@@ -44,7 +53,7 @@ export class GameService {
     localStorage.setItem(this.teamsKey, JSON.stringify(this.teams));
   }
 
-  private saveGames(): void {
+  saveGames(): void {
     localStorage.setItem(this.gamesKey, JSON.stringify(this.games));
   }
 
@@ -55,15 +64,11 @@ export class GameService {
   loadGame(game: Game): void {
     this.setTeamColor(game.team1);
     this.setTeamColor(game.team2);
+    game.team1.players.map(x => { if (!x.stats) { x.stats = new PlayerStats() }; });
+    game.team2.players.map(x => { if (!x.stats) { x.stats = new PlayerStats() }; });
   }
 
   setTeamColor(team: Team): void {
-    const bgColor = team?.teamColor?.backgroundColor ?? (team.teamNumber === 1 ? 'yellow' : 'red');
-    const textColor = team?.teamColor?.textColor ?? (team.teamNumber === 1 ? 'black' : 'white');
-
-    document.documentElement.style.setProperty(`--team${team.teamNumber}-background-color`, bgColor);
-    document.documentElement.style.setProperty(`--team${team.teamNumber}-color`, textColor);
-    team.players[0].name = team?.teamColor?.name ?? `Team $team.teamNumber}`;
     this.saveTeams();
     this.saveGames();
   }
@@ -137,8 +142,34 @@ export class GameService {
   }
 
   completeRound(game: Game): void {
-    this.updateScoreStreak(game);
+    this.calculateStatsForLastRound(game);
     this.addRound(game);
+  }
+
+  private calculateStatsForLastRound(game: Game) {
+    const lastRound = game.rounds[game.rounds.length - 1];
+
+    const playerIndex = game.team1.players.length === 1 ? 0 : (game.rounds.length + 1) % 2;
+
+    lastRound.team1Throws.map(x => this.updateThrowResult(game.team1.players[playerIndex].stats, x.result));
+    lastRound.team2Throws.map(x => this.updateThrowResult(game.team2.players[playerIndex].stats, x.result));
+
+    game.team1.players.forEach((player: Player) => this.calculateScoringRate(player.stats));
+    game.team2.players.forEach((player: Player) => this.calculateScoringRate(player.stats));
+
+    this.updateScoreStreak(game);
+  }
+
+  private updateThrowResult(stats: PlayerStats, throwResult: ThrowResult): void {
+    stats.totalThrows++;
+    stats.throwResults[throwResult]++;
+    stats.cornholeRate = stats.throwResults[ThrowResult.Cornhole] / stats.totalThrows;
+  }
+
+  private calculateScoringRate(stats: PlayerStats): void {
+    const totalPoints = stats.throwResults[ThrowResult.Cornhole] * GameConstants.POINTS[ThrowResult.Cornhole]
+      + stats.throwResults[ThrowResult.OnBoard] * GameConstants.POINTS[ThrowResult.OnBoard];
+    stats.scoringRate = totalPoints / stats.totalThrows * 4;
   }
 
   private updateScoreStreak(game: Game): void {
@@ -164,8 +195,14 @@ export class GameService {
   }
 
   completeGame(game: Game): void {
+    this.calculateStatsForLastRound(game);
     this.updateScoreStreak(game);
-    console.log(game.winner);
+    this.resetStats(game);
+  }
+
+  resetStats(game: Game): void {
+    game.team1.players.map(x => x.stats = new PlayerStats());
+    game.team2.players.map(x => x.stats = new PlayerStats());
   }
 
   resetStreak(game: Game): void {
@@ -177,6 +214,7 @@ export class GameService {
   resetGame(game: Game): Game {
     this.games.splice(this.games.indexOf(game), 1);
     const newGame = this.createGame(game.team1, game.team2);
+    this.resetStats(newGame);
     this.saveGames();
     return newGame;
   }

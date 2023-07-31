@@ -1,8 +1,29 @@
-<div class="container">
-    <div class="color-options">
-        <button *ngFor="let color of teamColors" mat-icon-button [style]="'background-color: ' + color.backgroundColor"
-            class="color-option" (click)="selectColor(color)">
-        </button>
-    </div>
-    <button mat-raised-button color="primary" (click)="onCancel()">Cancel</button>
-</div>
+<ch-card title="Bag Design">
+    <ng-container header>
+    </ng-container>
+    <ng-container content>
+        <div class="container">
+            <div class="example bag" [attr.color-scheme]="teamColor.colorScheme" [attr.design]="teamColor.design">
+            </div>
+            <h3>Pattern</h3>
+            <mat-radio-group (change)="onDesignChanged($event)">
+                <mat-radio-button [checked]="teamColor.design == designOptions.Solid" [value]="designOptions.Solid"
+                    checked>Solid</mat-radio-button>
+                <mat-radio-button [checked]="teamColor.design == designOptions.VerticalStripes"
+                    [value]="designOptions.VerticalStripes">Vertical Stripes</mat-radio-button>
+                <mat-radio-button [checked]="teamColor.design == designOptions.DiagonalStripes"
+                    [value]="designOptions.DiagonalStripes">Diagonal Stripes</mat-radio-button>
+            </mat-radio-group>
+            <h3>Color</h3>
+            <div class="color-options">
+                <div *ngFor="let color of teamColors" [attr.color-scheme]="color.colorScheme" class="color-option bag"
+                    [class.selected]="teamColor.colorScheme === color.colorScheme" (click)="selectColorScheme(color)">
+                </div>
+            </div>
+            <div class="button-bar">
+                <button mat-raised-button color="primary" (click)="onOk()">Ok</button>
+                <button mat-raised-button color="primary" (click)="onCancel()">Cancel</button>
+            </div>
+        </div>
+    </ng-container>
+</ch-card>

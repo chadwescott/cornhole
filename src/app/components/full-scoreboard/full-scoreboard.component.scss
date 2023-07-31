@@ -1,0 +1,148 @@
+.container {
+    position: relative;
+    overflow-y: auto;
+    max-height: 40vh;
+}
+
+.table {
+    display: grid;
+    grid-template-columns: 4rem 1fr 1fr;
+    align-items: center;
+
+    .header {
+        font-weight: bold;
+        font-size: 1.2em;
+        position: sticky;
+        top: 0px;
+        background: white;
+        padding: 0.5em 0;
+
+        &.team {
+            padding: 0.5em;
+        }
+    }
+
+    > * {
+        margin-right: 0.5rem;
+    }
+
+    .team-header {
+        background-color: var(--background-color);
+        color: var(--text-color);
+    }
+
+    .team-details {
+        background: var(--light-color);
+    }
+}
+
+.round {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .tie,
+    .gain {
+        min-height: 1.25rem;
+        min-width: 1.25rem;
+    }
+
+    .gain {
+        padding: 0.125rem 0.25rem;
+        text-align: center;
+        background-color: var(--background-color);
+        color: var(--text-color);
+    }
+
+    .tie {
+        position: relative;
+
+        .team1,
+        .team2 {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            inset: 0;
+        }
+
+        .team1 {
+            background: linear-gradient(
+                135deg,
+                var(--background-color),
+                var(--background-color) 50%,
+                transparent 51%,
+                transparent
+            );
+        }
+
+        .team2 {
+            background: linear-gradient(
+                315deg,
+                var(--background-color),
+                var(--background-color) 50%,
+                transparent 51%,
+                transparent
+            );
+        }
+    }
+}
+
+.score {
+    color: black;
+    font-weight: bold;
+}
+
+.results {
+    padding: 0.25em;
+    gap: 0.5em;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    justify-items: center;
+    background: var(--light-color);
+    color: var(--background-color);
+}
+
+.total-row {
+    font-weight: bold;
+
+    &.team {
+        padding: 0.5em;
+        background: var(--background-color);
+        color: var(--text-color);
+    }
+
+    &.team1 {
+        text-align: right;
+    }
+}
+
+.stats {
+    font-weight: bold;
+    padding: 0.5em;
+
+    &.team1 {
+        text-align: right;
+    }
+}
+
+.fa-fire {
+    position: relative;
+    border-radius: 50%;
+    padding: 2px 3px;
+    border: solid 1px yellow;
+    background: linear-gradient(yellow, orange);
+    color: darkorange;
+
+    &::before {
+        -webkit-text-stroke-width: 1px;
+        -webkit-text-stroke-color: red;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        border: solid 1px red;
+    }
+}

@@ -28,7 +28,16 @@ export class GameComponent implements OnInit {
   completeGame = new EventEmitter<Game>();
 
   @Output()
+  gameSummary = new EventEmitter<Game>();
+
+  @Output()
+  playersChanged = new EventEmitter();
+
+  @Output()
   teamColorChanged = new EventEmitter<Team>();
+
+  @Output()
+  resetStats = new EventEmitter<Game>();
 
   @Output()
   resetStreak = new EventEmitter<Game>();
@@ -37,6 +46,8 @@ export class GameComponent implements OnInit {
   resetGame = new EventEmitter<Game>();
 
   showOptions = false;
+  showPlayerStats = false;
+  showFullScoreboard = false;
 
   constructor() { }
 
@@ -46,6 +57,18 @@ export class GameComponent implements OnInit {
   onRoundChanged(index: number): void {
     if (this.game.rounds.length > index) {
       this.roundChanged.emit(this.game.rounds[index]);
+    }
+  }
+
+  showGameSummary(): void {
+    this.gameSummary.emit(this.game);
+    this.showFullScoreboard = true;
+  }
+
+  gameSummaryClosed(): void {
+    this.showFullScoreboard = false;
+    if (this.game.complete) {
+      this.completeGame.emit(this.game);
     }
   }
 }

@@ -1,0 +1,12 @@
+.card__header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    > button {
+        position: absolute;
+        right: -1em;
+        top: -0.6rem;
+    }
+}

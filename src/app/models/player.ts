@@ -1,3 +1,7 @@
+import { PlayerStats } from './player-stats';
+
 export class Player {
-    constructor(public name: string) { }
+    public stats: PlayerStats = new PlayerStats();
+    constructor(public name: string) {
+    }
 }

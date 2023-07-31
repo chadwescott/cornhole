@@ -1,0 +1,1 @@
+{"ast":null,"code":"export class Team {\n  constructor(players, teamNumber, teamColor) {\n    this.players = players;\n    this.teamNumber = teamNumber;\n    this.teamColor = teamColor;\n    this.scoreStreak = 0;\n    this.cornholeStreak = 0;\n  }\n}","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}

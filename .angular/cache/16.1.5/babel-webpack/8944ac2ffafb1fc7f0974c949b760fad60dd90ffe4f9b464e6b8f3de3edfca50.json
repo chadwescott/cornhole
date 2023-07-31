@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { PlayerStats } from './player-stats';\nexport class Player {\n  constructor(name) {\n    this.name = name;\n    this.stats = new PlayerStats();\n  }\n}","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}

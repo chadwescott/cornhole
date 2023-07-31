@@ -1,55 +1,14 @@
 @import '../../../styles.scss';
 
-.round-results {
+.complete-round {
     display: flex;
-
-    & > div {
-        display: flex;
-
-        &:first-child {
-            margin-right: 1em;
-        }
-
-        & > * {
-            padding: 0.1em 0.3em;
-
-            &:first-child {
-                padding-left: 0.6em;
-            }
-
-            &:last-child {
-                padding-right: 0.6em;
-            }
-        }
-    }
-
-    & .team1 {
-        border-top: solid 1px var(--team1-background-color);
-        border-bottom: solid 1px var(--team1-background-color);
-        background-color: var(--team1-color);
-        color: var(--team1-background-color);
-    }
-
-    & .team2 {
-        border-top: solid 1px var(--team2-background-color);
-        border-bottom: solid 1px var(--team2-background-color);
-        background-color: var(--team2-color);
-        color: var(--team2-background-color);
-    }
+    justify-content: center;
+    margin: 0.5em;
 }
 
 .button-bar {
     margin: 0.5em;
     display: flex;
-    position: relative;
     align-items: center;
-    justify-content: space-between;
-
-    .center {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        margin: auto;
-        transform: translate(-50%, -50%);
-    }
+    justify-content: flex-end;
 }
