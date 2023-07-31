@@ -1,4 +1,3 @@
-@import '../../../styles.scss';
 $min-width: 600px;
 
 .container {
@@ -15,6 +14,7 @@ $min-width: 600px;
 
     .team1Throws {
         grid-area: team1Throws;
+        background: var(--light-color);
     }
 
     .team2Throws {

@@ -1,7 +1,11 @@
 .container mat-button-toggle-group {
-    box-shadow:
-        0 0 2px rgba(200, 200, 200, 0.2),
-        2px 2px 4px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.2);
+}
+
+.mat-button-toggle-vertical .mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
+    padding: 0;
+    display: flex;
+    justify-content: center;
 }
 
 .mat-button-toggle {
@@ -14,25 +18,22 @@
     &:not(.mat-button-toggle-checked) .bag {
         border: none;
         box-shadow: none;
+        background: transparent;
     }
 
     &.board {
         background: var(--clr-tan);
-    }
-
-    &.on-board {
-        &:not(.mat-button-toggle-checked) .bag {
-            background: var(--clr-tan);
-        }
+        border: solid 1px var(--clr-dark-brown);
     }
 
     .bag {
-        height: 2.25em;
-        width: 2.25em;
-        margin-left: 1px;
+        position: relative;
+        height: 2.25rem;
+        width: 2.25rem;
         border: solid 1px var(--text-color);
-        border-radius: 0.4em;
+        border-radius: 0.4rem;
         box-shadow: 2px 2px 2px rgb(0 0 0 / 0.2);
+        left: -4px;
     }
 
     .mat-button-toggle-checked .bg {
@@ -40,18 +41,16 @@
     }
 
     &.cornhole {
-        border-bottom: 1px solid var(--clr-dark-brown);
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
 
         &:not(.mat-button-toggle-checked) .bag {
-            background: radial-gradient(black, rgb(100 100 100) 80%);
+            background: radial-gradient(black, rgb(100 100 100) 90%);
         }
 
         .bag {
-            position: relative;
             border-radius: 50%;
-            border: solid 0.25em white;
-            height: 2.5em;
-            width: 2.5em;
+            border: solid 0.25rem white;
 
             &::before {
                 content: '';
@@ -65,19 +64,17 @@
                 content: '';
                 position: absolute;
                 border-radius: 50%;
-                inset: -0.25em;
+                inset: -0.25rem;
                 border: solid 1px black;
             }
         }
     }
 
     &.off-board {
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px;
         background-color: green;
-
-        &:not(.mat-button-toggle-checked) .bag {
-            background: green;
-            border: none;
-        }
+        border: solid 1px green;
     }
 }
 

@@ -5,6 +5,7 @@
 
 [color-scheme] {
     --design-color: color-mix(in srgb, var(--background-color), var(--text-color) 40%);
+    --light-color: color-mix(in srgb, var(--background-color), white 80%);
 }
 
 [color-scheme='red'] {

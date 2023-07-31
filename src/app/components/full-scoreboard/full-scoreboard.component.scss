@@ -32,7 +32,7 @@
     }
 
     .team-details {
-        background: color-mix(in srgb, var(--background-color), white 80%);
+        background: var(--light-color);
     }
 }
 
@@ -98,7 +98,7 @@
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     justify-items: center;
-    background: color-mix(in srgb, var(--background-color), white 80%);
+    background: var(--light-color);
     color: var(--background-color);
 }
 
