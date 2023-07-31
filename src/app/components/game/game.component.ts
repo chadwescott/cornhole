@@ -28,6 +28,9 @@ export class GameComponent implements OnInit {
   completeGame = new EventEmitter<Game>();
 
   @Output()
+  gameSummary = new EventEmitter<Game>();
+
+  @Output()
   playersChanged = new EventEmitter();
 
   @Output()
@@ -55,6 +58,11 @@ export class GameComponent implements OnInit {
     if (this.game.rounds.length > index) {
       this.roundChanged.emit(this.game.rounds[index]);
     }
+  }
+
+  showGameSummary(): void {
+    this.gameSummary.emit(this.game);
+    this.showFullScoreboard = true;
   }
 
   gameSummaryClosed(): void {

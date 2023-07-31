@@ -47,8 +47,12 @@ export class AppComponent implements OnInit {
     this.activateLastRound(game);
   }
 
+  onGameSummary(game: Game): void {
+    this.gameService.completeRound(game);
+  }
+
   activateLastRound(game: Game): void {
-    setTimeout(() => this.activeRound = game.rounds ? game.rounds[game.rounds.length - 1] : null, 400);
+    this.activeRound = game.rounds ? game.rounds[game.rounds.length - 1] : null
   }
 
   onRoundScoreChanged(round: Round): void {
@@ -79,5 +83,6 @@ export class AppComponent implements OnInit {
 
   onResetGame(game: Game): void {
     this.game = this.gameService.resetGame(game);
+    this.activateLastRound(this.game);
   }
 }

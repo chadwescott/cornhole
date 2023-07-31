@@ -41,12 +41,61 @@
                 <div class="total-row">T</div>
                 <div class="total-row team team1">{{game.team1Score}}</div>
                 <div class="total-row team team2">{{game.team2Score}}</div>
+                <div class="total-row">Cornholes</div>
+                <div class="team1 stats">
+                    <div *ngFor="let player of game.team1.players">{{player.name}}:
+                        {{player.stats.throwResults[throwResult.Cornhole]}}
+                    </div>
+                </div>
+                <div class="team2 stats">
+                    <div *ngFor="let player of game.team2.players">{{player.name}}:
+                        {{player.stats.throwResults[throwResult.Cornhole]}}
+                    </div>
+                </div>
+                <div class="total-row">On Board</div>
+                <div class="team1 stats">
+                    <div *ngFor="let player of game.team1.players">{{player.name}}:
+                        {{player.stats.throwResults[throwResult.OnBoard]}}
+                    </div>
+                </div>
+                <div class="team2 stats">
+                    <div *ngFor="let player of game.team2.players">{{player.name}}:
+                        {{player.stats.throwResults[throwResult.OnBoard]}}
+                    </div>
+                </div>
+                <div class="total-row">Misses</div>
+                <div class="team1 stats">
+                    <div *ngFor="let player of game.team1.players">{{player.name}}:
+                        {{player.stats.throwResults[throwResult.OffBoard]}}
+                    </div>
+                </div>
+                <div class="team2 stats">
+                    <div *ngFor="let player of game.team2.players">{{player.name}}:
+                        {{player.stats.throwResults[throwResult.OffBoard]}}
+                    </div>
+                </div>
                 <div class="total-row">SR</div>
-                <div class="team1 stats">{{game.team1.players[0].stats.scoringRate | number: '1.2-2'}}</div>
-                <div class="team2 stats">{{game.team2.players[0].stats.scoringRate | number: '1.2-2'}}</div>
+                <div class="team1 stats">
+                    <div *ngFor="let player of game.team1.players">{{player.name}}:
+                        {{player.stats.scoringRate | number: '1.2-2'}}
+                    </div>
+                </div>
+                <div class="team2 stats">
+                    <div *ngFor="let player of game.team2.players">{{player.name}}:
+                        {{player.stats.scoringRate | number: '1.2-2'}}
+                    </div>
+                </div>
                 <div class="total-row">CR</div>
-                <div class="team1 stats">{{game.team1.players[0].stats.cornholeRate | percent:'1.1-1'}}</div>
-                <div class="team2 stats">{{game.team2.players[0].stats.cornholeRate | percent:'1.1-1'}}</div>
+                <div class="team1 stats">
+                    <div *ngFor="let player of game.team1.players">{{player.name}}:
+                        {{player.stats.cornholeRate | percent: '1.1-1'}}
+                    </div>
+                </div>
+                <div class="team2 stats">
+                    <div *ngFor="let player of game.team2.players">{{player.name}}:
+                        {{player.stats.cornholeRate | percent: '1.1-1'}}
+                    </div>
+                </div>
                 <div class="total-row"><i class="fas fa-fire"></i></div>
                 <div class="team1 stats">
                     <ng-container *ngIf="game.team1.scoreStreak > 0">+{{game.team1.scoreStreak}}</ng-container>

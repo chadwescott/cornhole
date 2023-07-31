@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Game } from 'src/app/models/game';
+import { ThrowResult } from 'src/app/models/throw-result';
 
 @Component({
   selector: 'ch-full-scoreboard',
@@ -21,6 +22,8 @@ export class FullScoreboardComponent implements OnInit {
 
   @Output()
   close = new EventEmitter();
+
+  throwResult = ThrowResult;
 
   constructor() { }
 

@@ -156,11 +156,13 @@ export class GameService {
   private calculateStatsForLastRound(game: Game) {
     const lastRound = game.rounds[game.rounds.length - 1];
 
-    lastRound.team1Throws.map(x => this.updateThrowResult(game.team1.players[0].stats, x.result));
-    lastRound.team2Throws.map(x => this.updateThrowResult(game.team2.players[0].stats, x.result));
+    const playerIndex = game.team1.players.length === 1 ? 0 : (game.rounds.length + 1) % 2;
 
-    this.calculateScoringRate(game.team1.players[0].stats);
-    this.calculateScoringRate(game.team2.players[0].stats);
+    lastRound.team1Throws.map(x => this.updateThrowResult(game.team1.players[playerIndex].stats, x.result));
+    lastRound.team2Throws.map(x => this.updateThrowResult(game.team2.players[playerIndex].stats, x.result));
+
+    game.team1.players.forEach((player: Player) => this.calculateScoringRate(player.stats));
+    game.team2.players.forEach((player: Player) => this.calculateScoringRate(player.stats));
 
     this.updateScoreStreak(game);
   }
@@ -219,6 +221,7 @@ export class GameService {
   resetGame(game: Game): Game {
     this.games.splice(this.games.indexOf(game), 1);
     const newGame = this.createGame(game.team1, game.team2);
+    this.resetStats(newGame);
     this.saveGames();
     return newGame;
   }
