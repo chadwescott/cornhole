@@ -1,52 +1,107 @@
 :root {
-    --team1-background-color: 0 0 255;
-    --team2-background-color: 255 0 0;
-    --team1-color: 255 255 255;
-    --team2-color: 255 255 255;
-    --clr-tan: 210, 180, 140;
+    --clr-tan: rgb(210, 180, 140);
     --clr-dark-brown: rgb(120 65 0);
 }
 
-.bag {
-    background-color: rgb(var(--background-color));
+[color-scheme] {
+    --design-color: color-mix(in srgb, var(--background-color), var(--text-color) 40%);
+}
 
-    &.vertical-stripes {
+[color-scheme='red'] {
+    --background-color: rgb(255 0 0);
+    --text-color: rgb(255 255 255);
+    --alt-color: rgb(0 0 0);
+}
+
+[color-scheme='orange'] {
+    --background-color: rgb(255 140 0);
+    --text-color: rgb(0 0 0);
+    --alt-color: rgb(255 255 255);
+}
+
+[color-scheme='yellow'] {
+    --background-color: rgb(241 201 39);
+    --text-color: rgb(0 0 0);
+    --alt-color: rgb(255 255 255);
+    --design-color: color-mix(in srgb, var(--background-color), var(--alt-color) 40%);
+}
+
+[color-scheme='blue'] {
+    --background-color: rgb(0 0 255);
+    --text-color: rgb(255 255 255);
+    --alt-color: rgb(0 0 0);
+}
+
+[color-scheme='navy'] {
+    --background-color: rgb(0 0 128);
+    --text-color: rgb(255 255 255);
+    --alt-color: rgb(0 0 0);
+}
+
+[color-scheme='green'] {
+    --background-color: rgb(0 128 0);
+    --text-color: rgb(255 255 255);
+    --alt-color: rgb(0 0 0);
+}
+
+[color-scheme='purple'] {
+    --background-color: rgb(128 0 255);
+    --text-color: rgb(255 255 255);
+    --alt-color: rgb(0 0 0);
+}
+
+[color-scheme='pink'] {
+    --background-color: rgb(255 77 166);
+    --text-color: rgb(0 0 0);
+    --alt-color: rgb(255 255 255);
+    --design-color: color-mix(in srgb, var(--background-color), var(--alt-color) 40%);
+}
+
+[color-scheme='brown'] {
+    --background-color: rgb(128 64 0);
+    --text-color: rgb(255 255 255);
+    --alt-color: rgb(0 0 0);
+}
+
+[color-scheme='black'] {
+    --background-color: rgb(0 0 0);
+    --text-color: rgb(255 255 255);
+    --alt-color: rgb(150 150 150);
+}
+
+[color-scheme='gray'] {
+    --background-color: rgb(128 128 128);
+    --text-color: rgb(0 0 0);
+    --alt-color: rgb(255 255 255);
+}
+
+[color-scheme='white'] {
+    --background-color: rgb(255 255 255);
+    --text-color: rgb(0 0 0);
+    --alt-color: rgb(255 255 255);
+}
+
+.bag {
+    background-color: var(--background-color);
+    color: var(--text-color);
+
+    &[design='vertical-stripes'] {
         background: repeating-linear-gradient(
             90deg,
-            rgb(var(--background-color)),
-            rgb(var(--background-color)) 2px,
-            color-mix(in srgb, rgb(var(--background-color)), rgb(var(--highlight-color)) 40%) 3px,
-            color-mix(in srgb, rgb(var(--background-color)), rgb(var(--highlight-color)) 40%) 4px
+            var(--background-color),
+            var(--background-color) 2px,
+            var(--design-color) 3px,
+            var(--design-color) 4px
         );
     }
 
-    &.diagonal-stripes {
+    &[design='diagonal-stripes'] {
         background: repeating-linear-gradient(
             45deg,
-            rgb(var(--background-color)),
-            rgb(var(--background-color)) 2px,
-            color-mix(in srgb, rgb(var(--background-color)), rgb(var(--highlight-color)) 40%) 3px,
-            color-mix(in srgb, rgb(var(--background-color)), rgb(var(--highlight-color)) 40%) 4px
+            var(--background-color),
+            var(--background-color) 2px,
+            var(--design-color) 3px,
+            var(--design-color) 4px
         );
     }
-}
-
-.team1-background-color {
-    --background-color: var(--team1-background-color);
-    --highlight-color: var(--team1-color);
-    --alt-color: var(--team1-alt-color);
-}
-
-.team2-background-color {
-    --background-color: var(--team2-background-color);
-    --highlight-color: var(--team2-color);
-    --alt-color: var(--team2-alt-color);
-}
-
-.team1-color {
-    color: rgb(var(--team1-color));
-}
-
-.team2-color {
-    color: rgb(var(--team2-color));
 }

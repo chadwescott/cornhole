@@ -16,15 +16,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-    }
-
-    .team1 {
-        background-color: rgb(var(--team1-background-color));
-        color: rgb(var(--team1-color));
-    }
-
-    .team2 {
-        background-color: rgb(var(--team2-background-color));
-        color: rgb(var(--team2-color));
+        background-color: var(--background-color);
+        color: var(--text-color);
     }
 }

@@ -1,21 +1,3 @@
-@import '../../../assets/scss/colors.scss';
-
-.team1 {
-    .mat-button-toggle-checked {
-        color: rgb(var(--team1-background-color));
-        --background-color: var(--team1-background-color);
-        --highlight-color: var(--team1-color);
-    }
-}
-
-.team2 {
-    .mat-button-toggle-checked {
-        color: rgb(var(--team2-background-color));
-        --background-color: var(--team2-background-color);
-        --highlight-color: var(--team2-color);
-    }
-}
-
 .container mat-button-toggle-group {
     box-shadow:
         0 0 2px rgba(200, 200, 200, 0.2),
@@ -29,13 +11,18 @@
     align-items: center;
     justify-content: center;
 
+    &:not(.mat-button-toggle-checked) .bag {
+        border: none;
+        box-shadow: none;
+    }
+
     &.board {
-        background-color: rgb(210, 180, 140);
+        background: var(--clr-tan);
     }
 
     &.on-board {
-        &:not(.mat-button-toggle-checked) {
-            --background-color: var(--tan);
+        &:not(.mat-button-toggle-checked) .bag {
+            background: var(--clr-tan);
         }
     }
 
@@ -43,15 +30,20 @@
         height: 2.25em;
         width: 2.25em;
         margin-left: 1px;
-        border: solid 1px rgb(var(--highlight-color));
+        border: solid 1px var(--text-color);
         border-radius: 0.4em;
+        box-shadow: 2px 2px 2px rgb(0 0 0 / 0.2);
+    }
+
+    .mat-button-toggle-checked .bg {
+        border: solid 1px var(--text-color);
     }
 
     &.cornhole {
         border-bottom: 1px solid var(--clr-dark-brown);
-        &:not(.mat-button-toggle-checked) {
-            --background-color: 0, 0, 0;
-            --highlight-color: 0, 0, 0;
+
+        &:not(.mat-button-toggle-checked) .bag {
+            background: radial-gradient(black, rgb(100 100 100) 80%);
         }
 
         .bag {
@@ -81,6 +73,11 @@
 
     &.off-board {
         background-color: green;
+
+        &:not(.mat-button-toggle-checked) .bag {
+            background: green;
+            border: none;
+        }
     }
 }
 

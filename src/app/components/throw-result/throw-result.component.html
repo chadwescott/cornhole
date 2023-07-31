@@ -1,19 +1,16 @@
-<div class="container" [class.team1]="teamNumber === 1" [class.team2]="teamNumber === 2">
+<div class="container" [attr.color-scheme]="teamColor.colorScheme">
     <mat-button-toggle-group name="throwResult" vertical="true">
         <mat-button-toggle class="board cornhole" [value]="throwResult.Cornhole" [disabled]="disabled"
             [checked]="throw?.result === throwResult.Cornhole" (change)="onThrowResult($event)">
-            <div class="bag" [class.vertical-stripes]="teamColor.design === designOptions.VerticalStripes"
-                [class.diagonal-stripes]="teamColor.design === designOptions.DiagonalStripes"></div>
+            <div class="bag" [attr.design]="teamColor.design"></div>
         </mat-button-toggle>
         <mat-button-toggle class="board on-board" [value]="throwResult.OnBoard" [disabled]="disabled"
             [checked]="throw?.result === throwResult.OnBoard" (change)="onThrowResult($event)">
-            <div class="bag" [class.vertical-stripes]="teamColor.design === designOptions.VerticalStripes"
-                [class.diagonal-stripes]="teamColor.design === designOptions.DiagonalStripes"></div>
+            <div class="bag" [attr.design]="teamColor.design"></div>
         </mat-button-toggle>
         <mat-button-toggle class="off-board" [value]="throwResult.OffBoard" [disabled]="disabled"
             [checked]="throw?.result === throwResult.OffBoard" (change)="onThrowResult($event)">
-            <div class="bag" [class.vertical-stripes]="teamColor.design === designOptions.VerticalStripes"
-                [class.diagonal-stripes]="teamColor.design === designOptions.DiagonalStripes"></div>
+            <div class="bag" [attr.design]="teamColor.design"></div>
         </mat-button-toggle>
     </mat-button-toggle-group>
 </div>

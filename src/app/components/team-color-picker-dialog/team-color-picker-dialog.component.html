@@ -3,11 +3,7 @@
     </ng-container>
     <ng-container content>
         <div class="container">
-            <div class="example bag"
-                [style]="'--background-color: ' + teamColor.bagColor.backgroundColor + ';--highlight-color: ' + teamColor.bagColor.textColor + ';'"
-                [class.solid]="teamColor.design === designOptions.Solid"
-                [class.vertical-stripes]="teamColor.design === designOptions.VerticalStripes"
-                [class.diagonal-stripes]="teamColor.design === designOptions.DiagonalStripes">
+            <div class="example bag" [attr.color-scheme]="teamColor.colorScheme" [attr.design]="teamColor.design">
             </div>
             <h3>Pattern</h3>
             <mat-radio-group (change)="onDesignChanged($event)">
@@ -20,10 +16,8 @@
             </mat-radio-group>
             <h3>Color</h3>
             <div class="color-options">
-                <div *ngFor="let color of teamColors"
-                    [style]="'--background-color: ' + color.bagColor.backgroundColor + ';--highlight-color: ' + color.bagColor.textColor + ';'"
-                    class="color-option bag" [class.selected]="teamColor.name === color.name"
-                    (click)="selectBagColor(color)">
+                <div *ngFor="let color of teamColors" [attr.color-scheme]="color.colorScheme" class="color-option bag"
+                    [class.selected]="teamColor.colorScheme === color.colorScheme" (click)="selectColorScheme(color)">
                 </div>
             </div>
             <div class="button-bar">

@@ -30,9 +30,8 @@ export class TeamColorPickerDialogComponent {
     this.teamColor.design = change.value;
   }
 
-  selectBagColor(color: TeamColor): void {
-    this.teamColor.name = color.name
-    this.teamColor.bagColor = color.bagColor;
+  selectColorScheme(color: TeamColor): void {
+    this.teamColor.colorScheme = color.colorScheme
   }
 
   onOk(): void {
