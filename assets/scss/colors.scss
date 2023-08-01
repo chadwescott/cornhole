@@ -1,6 +1,8 @@
 :root {
-    --clr-tan: rgb(210, 180, 140);
-    --clr-dark-brown: rgb(120 65 0);
+    --cc-tan: 210, 180, 140;
+    --clr-tan: rgb(var(--cc-tan));
+    --cc-dark-brown: 120 65 0;
+    --clr-dark-brown: rgb(var(--cc-dark-brown));
 }
 
 [color-scheme] {
