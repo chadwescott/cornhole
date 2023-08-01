@@ -1,6 +1,8 @@
 :root {
-    --clr-tan: rgb(210, 180, 140);
-    --clr-dark-brown: rgb(120 65 0);
+    --cc-tan: 210, 180, 140;
+    --clr-tan: rgb(var(--cc-tan));
+    --cc-dark-brown: 120 65 0;
+    --clr-dark-brown: rgb(var(--cc-dark-brown));
 }
 
 [color-scheme] {
@@ -71,7 +73,7 @@
 }
 
 [color-scheme='gray'] {
-    --background-color: rgb(128 128 128);
+    --background-color: rgb(180 180 180);
     --text-color: rgb(0 0 0);
     --alt-color: rgb(255 255 255);
 }

@@ -43,80 +43,15 @@
                             </div>
                         </div>
                     </ng-container>
-                </div>
-            </div>
-            <div class="table">
-                <div class="total-row">T</div>
-                <div class="total-row team team1" [attr.color-scheme]="game.team1.teamColor.colorScheme">
-                    {{game.team1Score}}</div>
-                <div class="total-row team team2" [attr.color-scheme]="game.team2.teamColor.colorScheme">
-                    {{game.team2Score}}</div>
-                <div class="total-row">Cornholes</div>
-                <div class="team1 stats team-details" [attr.color-scheme]="game.team1.teamColor.colorScheme">
-                    <div *ngFor="let player of game.team1.players">{{player.name}}:
-                        {{player.stats.throwResults[throwResult.Cornhole]}}
-                    </div>
-                </div>
-                <div class="team2 stats team-details" [attr.color-scheme]="game.team2.teamColor.colorScheme">
-                    <div *ngFor="let player of game.team2.players">{{player.name}}:
-                        {{player.stats.throwResults[throwResult.Cornhole]}}
-                    </div>
-                </div>
-                <div class="total-row">On Board</div>
-                <div class="team1 stats team-details" [attr.color-scheme]="game.team1.teamColor.colorScheme">
-                    <div *ngFor="let player of game.team1.players">{{player.name}}:
-                        {{player.stats.throwResults[throwResult.OnBoard]}}
-                    </div>
-                </div>
-                <div class="team2 stats team-details" [attr.color-scheme]="game.team2.teamColor.colorScheme">
-                    <div *ngFor="let player of game.team2.players">{{player.name}}:
-                        {{player.stats.throwResults[throwResult.OnBoard]}}
-                    </div>
-                </div>
-                <div class="total-row">Misses</div>
-                <div class="team1 stats team-details" [attr.color-scheme]="game.team1.teamColor.colorScheme">
-                    <div *ngFor="let player of game.team1.players">{{player.name}}:
-                        {{player.stats.throwResults[throwResult.OffBoard]}}
-                    </div>
-                </div>
-                <div class="team2 stats team-details" [attr.color-scheme]="game.team2.teamColor.colorScheme">
-                    <div *ngFor="let player of game.team2.players">{{player.name}}:
-                        {{player.stats.throwResults[throwResult.OffBoard]}}
-                    </div>
-                </div>
-                <div class="total-row">SR</div>
-                <div class="team1 stats team-details" [attr.color-scheme]="game.team1.teamColor.colorScheme">
-                    <div *ngFor="let player of game.team1.players">{{player.name}}:
-                        {{player.stats.scoringRate | number: '1.2-2'}}
-                    </div>
-                </div>
-                <div class="team2 stats team-details" [attr.color-scheme]="game.team2.teamColor.colorScheme">
-                    <div *ngFor="let player of game.team2.players">{{player.name}}:
-                        {{player.stats.scoringRate | number: '1.2-2'}}
-                    </div>
-                </div>
-                <div class="total-row">CR</div>
-                <div class="team1 stats team-details" [attr.color-scheme]="game.team1.teamColor.colorScheme">
-                    <div *ngFor="let player of game.team1.players">{{player.name}}:
-                        {{player.stats.cornholeRate | percent: '1.1-1'}}
-                    </div>
-                </div>
-                <div class="team2 stats team-details" [attr.color-scheme]="game.team2.teamColor.colorScheme">
-                    <div *ngFor="let player of game.team2.players">{{player.name}}:
-                        {{player.stats.cornholeRate | percent: '1.1-1'}}
-                    </div>
-                </div>
-                <div class="total-row"><i class="fas fa-fire"></i></div>
-                <div class="team1 stats team-details" [attr.color-scheme]="game.team1.teamColor.colorScheme">
-                    <ng-container *ngIf="game.team1.scoreStreak > 0">+{{game.team1.scoreStreak}}</ng-container>
-                    <ng-container *ngIf="game.team1.scoreStreak === 0">N/A</ng-container>
-                </div>
-                <div class="team2 stats team-details" [attr.color-scheme]="game.team2.teamColor.colorScheme">
-                    <ng-container *ngIf="game.team2.scoreStreak > 0">+{{game.team2.scoreStreak}}</ng-container>
-                    <ng-container *ngIf="game.team2.scoreStreak === 0">N/A</ng-container>
+                    <div class="total-row">T</div>
+                    <div class="total-row team team1" [attr.color-scheme]="game.team1.teamColor.colorScheme">
+                        {{game.team1Score}}</div>
+                    <div class="total-row team team2" [attr.color-scheme]="game.team2.teamColor.colorScheme">
+                        {{game.team2Score}}</div>
                 </div>
             </div>
         </div>
+        <ch-game-stats [game]="game"></ch-game-stats>
         <div class="button-bar">
             <ng-container *ngIf="!game.complete">
                 <button type="button" mat-raised-button color="primary" (click)="resetStats.emit(game)">Reset

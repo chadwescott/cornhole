@@ -10,15 +10,14 @@
     align-items: center;
 
     .header {
-        font-weight: bold;
         font-size: 1.2em;
         position: sticky;
         top: 0px;
         background: white;
-        padding: 0.5em 0;
+        padding: 0.25rem 0;
 
         &.team {
-            padding: 0.5em;
+            padding: 0.25rem;
         }
     }
 
@@ -89,12 +88,11 @@
 
 .score {
     color: black;
-    font-weight: bold;
 }
 
 .results {
-    padding: 0.25em;
-    gap: 0.5em;
+    padding: 0.25rem;
+    gap: 0.5rem;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     justify-items: center;
@@ -106,7 +104,7 @@
     font-weight: bold;
 
     &.team {
-        padding: 0.5em;
+        padding: 0.25rem;
         background: var(--background-color);
         color: var(--text-color);
     }
@@ -118,31 +116,9 @@
 
 .stats {
     font-weight: bold;
-    padding: 0.5em;
+    padding: 0.25rem;
 
     &.team1 {
         text-align: right;
-    }
-}
-
-.fa-fire {
-    position: relative;
-    border-radius: 50%;
-    padding: 2px 3px;
-    border: solid 1px yellow;
-    background: linear-gradient(yellow, orange);
-    color: darkorange;
-
-    &::before {
-        -webkit-text-stroke-width: 1px;
-        -webkit-text-stroke-color: red;
-    }
-
-    &::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        border-radius: 50%;
-        border: solid 1px red;
     }
 }

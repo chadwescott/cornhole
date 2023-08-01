@@ -143,7 +143,9 @@ export class GameService {
 
   completeRound(game: Game): void {
     this.calculateStatsForLastRound(game);
-    this.addRound(game);
+    if (!game.complete) {
+      this.addRound(game);
+    }
   }
 
   private calculateStatsForLastRound(game: Game) {

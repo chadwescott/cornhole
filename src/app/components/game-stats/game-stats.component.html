@@ -1,0 +1,45 @@
+<table>
+    <caption>Player Statistics</caption>
+    <thead>
+        <tr>
+            <th>&nbsp;</th>
+            <th colspan="3">Throw Results</th>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+        </tr>
+        <tr>
+            <th>Player</th>
+            <th>Cornhole</th>
+            <th>On Board</th>
+            <th>Miss</th>
+            <th>Total</th>
+            <th>CR</th>
+            <th>SR</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let player of game.team1.players" [attr.color-scheme]="game.team1.teamColor.colorScheme"
+            class="bag">
+            <ng-container [ngTemplateOutlet]="statRow" [ngTemplateOutletContext]="{player: player}"></ng-container>
+        </tr>
+        <tr *ngFor="let player of game.team2.players" [attr.color-scheme]="game.team2.teamColor.colorScheme"
+            class="bag">
+            <ng-container [ngTemplateOutlet]="statRow" [ngTemplateOutletContext]="{player: player}"></ng-container>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="6">&nbsp;</td>
+        </tr>
+    </tfoot>
+</table>
+
+<ng-template #statRow let-player="player">
+    <td>{{player.name}}</td>
+    <td class="stat">{{player.stats.throwResults[throwResult.Cornhole]}}</td>
+    <td class="stat">{{player.stats.throwResults[throwResult.OnBoard]}}</td>
+    <td class="stat">{{player.stats.throwResults[throwResult.OffBoard]}}</td>
+    <td class="stat">{{player.stats.totalThrows}}</td>
+    <td class="stat">{{player.stats.cornholeRate | percent: '1.1-1'}}</td>
+    <td class="stat">{{player.stats.scoringRate | number: '1.2-2'}}</td>
+</ng-template>

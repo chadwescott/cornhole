@@ -16,6 +16,7 @@ import { CardComponent } from './components/card/card.component';
 import { FullScoreboardComponent } from './components/full-scoreboard/full-scoreboard.component';
 import { GameOptionsComponent } from './components/game-options/game-options.component';
 import { GameSetupComponent } from './components/game-setup/game-setup.component';
+import { GameStatsComponent } from './components/game-stats/game-stats.component';
 import { GameComponent } from './components/game/game.component';
 import { PlayerSelectorComponent } from './components/player-selector/player-selector.component';
 import { PlayerStatsComponent } from './components/player-stats/player-stats.component';
@@ -36,6 +37,7 @@ import { ThrowResultComponent } from './components/throw-result/throw-result.com
     FullScoreboardComponent,
     GameComponent,
     GameOptionsComponent,
+    GameStatsComponent,
     GameSetupComponent,
     PlayerSelectorComponent,
     PlayerStatsComponent,
