@@ -20,10 +20,6 @@ export class TeamColorPickerDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<TeamColorPickerDialogComponent>) {
     this.teamColor = data.teamColor;
-    console.log(data.teamColor);
-    console.log(JSON.stringify(data.teamColor));
-    console.log(data.teamColor.design);
-    console.log(this.teamColor);
   }
 
   onDesignChanged(change: MatRadioChange): void {

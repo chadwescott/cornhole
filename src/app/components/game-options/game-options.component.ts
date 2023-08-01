@@ -64,7 +64,6 @@ export class GameOptionsComponent implements OnInit {
     dialogRef.afterClosed().subscribe((res: TeamColor) => {
       if (res) {
         team.teamColor = res;
-        console.log(team);
         this.teamColorChanged.emit(team);
       }
     });

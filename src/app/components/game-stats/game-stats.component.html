@@ -20,11 +20,21 @@
     <tbody>
         <tr *ngFor="let player of game.team1.players" [attr.color-scheme]="game.team1.teamColor.colorScheme"
             class="bag">
-            <ng-container [ngTemplateOutlet]="statRow" [ngTemplateOutletContext]="{player: player}"></ng-container>
+            <ng-container [ngTemplateOutlet]="statRow"
+                [ngTemplateOutletContext]="{name: player.name, stats: player.stats}"></ng-container>
+        </tr>
+        <tr *ngIf="game.team1.players.length > 1" [attr.color-scheme]="game.team1.teamColor.colorScheme" class="bag">
+            <ng-container [ngTemplateOutlet]="statRow"
+                [ngTemplateOutletContext]="{name: 'Total', stats: game.team1.stats}"></ng-container>
         </tr>
         <tr *ngFor="let player of game.team2.players" [attr.color-scheme]="game.team2.teamColor.colorScheme"
             class="bag">
-            <ng-container [ngTemplateOutlet]="statRow" [ngTemplateOutletContext]="{player: player}"></ng-container>
+            <ng-container [ngTemplateOutlet]="statRow"
+                [ngTemplateOutletContext]="{name: player.name, stats: player.stats}"></ng-container>
+        </tr>
+        <tr *ngIf="game.team2.players.length > 1" [attr.color-scheme]="game.team2.teamColor.colorScheme" class="bag">
+            <ng-container [ngTemplateOutlet]="statRow"
+                [ngTemplateOutletContext]="{name: 'Total', stats: game.team2.stats}"></ng-container>
         </tr>
     </tbody>
     <tfoot>
@@ -34,12 +44,12 @@
     </tfoot>
 </table>
 
-<ng-template #statRow let-player="player">
-    <td>{{player.name}}</td>
-    <td class="stat">{{player.stats.throwResults[throwResult.Cornhole]}}</td>
-    <td class="stat">{{player.stats.throwResults[throwResult.OnBoard]}}</td>
-    <td class="stat">{{player.stats.throwResults[throwResult.OffBoard]}}</td>
-    <td class="stat">{{player.stats.totalThrows}}</td>
-    <td class="stat">{{player.stats.cornholeRate | percent: '1.1-1'}}</td>
-    <td class="stat">{{player.stats.scoringRate | number: '1.2-2'}}</td>
+<ng-template #statRow let-stats="stats" let-name="name">
+    <td>{{name}}</td>
+    <td class="stat">{{stats?.throwResults[throwResult.Cornhole]}}</td>
+    <td class="stat">{{stats?.throwResults[throwResult.OnBoard]}}</td>
+    <td class="stat">{{stats?.throwResults[throwResult.OffBoard]}}</td>
+    <td class="stat">{{stats?.totalThrows}}</td>
+    <td class="stat">{{stats?.cornholeRate | percent: '1.1-1'}}</td>
+    <td class="stat">{{stats?.scoringRate | number: '1.2-2'}}</td>
 </ng-template>

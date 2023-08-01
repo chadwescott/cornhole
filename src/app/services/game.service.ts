@@ -158,6 +158,8 @@ export class GameService {
 
     game.team1.players.forEach((player: Player) => this.calculateScoringRate(player.stats));
     game.team2.players.forEach((player: Player) => this.calculateScoringRate(player.stats));
+    this.calculateTeamStats(game.team1);
+    this.calculateTeamStats(game.team2);
 
     this.updateScoreStreak(game);
   }
@@ -169,9 +171,20 @@ export class GameService {
   }
 
   private calculateScoringRate(stats: PlayerStats): void {
-    const totalPoints = stats.throwResults[ThrowResult.Cornhole] * GameConstants.POINTS[ThrowResult.Cornhole]
+    stats.totalPoints = stats.throwResults[ThrowResult.Cornhole] * GameConstants.POINTS[ThrowResult.Cornhole]
       + stats.throwResults[ThrowResult.OnBoard] * GameConstants.POINTS[ThrowResult.OnBoard];
-    stats.scoringRate = totalPoints / stats.totalThrows * 4;
+    stats.scoringRate = stats.totalPoints / stats.totalThrows * 4;
+  }
+
+  private calculateTeamStats(team: Team): void {
+    if (team.stats == null) { team.stats = new PlayerStats(); }
+    team.stats.throwResults[ThrowResult.Cornhole] = team.players.map(p => p.stats.throwResults[ThrowResult.Cornhole]).reduce((previous, current) => previous + current);
+    team.stats.throwResults[ThrowResult.OnBoard] = team.players.map(p => p.stats.throwResults[ThrowResult.OnBoard]).reduce((previous, current) => previous + current);
+    team.stats.throwResults[ThrowResult.OffBoard] = team.players.map(p => p.stats.throwResults[ThrowResult.OffBoard]).reduce((previous, current) => previous + current);
+    team.stats.totalThrows = team.players.map(p => p.stats.totalThrows).reduce((previous, current) => previous + current);
+    team.stats.totalPoints = team.players.map(p => p.stats.totalPoints).reduce((previous, current) => previous + current);
+    team.stats.cornholeRate = team.stats.throwResults[ThrowResult.Cornhole] / team.stats.totalThrows;
+    team.stats.scoringRate = team.stats.totalPoints / team.stats.totalThrows * 4;
   }
 
   private updateScoreStreak(game: Game): void {
@@ -205,6 +218,8 @@ export class GameService {
   resetStats(game: Game): void {
     game.team1.players.map(x => x.stats = new PlayerStats());
     game.team2.players.map(x => x.stats = new PlayerStats());
+    game.team1.stats = new PlayerStats();
+    game.team2.stats = new PlayerStats();
   }
 
   resetStreak(game: Game): void {
