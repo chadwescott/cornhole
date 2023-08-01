@@ -57,8 +57,8 @@ export class GameOptionsComponent implements OnInit {
 
   pickTeamColor(team: Team): void {
     const dialogRef = this.dialog.open(TeamColorPickerDialogComponent, {
-      height: '30rem',
-      width: '20rem',
+      // width: '30rem',
+      disableClose: true,
       data: { teamColor: team.teamColor }
     });
     dialogRef.afterClosed().subscribe((res: TeamColor) => {

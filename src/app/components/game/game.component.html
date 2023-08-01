@@ -1,13 +1,13 @@
-<div *ngIf="showOptions" class="overlay" (click)="showOptions = false;">
+<div *ngIf="showOptions" class="overlay">
     <ch-game-options [game]="game" (click)="$event.stopPropagation()" (teamColorChanged)="teamColorChanged.emit($event)"
         (resetStats)="resetStats.emit($event)" (resetStreak)="resetStreak.emit(game)" (resetGame)="resetGame.emit(game)"
         (playersChanged)="playersChanged.emit()" (closeOptions)="showOptions = false">
     </ch-game-options>
 </div>
-<div *ngIf="showPlayerStats" class="overlay" (click)="showPlayerStats = false;">
+<div *ngIf="showPlayerStats" class="overlay">
     <ch-player-stats></ch-player-stats>
 </div>
-<div *ngIf="showFullScoreboard" class="overlay" (click)="showFullScoreboard = false;">
+<div *ngIf="showFullScoreboard" class="overlay">
     <ch-full-scoreboard [game]="game" (click)="$event.stopPropagation()" (resetStats)="resetStats.emit($event)"
         (resetStreak)="resetStreak.emit(game)" (resetGame)="resetGame.emit(game)"
         (close)="gameSummaryClosed()"></ch-full-scoreboard>

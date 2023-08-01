@@ -123,5 +123,19 @@ button {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.25em;
+    gap: 0.25rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+
+    .fa,
+    .fas {
+        border-radius: 50%;
+        margin: auto;
+        padding-top: 25%;
+        height: 2.5rem;
+        width: 2.5rem;
+        border: solid 0.175rem black;
+        outline: solid 0.175rem rgb(150 150 150);
+        background: white;
+    }
 }

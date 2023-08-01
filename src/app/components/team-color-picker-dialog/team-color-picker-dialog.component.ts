@@ -19,7 +19,7 @@ export class TeamColorPickerDialogComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<TeamColorPickerDialogComponent>) {
-    this.teamColor = data.teamColor;
+    this.teamColor = new TeamColor(data.teamColor.colorScheme, data.teamColor.design);
   }
 
   onDesignChanged(change: MatRadioChange): void {
