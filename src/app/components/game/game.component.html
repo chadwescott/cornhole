@@ -14,9 +14,20 @@
 </div>
 <div>
     <ch-scoreboard [game]="game"></ch-scoreboard>
-    <ch-round [round]="activeRound" [team1Color]="game.team1.teamColor" [team2Color]="game.team2.teamColor"
-        [disabled]="activeRound.complete && activeRound != game.rounds[game.rounds.length -1]"
-        (roundScoreChanged)="roundScoreChanged.emit($event)"></ch-round>
+    <div class="container">
+        <div></div>
+        <ch-round [round]="activeRound" [team1Color]="game.team1.teamColor" [team2Color]="game.team2.teamColor"
+            [disabled]="activeRound.complete && activeRound != game.rounds[game.rounds.length -1]"
+            (roundScoreChanged)="roundScoreChanged.emit($event)"></ch-round>
+        <div class="button-bar vertical">
+            <div class="button button-icon" (click)="showOptions = true">
+                <i class="fas fa-cog" [class.fa-spin]="showOptions"></i>
+            </div>
+            <div class="button button-icon" (click)="showFullScoreboard = true">
+                <i class="fas fa-clipboard"></i>
+            </div>
+        </div>
+    </div>
     <div class="complete-round">
         <ng-container *ngIf="game.rounds[game.rounds.length - 1].complete">
             <button *ngIf="!game.complete" mat-raised-button color="primary" (click)="completeRound.emit(game)">Complete
@@ -24,13 +35,5 @@
             <button *ngIf="game.complete" mat-raised-button color="primary" (click)="showGameSummary()">Game
                 Summary</button>
         </ng-container>
-    </div>
-    <div class="button-bar">
-        <button type="button" class="button-icon" mat-icon-button (click)="showFullScoreboard = true">
-            <i class="fas fa-clipboard"></i>
-        </button>
-        <button type="button" class="button-icon" mat-icon-button (click)="showOptions = true">
-            <i class="fas fa-cog" [class.fa-spin]="showOptions"></i>
-        </button>
     </div>
 </div>

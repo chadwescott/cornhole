@@ -30,7 +30,8 @@ body {
     padding: 0;
     margin: 0;
     font-size: 0.8rem;
-    background-color: #d8d9e9;
+    background: linear-gradient(135deg, #ddd, #eee, #ddd);
+    min-height: 100vh;
 
     -webkit-user-select: none; /* Chrome all / Safari all */
     -moz-user-select: none; /* Firefox all */
@@ -52,10 +53,6 @@ body {
     font-variant: normal;
     text-rendering: auto;
     -webkit-font-smoothing: antialiased;
-}
-
-.mat-icon-button i {
-    font-size: 1.5em;
 }
 
 .card {
@@ -93,18 +90,14 @@ body {
     background: rgba(0, 0, 0, 0.4);
 }
 
-button {
-    i {
-        font-size: 1.5rem;
-    }
-}
-
 .mat-mdc-icon-button.button--close {
     color: #800000;
 }
 
 .fa-cog {
     color: dimgrey;
+    -webkit-text-stroke-color: black;
+    -webkit-text-stroke-width: 1px;
 }
 
 .fa-clipboard {
@@ -123,19 +116,32 @@ button {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.25rem;
-    margin-left: 1rem;
-    margin-right: 1rem;
+    gap: 0.75rem;
+
+    &.vertical {
+        flex-direction: column;
+        margin-top: 0.25rem;
+    }
 
     .fa,
     .fas {
         border-radius: 50%;
-        margin: auto;
-        padding-top: 25%;
+        padding-top: 15%;
+        text-align: center;
         height: 2.5rem;
         width: 2.5rem;
-        border: solid 0.175rem black;
-        outline: solid 0.175rem rgb(150 150 150);
-        background: white;
+        border: solid 0.15rem rgb(125 125 125);
+        outline: solid 0.175rem rgb(175 175 175);
+        background: rgb(255 255 255);
+    }
+}
+
+.button {
+    cursor: hand;
+
+    &.button-icon {
+        i {
+            font-size: 1.5rem;
+        }
     }
 }

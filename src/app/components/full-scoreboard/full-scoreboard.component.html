@@ -52,18 +52,5 @@
             </div>
         </div>
         <ch-game-stats [game]="game"></ch-game-stats>
-        <div class="button-bar">
-            <ng-container *ngIf="!game.complete">
-                <button type="button" mat-raised-button color="primary" (click)="resetStats.emit(game)">Reset
-                    Stats</button>
-                <button type="button" mat-raised-button color="primary" (click)="resetStreak.emit(game)">Reset
-                    Streak</button>
-                <button type="button" mat-raised-button color="primary" (click)="resetGame.emit(game)">Reset
-                    Game</button>
-            </ng-container>
-            <ng-container *ngIf="game.complete">
-                <button type="button" mat-raised-button color="primary" (click)="close.emit()">Finish Game</button>
-            </ng-container>
-        </div>
     </ng-container>
 </ch-card>

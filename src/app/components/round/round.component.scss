@@ -1,36 +1,19 @@
-$min-width: 600px;
-
 .container {
-    margin-top: 1em;
-    display: grid;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
-    grid-template-areas: 'team1Throws' 'team1Score' 'team2Score' 'team2Throws';
+    align-items: center;
+    width: min-content;
 
-    @media (min-width: $min-width) {
-        gap: 3em;
-        row-gap: 0.5em;
-        grid-template-areas: 'team1Throws team2Throws' 'team1Score team2Score';
-    }
+    .score {
+        width: 100%;
 
-    .team1Throws {
-        grid-area: team1Throws;
-        background: var(--light-color);
-    }
+        &:first-of-type {
+            margin-top: 1rem;
+        }
 
-    .team2Throws {
-        grid-area: team2Throws;
-    }
-
-    .team1Score {
-        grid-area: team1Score;
-    }
-
-    .team2Score {
-        grid-area: team2Score;
-        margin-bottom: 1em;
-
-        @media (min-width: $min-width) {
-            margin-bottom: 0;
+        &:last-of-type {
+            margin-bottom: 1rem;
         }
     }
 }
