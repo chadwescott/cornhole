@@ -15,10 +15,12 @@
 
         <div class="team-options">
             <div>
-                <mat-form-field *ngFor="let player of game.team1.players; let i = index">
-                    <mat-label>Player {{i + 1}}</mat-label>
-                    <input matInput [(ngModel)]="player.name" (ngModelChange)="playersChanged.emit()">
-                </mat-form-field>
+                <div *ngFor="let player of game.team1.players; let i = index">
+                    <mat-form-field>
+                        <mat-label>Player {{i + 1}}</mat-label>
+                        <input matInput [(ngModel)]="player.name" (ngModelChange)="playersChanged.emit()">
+                    </mat-form-field>
+                </div>
             </div>
             <div class="bag" [attr.color-scheme]="game.team1.teamColor.colorScheme"
                 [attr.design]="game.team1.teamColor.design">
@@ -29,10 +31,12 @@
         </div>
         <div class="team-options">
             <div>
-                <mat-form-field *ngFor="let player of game.team2.players; let i = index">
-                    <mat-label>Player {{i + 1 + game.team1.players.length}}</mat-label>
-                    <input matInput [(ngModel)]="player.name" (ngModelChange)="playersChanged.emit()">
-                </mat-form-field>
+                <div *ngFor="let player of game.team1.players; let i = index">
+                    <mat-form-field>
+                        <mat-label>Player {{i + 1 + game.team1.players.length}}</mat-label>
+                        <input matInput [(ngModel)]="player.name" (ngModelChange)="playersChanged.emit()">
+                    </mat-form-field>
+                </div>
             </div>
             <div class="bag" [attr.color-scheme]="game.team2.teamColor.colorScheme"
                 [attr.design]="game.team2.teamColor.design">

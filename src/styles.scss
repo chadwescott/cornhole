@@ -30,7 +30,7 @@ body {
     padding: 0;
     margin: 0;
     font-size: 0.8rem;
-    background: linear-gradient(135deg, #ddd, #eee, #ddd);
+    background: linear-gradient(135deg, #ffd, #ddb, #ffd);
     min-height: 100vh;
 
     -webkit-user-select: none; /* Chrome all / Safari all */
@@ -130,9 +130,9 @@ body {
         text-align: center;
         height: 2.5rem;
         width: 2.5rem;
-        border: solid 0.15rem rgb(125 125 125);
-        outline: solid 0.175rem rgb(175 175 175);
-        background: rgb(255 255 255);
+        background: rgb(255 255 255 / 0.15);
+        outline: solid 0.1825rem rgb(0 0 0 / 0.1);
+        border: solid 0.125rem rgb(255 255 255 / 0.2);
     }
 }
 
