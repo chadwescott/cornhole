@@ -1,8 +1,10 @@
 :root {
     --cc-tan: 215, 190, 150;
     --clr-tan: rgb(var(--cc-tan));
+    --clr-light-tan: color-mix(in srgb, var(--clr-tan), white 60%);
     --cc-dark-brown: 120 65 0;
     --clr-dark-brown: rgb(var(--cc-dark-brown));
+    --body-background: linear-gradient(135deg, #eef, #cde, #eef);
 }
 
 [color-scheme] {
