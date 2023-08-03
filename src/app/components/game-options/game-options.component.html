@@ -31,7 +31,7 @@
         </div>
         <div class="team-options">
             <div>
-                <div *ngFor="let player of game.team1.players; let i = index">
+                <div *ngFor="let player of game.team2.players; let i = index">
                     <mat-form-field>
                         <mat-label>Player {{i + 1 + game.team1.players.length}}</mat-label>
                         <input matInput [(ngModel)]="player.name" (ngModelChange)="playersChanged.emit()">

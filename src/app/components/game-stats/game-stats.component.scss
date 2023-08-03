@@ -1,24 +1,12 @@
 table {
-    background: var(--clr-tan);
-    border-radius: 0.25rem;
-    border: solid 1px var(--clr-dark-brown);
-    box-shadow: 2px 2px 4px 2px rgb(var(--cc-dark-brown) / 0.2);
-
-    caption {
-        font-weight: bold;
-    }
-
-    td {
-        padding: 0.25rem;
-
-        &.stat {
-            text-align: right;
-        }
-    }
-
+    thead,
     tbody {
         td {
-            border: solid 1px black;
+            padding: 0.25rem;
+
+            &.stat {
+                text-align: right;
+            }
         }
     }
 }

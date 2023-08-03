@@ -1,56 +1,70 @@
-<ch-card title="Scoreboard">
+<ch-card title="Game Summary">
     <ng-container header>
         <button type="button" mat-icon-button class="button--close" (click)="close.emit()">
             <i class="fas fa-times"></i>
         </button>
     </ng-container>
     <ng-container content>
-        <div>
-            <div class="container">
-                <div class="table">
-                    <div class="header">R</div>
-                    <div class="header team team-header" [attr.color-scheme]="game.team1.teamColor.colorScheme">
-                        <div *ngFor="let player of game.team1.players">{{player.name}}</div>
-                    </div>
-                    <div class="header team team-header" team-header
-                        [attr.color-scheme]="game.team2.teamColor.colorScheme">
-                        <div *ngFor="let player of game.team2.players">{{player.name}}</div>
-                    </div>
-                    <ng-container *ngFor="let round of game.rounds">
-                        <div class="round">
-                            <div>{{(game.rounds.indexOf(round) + 1)}}</div>
-                            <div *ngIf="round.team1NetScore > 0" class="gain"
-                                [attr.color-scheme]="game.team1.teamColor.colorScheme">
-                                +{{round.team1NetScore}}</div>
-                            <div *ngIf="round.team2NetScore > 0" class="gain"
-                                [attr.color-scheme]="game.team2.teamColor.colorScheme">
-                                +{{round.team2NetScore}}</div>
-                            <div *ngIf="round.team1NetScore === 0 && round.team2NetScore === 0" class="tie">
-                                <div class="team1" [attr.color-scheme]="game.team1.teamColor.colorScheme"></div>
-                                <div class="team2" [attr.color-scheme]="game.team2.teamColor.colorScheme"></div>
-                            </div>
-                        </div>
-                        <div class="team team1 results" [attr.color-scheme]="game.team1.teamColor.colorScheme">
-                            <div *ngFor="let throw of round.team1Throws">
-                                <ch-throw-result-icon [throw]="throw"> </ch-throw-result-icon>
-                            </div>
-                            <div class="score">{{round.team1TotalScore}}</div>
-                        </div>
-                        <div class="team team2 results" [attr.color-scheme]="game.team2.teamColor.colorScheme">
-                            <div class="score">{{round.team2TotalScore}}</div>
-                            <div *ngFor="let throw of round.team2Throws">
-                                <ch-throw-result-icon [throw]="throw"> </ch-throw-result-icon>
-                            </div>
-                        </div>
-                    </ng-container>
-                    <div class="total-row">T</div>
-                    <div class="total-row team team1" [attr.color-scheme]="game.team1.teamColor.colorScheme">
-                        {{game.team1Score}}</div>
-                    <div class="total-row team team2" [attr.color-scheme]="game.team2.teamColor.colorScheme">
-                        {{game.team2Score}}</div>
-                </div>
-            </div>
-        </div>
         <ch-game-stats [game]="game"></ch-game-stats>
+        <div class="table-caption"><i class="fas fa-table-list"></i> Scoreboard</div>
+        <div class="table-container fixed-header">
+            <table>
+                <thead class="header">
+                    <tr>
+                        <th>R</th>
+                        <th class="team team-header" [attr.color-scheme]="game.team1.teamColor.colorScheme">
+                            <div *ngFor="let player of game.team1.players">{{player.name}}</div>
+                        </th>
+                        <th class="header team team-header" [attr.color-scheme]="game.team2.teamColor.colorScheme">
+                            <div *ngFor="let player of game.team2.players">{{player.name}}</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let round of game.rounds">
+                        <td>
+                            <div class="round">
+                                <div>{{(game.rounds.indexOf(round) + 1)}}</div>
+                                <div *ngIf="round.team1NetScore > 0" class="gain"
+                                    [attr.color-scheme]="game.team1.teamColor.colorScheme">
+                                    +{{round.team1NetScore}}</div>
+                                <div *ngIf="round.team2NetScore > 0" class="gain"
+                                    [attr.color-scheme]="game.team2.teamColor.colorScheme">
+                                    +{{round.team2NetScore}}</div>
+                                <div *ngIf="round.team1NetScore === 0 && round.team2NetScore === 0" class="tie">
+                                    <div class="team1" [attr.color-scheme]="game.team1.teamColor.colorScheme"></div>
+                                    <div class="team2" [attr.color-scheme]="game.team2.teamColor.colorScheme"></div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="team team1 results" [attr.color-scheme]="game.team1.teamColor.colorScheme">
+                            <div>
+                                <div *ngFor="let throw of round.team1Throws">
+                                    <ch-throw-result-icon [throw]="throw"> </ch-throw-result-icon>
+                                </div>
+                                <div class="score">{{round.team1TotalScore}}</div>
+                            </div>
+                        </td>
+                        <td class="team team2 results" [attr.color-scheme]="game.team2.teamColor.colorScheme">
+                            <div>
+                                <div class="score">{{round.team2TotalScore}}</div>
+                                <div *ngFor="let throw of round.team2Throws">
+                                    <ch-throw-result-icon [throw]="throw"> </ch-throw-result-icon>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td class="total-row">T</td>
+                        <td class="total-row team team1" [attr.color-scheme]="game.team1.teamColor.colorScheme">
+                            {{game.team1Score}}</td>
+                        <td class="total-row team team2" [attr.color-scheme]="game.team2.teamColor.colorScheme">
+                            {{game.team2Score}}</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
     </ng-container>
 </ch-card>

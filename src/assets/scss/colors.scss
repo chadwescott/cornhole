@@ -1,8 +1,10 @@
 :root {
     --cc-tan: 215, 190, 150;
     --clr-tan: rgb(var(--cc-tan));
+    --clr-light-tan: color-mix(in srgb, var(--clr-tan), white 60%);
     --cc-dark-brown: 120 65 0;
     --clr-dark-brown: rgb(var(--cc-dark-brown));
+    --body-background: linear-gradient(135deg, #eef, #cde, #eef);
 }
 
 [color-scheme] {
@@ -82,11 +84,17 @@
     --background-color: rgb(255 255 255);
     --text-color: rgb(0 0 0);
     --alt-color: rgb(255 255 255);
+    --light-color: color-mix(in srgb, var(--background-color), black 10%);
 }
 
 .bag {
     background-color: var(--background-color);
     color: var(--text-color);
+
+    .details {
+        background-color: var(--light-color);
+        color: black;
+    }
 
     &[design='vertical-stripes'] {
         background: repeating-linear-gradient(

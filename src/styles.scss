@@ -30,7 +30,7 @@ body {
     padding: 0;
     margin: 0;
     font-size: 0.8rem;
-    background: linear-gradient(135deg, #ffd, #ddb, #ffd);
+    background: var(--body-background);
     min-height: 100vh;
 
     -webkit-user-select: none; /* Chrome all / Safari all */
@@ -46,7 +46,6 @@ body {
 }
 
 .icon:before {
-    font-family: 'Font Awesome 5 Free';
     font-weight: 900;
     display: inline-block;
     font-style: normal;
@@ -56,17 +55,15 @@ body {
 }
 
 .card {
-    background: white;
+    background: rgb(250 250 250);
     border: solid 1px black;
-    border-radius: 4px;
-    padding: 0.5em 1em 0 1em;
+    border-radius: 0.25rem;
+    padding: 0 1rem;
 
     &__header {
         h2 {
             margin: 0;
         }
-
-        margin-bottom: 1em;
     }
 
     &__content {
@@ -74,7 +71,7 @@ body {
         flex-direction: column;
 
         & > * {
-            margin-bottom: 1em;
+            margin-bottom: 1rem;
         }
     }
 }
@@ -82,8 +79,8 @@ body {
 .overlay {
     position: absolute;
     display: flex;
-    align-items: center;
     justify-content: center;
+    padding: 1rem 0;
     z-index: 2;
     height: 100vh;
     width: 100vw;
@@ -130,9 +127,9 @@ body {
         text-align: center;
         height: 2.5rem;
         width: 2.5rem;
-        background: rgb(255 255 255 / 0.15);
+        background: rgb(255 255 255 / 0.25);
         outline: solid 0.1825rem rgb(0 0 0 / 0.1);
-        border: solid 0.125rem rgb(255 255 255 / 0.2);
+        border: solid 0.125rem rgb(255 255 255 / 0.5);
     }
 }
 
@@ -142,6 +139,74 @@ body {
     &.button-icon {
         i {
             font-size: 1.5rem;
+        }
+    }
+}
+
+table {
+    background: var(--clr-light-tan);
+    position: relative;
+    width: 100%;
+    border-spacing: 0;
+
+    caption {
+        font-weight: bold;
+        margin-bottom: 0.25rem;
+    }
+    thead,
+    tfoot {
+        background: var(--clr-tan);
+    }
+
+    thead tr:last-of-type th {
+        border-bottom: solid 1px var(--clr-dark-brown);
+    }
+
+    tfoot tr:first-of-type td {
+        border-top: solid 1px var(--clr-dark-brown);
+    }
+
+    tbody {
+        tr:not(:last-of-type) td {
+            border-bottom: solid 1px rgb(0 0 0 / 0.4);
+        }
+    }
+}
+
+.table-caption {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+}
+
+.table-container {
+    overflow: auto;
+    border-radius: 0.25rem;
+    border: solid 1px var(--clr-dark-brown);
+    box-shadow: 2px 2px 4px 2px rgb(var(--cc-dark-brown) / 0.2);
+}
+
+.fixed-header {
+    max-height: 30vh;
+
+    table {
+        thead,
+        tfoot {
+            background: var(--clr-tan);
+            position: sticky;
+            z-index: 1;
+        }
+
+        thead {
+            inset-block-start: 0;
+        }
+
+        tfoot {
+            inset-block-end: 0;
+
+            td {
+                text-align: center;
+            }
         }
     }
 }
