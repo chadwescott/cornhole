@@ -155,6 +155,10 @@ export class GameService {
 
     lastRound.team1Throws.map(x => this.updateThrowResult(game.team1.players[playerIndex].stats, x.result));
     lastRound.team2Throws.map(x => this.updateThrowResult(game.team2.players[playerIndex].stats, x.result));
+    game.team1.players[playerIndex].stats.pointsGained += lastRound.team1NetScore;
+    game.team2.players[playerIndex].stats.pointsGained += lastRound.team2NetScore;
+    game.team1.players[playerIndex].stats.pointsLost += lastRound.team2NetScore;
+    game.team2.players[playerIndex].stats.pointsLost += lastRound.team1NetScore;
 
     game.team1.players.forEach((player: Player) => this.calculateScoringRate(player.stats));
     game.team2.players.forEach((player: Player) => this.calculateScoringRate(player.stats));
@@ -185,6 +189,8 @@ export class GameService {
     team.stats.totalPoints = team.players.map(p => p.stats.totalPoints).reduce((previous, current) => previous + current);
     team.stats.cornholeRate = team.stats.throwResults[ThrowResult.Cornhole] / team.stats.totalThrows;
     team.stats.scoringRate = team.stats.totalPoints / team.stats.totalThrows * 4;
+    team.stats.pointsGained = team.players.map(p => p.stats.pointsGained).reduce((p, c) => p + c);
+    team.stats.pointsLost = team.players.map(p => p.stats.pointsLost).reduce((p, c) => p + c);
   }
 
   private updateScoreStreak(game: Game): void {

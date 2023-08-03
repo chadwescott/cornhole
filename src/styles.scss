@@ -143,23 +143,29 @@ body {
     }
 }
 
+.header {
+    font-weight: bold;
+}
+
 table {
     background: var(--clr-light-tan);
     position: relative;
     width: 100%;
     border-spacing: 0;
 
-    caption {
-        font-weight: bold;
-        margin-bottom: 0.25rem;
-    }
     thead,
     tfoot {
         background: var(--clr-tan);
     }
 
-    thead tr:last-of-type th {
-        border-bottom: solid 1px var(--clr-dark-brown);
+    thead {
+        th {
+            font-weight: normal;
+        }
+
+        tr:last-of-type th {
+            border-bottom: solid 1px var(--clr-dark-brown);
+        }
     }
 
     tfoot tr:first-of-type td {
@@ -192,7 +198,6 @@ table {
     table {
         thead,
         tfoot {
-            background: var(--clr-tan);
             position: sticky;
             z-index: 1;
         }

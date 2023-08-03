@@ -4,17 +4,20 @@
         <thead>
             <tr>
                 <th>&nbsp;</th>
-                <th colspan="4">Throw Results</th>
-                <th>&nbsp;</th>
-                <th>&nbsp;</th>
+                <th colspan="5" class="header">Throws</th>
+                <th colspan="5" class="header">Points</th>
             </tr>
             <tr>
                 <th>Player</th>
-                <th>Cornhole</th>
-                <th>On Board</th>
-                <th>Miss</th>
-                <th>Total</th>
+                <th>T</th>
+                <th>C</th>
+                <th>B</th>
+                <th>M</th>
                 <th>CR</th>
+                <th>T</th>
+                <th>+</th>
+                <th>-</th>
+                <th>Net</th>
                 <th>SR</th>
             </tr>
         </thead>
@@ -42,7 +45,7 @@
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="7">&nbsp;</td>
+                <td colspan="11">&nbsp;</td>
             </tr>
         </tfoot>
     </table>
@@ -50,10 +53,14 @@
 
 <ng-template #statRow let-stats="stats" let-name="name">
     <td>{{name}}</td>
+    <td class="stat details">{{stats?.totalThrows}}</td>
     <td class="stat details">{{stats?.throwResults[throwResult.Cornhole]}}</td>
     <td class="stat details">{{stats?.throwResults[throwResult.OnBoard]}}</td>
     <td class="stat details">{{stats?.throwResults[throwResult.OffBoard]}}</td>
-    <td class="stat details">{{stats?.totalThrows}}</td>
     <td class="stat details">{{stats?.cornholeRate | percent: '1.1-1'}}</td>
+    <td class="stat details">{{stats?.totalPoints}}</td>
+    <td class="stat details">{{stats?.pointsGained}}</td>
+    <td class="stat details">{{stats?.pointsLost}}</td>
+    <td class="stat details">{{stats?.pointsGained - stats?.pointsLost}}</td>
     <td class="stat details">{{stats?.scoringRate | number: '1.2-2'}}</td>
 </ng-template>

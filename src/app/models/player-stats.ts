@@ -9,6 +9,8 @@ export class PlayerStats {
     };
     totalThrows: number = 0;
     totalPoints: number = 0;
+    pointsGained: number = 0;
+    pointsLost: number = 0;
     scoringRate: number = 0;
     cornholeRate: number = 0;
     wins: number = 0;
