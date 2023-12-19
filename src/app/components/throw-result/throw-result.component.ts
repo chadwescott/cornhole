@@ -37,8 +37,8 @@ export class ThrowResultComponent implements OnInit {
   }
 
   onThrowResult(event: MatButtonToggleChange): void {
-    this.throw.result = event.value;
-    this.throw.points = GameConstants.POINTS[event.value];
+    this.throw.result = this.throw.result === event.value ? null : event.value;
+    this.throw.points = GameConstants.POINTS[this.throw.result] ?? 0;
     this.throwResultChanged.emit(this.throw);
   }
 }
