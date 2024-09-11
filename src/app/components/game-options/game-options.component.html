@@ -13,7 +13,7 @@
             </mat-radio-group>
         </div>
 
-        <div class="team-options">
+        <div class="team-options" [ngClass]="{ 'two-players': game.team1.players.length > 1 }">
             <div>
                 <div *ngFor="let player of game.team1.players; let i = index">
                     <mat-form-field>
@@ -22,14 +22,17 @@
                     </mat-form-field>
                 </div>
             </div>
+            <button *ngIf="game.team1.players.length > 1" mat-icon-button (click)="swapPlayers(game.team1)">
+                <i class="fa-solid fa-arrow-right-arrow-left fa-rotate-90"></i>
+            </button>
             <div class="bag" [attr.color-scheme]="game.team1.teamColor.colorScheme"
                 [attr.design]="game.team1.teamColor.design">
             </div>
             <button mat-icon-button (click)="pickTeamColor(game.team1)">
                 <i class="fas fa-palette"></i>
             </button>
-        </div>
-        <div class="team-options">
+        </div>  
+        <div class="team-options" [ngClass]="{ 'two-players': game.team2.players.length > 1 }">
             <div>
                 <div *ngFor="let player of game.team2.players; let i = index">
                     <mat-form-field>
@@ -38,6 +41,9 @@
                     </mat-form-field>
                 </div>
             </div>
+            <button *ngIf="game.team2.players.length > 1" mat-icon-button (click)="swapPlayers(game.team2)">
+                <i class="fa-solid fa-arrow-right-arrow-left fa-rotate-90"></i>
+            </button>
             <div class="bag" [attr.color-scheme]="game.team2.teamColor.colorScheme"
                 [attr.design]="game.team2.teamColor.design">
             </div>

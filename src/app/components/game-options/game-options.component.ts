@@ -67,4 +67,18 @@ export class GameOptionsComponent implements OnInit {
       }
     });
   }
+
+  swapPlayers(team: Team): void {
+    if (team.players.length < 2) { return; }
+
+    const playerHold = team.players[0];
+
+    team.players[0] = team.players[1];
+    team.players[1] = playerHold;
+
+    const statsHold = team.players[0].stats;
+
+    team.players[0].stats = team.players[1].stats;
+    team.players[1].stats = statsHold;
+  }
 }

@@ -5,6 +5,10 @@
     justify-content: center;
     gap: 1rem;
 
+    &.two-players {
+        grid-template-columns: 1fr auto auto auto;
+    }
+
     .mat-icon-button {
         font-size: 2em;
     }
