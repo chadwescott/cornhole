@@ -7,23 +7,23 @@ import { Team } from './models/team';
 import { GameService } from './services/game.service';
 
 @Component({
-    selector: 'ch-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss'],
-    standalone: false
+  selector: 'ch-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
+  standalone: false
 })
 export class AppComponent implements OnInit {
-  game: Game;
-  activeRound: Round;
+  game: Game | null = null;
+  activeRound: Round | null = null;
 
   constructor(private gameService: GameService) {
   }
 
   ngOnInit(): void {
-    this.game = this.gameService.getGames()?.find(x => !x.complete);
+    this.game = this.gameService.getGames()?.find(x => !x.complete) || null;
     if (this.game) {
       this.gameService.loadGame(this.game);
-      this.activeRound = this.game.rounds[this.game.rounds.length - 1];
+      this.activeRound = this.game.rounds[this.game.rounds.length - 1] || null;
     } else {
       this.createNewGame();
     }

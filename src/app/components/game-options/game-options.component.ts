@@ -1,22 +1,22 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Game } from 'src/app/models/game';
-import { Team } from 'src/app/models/team';
-import { TeamColor } from 'src/app/models/team-color';
 
 import { MatRadioChange } from '@angular/material/radio';
-import { DesignOptions } from 'src/app/models/design-options.enum';
-import { Player } from 'src/app/models/player';
+import { DesignOptions } from '../../models/design-options.enum';
+import { Game } from '../../models/game';
+import { Player } from '../../models/player';
+import { Team } from '../../models/team';
+import { TeamColor } from '../../models/team-color';
 import { TeamColorPickerDialogComponent } from '../team-color-picker-dialog/team-color-picker-dialog.component';
 
 @Component({
-    selector: 'ch-game-options',
-    templateUrl: './game-options.component.html',
-    styleUrls: ['./game-options.component.scss'],
-    standalone: false
+  selector: 'ch-game-options',
+  templateUrl: './game-options.component.html',
+  styleUrls: ['./game-options.component.scss'],
+  standalone: false
 })
 export class GameOptionsComponent implements OnInit {
-  @Input() game: Game;
+  game = input.required<Game>();
 
   @Output()
   teamColorChanged = new EventEmitter<Team>();
@@ -44,13 +44,13 @@ export class GameOptionsComponent implements OnInit {
   }
 
   teamPlayersChanged(change: MatRadioChange): void {
-    if (change.value === '1' && this.game.team1.players.length === 2) {
-      this.game.team1.players.pop();
-      this.game.team2.players.pop();
+    if (change.value === '1' && this.game().team1.players.length === 2) {
+      this.game().team1.players.pop();
+      this.game().team2.players.pop();
     }
-    else if (change.value === '2' && this.game.team1.players.length === 1) {
-      this.game.team1.players.push(new Player('Player 3'));
-      this.game.team2.players.push(new Player('Player 4'));
+    else if (change.value === '2' && this.game().team1.players.length === 1) {
+      this.game().team1.players.push(new Player('Player 3'));
+      this.game().team2.players.push(new Player('Player 4'));
     }
 
     this.playersChanged.emit();

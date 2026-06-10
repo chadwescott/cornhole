@@ -1,9 +1,9 @@
 <div class="card">
-  @if (title !== null) {
-    <div class="card__header">
-      <h2>{{title}}</h2>
-      <ng-content select="[header]"></ng-content>
-    </div>
+  @if (title() !== null) {
+  <div class="card__header">
+    <h2>{{title()}}</h2>
+    <ng-content select="[header]"></ng-content>
+  </div>
   }
   <div class="card__content">
     <ng-content select="[content]"></ng-content>

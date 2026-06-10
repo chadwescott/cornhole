@@ -1,7 +1,7 @@
 import { animate, animation, keyframes, style, transition, trigger } from '@angular/animations';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Round } from 'src/app/models/round';
-import { TeamColor } from 'src/app/models/team-color';
+import { Component, EventEmitter, input, Output } from '@angular/core';
+import { Round } from '../../models/round';
+import { TeamColor } from '../../models/team-color';
 
 @Component({
     selector: 'ch-round',
@@ -22,24 +22,12 @@ import { TeamColor } from 'src/app/models/team-color';
     ],
     standalone: false
 })
-export class RoundComponent implements OnInit {
-  @Input()
-  disabled = false;
+export class RoundComponent {
+    disabled = input<boolean>(false);
+    round = input.required<Round>();
+    team1Color = input.required<TeamColor>();
+    team2Color = input.required<TeamColor>();
 
-  @Input()
-  round: Round;
-
-  @Input()
-  team1Color: TeamColor;
-
-  @Input()
-  team2Color: TeamColor;
-
-  @Output()
-  roundScoreChanged = new EventEmitter<Round>();
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+    @Output()
+    roundScoreChanged = new EventEmitter<Round>();
 }

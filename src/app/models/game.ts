@@ -6,7 +6,7 @@ export class Game {
     public team1Score = 0;
     public team2Score = 0;
     public complete = false;
-    public winner: Team;
+    public winner: Team | null = null;
     public startTime = Date.now;
 
     constructor(

@@ -1,8 +1,8 @@
 <div class="container">
-  @for (throw of throws; track throw) {
-    <div>
-      <ch-throw-result [teamNumber]="teamNumber" [teamColor]="teamColor" [throw]="throw" [disabled]="disabled"
+  @for (throw of throws(); track throw) {
+  <div>
+    <ch-throw-result [teamNumber]="teamNumber()" [teamColor]="teamColor()" [throw]="throw" [disabled]="disabled()"
       (throwResultChanged)="throwResultChanged.emit($event)"></ch-throw-result>
-    </div>
+  </div>
   }
 </div>

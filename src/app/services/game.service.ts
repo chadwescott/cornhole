@@ -23,9 +23,9 @@ export class GameService {
   games: Game[] = [];
 
   constructor() {
-    this.games = JSON.parse(localStorage.getItem(this.gamesKey));
-    this.players = JSON.parse(localStorage.getItem(this.playersKey));
-    this.teams = JSON.parse(localStorage.getItem(this.gamesKey));
+    this.games = JSON.parse(localStorage.getItem(this.gamesKey) ?? '') ?? [];
+    this.players = JSON.parse(localStorage.getItem(this.playersKey) ?? '') ?? [];
+    this.teams = JSON.parse(localStorage.getItem(this.teamsKey) ?? '') ?? [];
     if (this.players) {
       this.players.map(x => {
         if (!x.stats) {
@@ -153,8 +153,8 @@ export class GameService {
 
     const playerIndex = game.team1.players.length === 1 ? 0 : (game.rounds.length + 1) % 2;
 
-    lastRound.team1Throws.map(x => this.updateThrowResult(game.team1.players[playerIndex].stats, x.result));
-    lastRound.team2Throws.map(x => this.updateThrowResult(game.team2.players[playerIndex].stats, x.result));
+    lastRound.team1Throws.map(x => this.updateThrowResult(game.team1.players[playerIndex].stats, x.result!));
+    lastRound.team2Throws.map(x => this.updateThrowResult(game.team2.players[playerIndex].stats, x.result!));
     game.team1.players[playerIndex].stats.pointsGained += lastRound.team1NetScore;
     game.team2.players[playerIndex].stats.pointsGained += lastRound.team2NetScore;
     game.team1.players[playerIndex].stats.pointsLost += lastRound.team2NetScore;
@@ -208,8 +208,8 @@ export class GameService {
     const team1Throws: Throw[] = [];
     const team2Throws: Throw[] = [];
     for (let i = 0; i < 4; i++) {
-      team1Throws.push(new Throw(null));
-      team2Throws.push(new Throw(null));
+      team1Throws.push();
+      team2Throws.push();
     }
     game.rounds.push(new Round(team1Throws, team2Throws));
     this.saveGames();

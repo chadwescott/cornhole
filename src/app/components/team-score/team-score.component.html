@@ -1,17 +1,16 @@
-<div [class.team1]="teamNumber == 1" [class.team2]="teamNumber == 2" class="score-component bag"
-  [attr.color-scheme]="team.teamColor.colorScheme" [attr.design]="team.teamColor.design">
+<div [class.team1]="teamNumber() == 1" [class.team2]="teamNumber() == 2" class="score-component bag"
+  [attr.color-scheme]="team().teamColor.colorScheme" [attr.design]="team().teamColor.design">
   <div class="players">
-    @for (player of team.players; track player) {
-      <div>
-        {{player.name}}
-      </div>
+    @for (player of team().players; track player) {
+    <div>
+      {{player.name}}
+    </div>
     }
   </div>
-  <div class="score">{{score}}
+  <div class="score">{{score()}}
   </div>
-  @if (team.scoreStreak > 0) {
-    <div class="streak" [attr.streak]="'+' + team.scoreStreak"><i
-    class="fas fa-fire-flame-curved"></i>
+  @if (team().scoreStreak > 0) {
+  <div class="streak" [attr.streak]="'+' + team().scoreStreak"><i class="fas fa-fire-flame-curved"></i>
   </div>
-}
+  }
 </div>

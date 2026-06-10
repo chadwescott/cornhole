@@ -1,6 +1,6 @@
-@if (throw?.result) {
-  <i class="fas" [class]="iconClass[throw.result]"></i>
+@if (throw()?.result) {
+<i class="fas" [class]="iconClass[throw().result]"></i>
 }
-@if (!throw?.result) {
-  <i class="fas fa-question"></i>
+@if (!throw()?.result) {
+<i class="fas fa-question"></i>
 }

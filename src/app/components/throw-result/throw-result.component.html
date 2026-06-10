@@ -1,16 +1,16 @@
-<div class="container" [attr.color-scheme]="teamColor.colorScheme">
+<div class="container" [attr.color-scheme]="teamColor().colorScheme">
     <mat-button-toggle-group name="throwResult" vertical="true" [hideSingleSelectionIndicator]="true">
-        <mat-button-toggle class="board cornhole" [value]="throwResult.Cornhole" [disabled]="disabled"
-            [checked]="throw?.result === throwResult.Cornhole" (change)="onThrowResult($event)">
-            <div class="bag" [attr.design]="teamColor.design"></div>
+        <mat-button-toggle class="board cornhole" [value]="throwResult.Cornhole" [disabled]="disabled()"
+            [checked]="throw().result === throwResult.Cornhole" (change)="onThrowResult($event)">
+            <div class="bag" [attr.design]="teamColor().design"></div>
         </mat-button-toggle>
-        <mat-button-toggle class="board on-board" [value]="throwResult.OnBoard" [disabled]="disabled"
-            [checked]="throw?.result === throwResult.OnBoard" (change)="onThrowResult($event)">
-            <div class="bag" [attr.design]="teamColor.design"></div>
+        <mat-button-toggle class="board on-board" [value]="throwResult.OnBoard" [disabled]="disabled()"
+            [checked]="throw().result === throwResult.OnBoard" (change)="onThrowResult($event)">
+            <div class="bag" [attr.design]="teamColor().design"></div>
         </mat-button-toggle>
-        <mat-button-toggle class="off-board" [value]="throwResult.OffBoard" [disabled]="disabled"
-            [checked]="throw?.result === throwResult.OffBoard" (change)="onThrowResult($event)">
-            <div class="bag" [attr.design]="teamColor.design"></div>
+        <mat-button-toggle class="off-board" [value]="throwResult.OffBoard" [disabled]="disabled()"
+            [checked]="throw().result === throwResult.OffBoard" (change)="onThrowResult($event)">
+            <div class="bag" [attr.design]="teamColor().design"></div>
         </mat-button-toggle>
     </mat-button-toggle-group>
 </div>

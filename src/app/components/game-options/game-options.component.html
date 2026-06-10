@@ -1,4 +1,4 @@
-<ch-card title="Game Options">
+<ch-card [title]="'Game Options'">
   <ng-container header>
     <button type="button" mat-icon-button class="button--close" (click)="closeOptions.emit()">
       <i class="fas fa-times"></i>
@@ -8,62 +8,62 @@
     <div>
       Game Type:
       <mat-radio-group (change)="teamPlayersChanged($event)">
-        <mat-radio-button value="1" [checked]="game.team1.players.length === 1">1 v 1</mat-radio-button>
-        <mat-radio-button value="2" [checked]="game.team1.players.length === 2">2 v 2</mat-radio-button>
+        <mat-radio-button value="1" [checked]="game().team1.players.length === 1">1 v 1</mat-radio-button>
+        <mat-radio-button value="2" [checked]="game().team1.players.length === 2">2 v 2</mat-radio-button>
       </mat-radio-group>
     </div>
 
-    <div class="team-options" [ngClass]="{ 'two-players': game.team1.players.length > 1 }">
+    <div class="team-options" [ngClass]="{ 'two-players': game().team1.players.length > 1 }">
       <div>
-        @for (player of game.team1.players; track player; let i = $index) {
-          <div>
-            <mat-form-field>
-              <mat-label>Player {{i + 1}}</mat-label>
-              <input matInput [(ngModel)]="player.name" (ngModelChange)="playersChanged.emit()">
-            </mat-form-field>
-          </div>
+        @for (player of game().team1.players; track player; let i = $index) {
+        <div>
+          <mat-form-field>
+            <mat-label>Player {{i + 1}}</mat-label>
+            <input matInput [(ngModel)]="player.name" (ngModelChange)="playersChanged.emit()">
+          </mat-form-field>
+        </div>
         }
       </div>
-      @if (game.team1.players.length > 1) {
-        <button mat-icon-button (click)="swapPlayers(game.team1)">
-          <i class="fa-solid fa-arrow-right-arrow-left fa-rotate-90"></i>
-        </button>
+      @if (game().team1.players.length > 1) {
+      <button mat-icon-button (click)="swapPlayers(game().team1)">
+        <i class="fa-solid fa-arrow-right-arrow-left fa-rotate-90"></i>
+      </button>
       }
-      <div class="bag" [attr.color-scheme]="game.team1.teamColor.colorScheme"
-        [attr.design]="game.team1.teamColor.design">
+      <div class="bag" [attr.color-scheme]="game().team1.teamColor.colorScheme"
+        [attr.design]="game().team1.teamColor.design">
       </div>
-      <button mat-icon-button (click)="pickTeamColor(game.team1)">
+      <button mat-icon-button (click)="pickTeamColor(game().team1)">
         <i class="fas fa-palette"></i>
       </button>
     </div>
-    <div class="team-options" [ngClass]="{ 'two-players': game.team2.players.length > 1 }">
+    <div class="team-options" [ngClass]="{ 'two-players': game().team2.players.length > 1 }">
       <div>
-        @for (player of game.team2.players; track player; let i = $index) {
-          <div>
-            <mat-form-field>
-              <mat-label>Player {{i + 1 + game.team1.players.length}}</mat-label>
-              <input matInput [(ngModel)]="player.name" (ngModelChange)="playersChanged.emit()">
-            </mat-form-field>
-          </div>
+        @for (player of game().team2.players; track player; let i = $index) {
+        <div>
+          <mat-form-field>
+            <mat-label>Player {{i + 1 + game().team1.players.length}}</mat-label>
+            <input matInput [(ngModel)]="player.name" (ngModelChange)="playersChanged.emit()">
+          </mat-form-field>
+        </div>
         }
       </div>
-      @if (game.team2.players.length > 1) {
-        <button mat-icon-button (click)="swapPlayers(game.team2)">
-          <i class="fa-solid fa-arrow-right-arrow-left fa-rotate-90"></i>
-        </button>
+      @if (game().team2.players.length > 1) {
+      <button mat-icon-button (click)="swapPlayers(game().team2)">
+        <i class="fa-solid fa-arrow-right-arrow-left fa-rotate-90"></i>
+      </button>
       }
-      <div class="bag" [attr.color-scheme]="game.team2.teamColor.colorScheme"
-        [attr.design]="game.team2.teamColor.design">
+      <div class="bag" [attr.color-scheme]="game().team2.teamColor.colorScheme"
+        [attr.design]="game().team2.teamColor.design">
       </div>
-      <button mat-icon-button (click)="pickTeamColor(game.team2)">
+      <button mat-icon-button (click)="pickTeamColor(game().team2)">
         <i class="fas fa-palette"></i>
       </button>
     </div>
     <div class="button-bar">
-      <button type="button" mat-raised-button color="primary" (click)="resetStats.emit(game)">Reset Stats</button>
-      <button type="button" mat-raised-button color="primary" (click)="resetStreak.emit(game)">Reset
-      Streak</button>
-      <button type="button" mat-raised-button color="primary" (click)="resetGame.emit(game)">Reset Game</button>
+      <button type="button" mat-raised-button color="primary" (click)="resetStats.emit(game())">Reset Stats</button>
+      <button type="button" mat-raised-button color="primary" (click)="resetStreak.emit(game())">Reset
+        Streak</button>
+      <button type="button" mat-raised-button color="primary" (click)="resetGame.emit(game())">Reset Game</button>
     </div>
   </ng-container>
 </ch-card>

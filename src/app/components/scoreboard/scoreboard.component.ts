@@ -1,18 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Game } from 'src/app/models/game';
+import { Component, input } from '@angular/core';
+import { Game } from '../../models/game';
 
 @Component({
-    selector: 'ch-scoreboard',
-    templateUrl: './scoreboard.component.html',
-    styleUrls: ['./scoreboard.component.scss'],
-    standalone: false
+  selector: 'ch-scoreboard',
+  templateUrl: './scoreboard.component.html',
+  styleUrls: ['./scoreboard.component.scss'],
+  standalone: false
 })
-export class ScoreboardComponent implements OnInit {
-  @Input()
-  game: Game;
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+export class ScoreboardComponent {
+  game = input.required<Game>();
 }

@@ -1,20 +1,17 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Game } from 'src/app/models/game';
-import { Round } from 'src/app/models/round';
-import { Team } from 'src/app/models/team';
+import { Component, EventEmitter, input, OnInit, Output } from '@angular/core';
+import { Game } from '../../models/game';
+import { Round } from '../../models/round';
+import { Team } from '../../models/team';
 
 @Component({
-    selector: 'ch-game',
-    templateUrl: './game.component.html',
-    styleUrls: ['./game.component.scss'],
-    standalone: false
+  selector: 'ch-game',
+  templateUrl: './game.component.html',
+  styleUrls: ['./game.component.scss'],
+  standalone: false
 })
 export class GameComponent implements OnInit {
-  @Input()
-  game: Game;
-
-  @Input()
-  activeRound: Round;
+  game = input.required<Game>();
+  activeRound = input.required<Round>();
 
   @Output()
   roundChanged = new EventEmitter<Round>();
@@ -56,20 +53,20 @@ export class GameComponent implements OnInit {
   }
 
   onRoundChanged(index: number): void {
-    if (this.game.rounds.length > index) {
-      this.roundChanged.emit(this.game.rounds[index]);
+    if (this.game().rounds.length > index) {
+      this.roundChanged.emit(this.game().rounds[index]);
     }
   }
 
   showGameSummary(): void {
-    this.gameSummary.emit(this.game);
+    this.gameSummary.emit(this.game());
     this.showFullScoreboard = true;
   }
 
   gameSummaryClosed(): void {
     this.showFullScoreboard = false;
-    if (this.game.complete) {
-      this.completeGame.emit(this.game);
+    if (this.game().complete) {
+      this.completeGame.emit(this.game());
     }
   }
 }
