@@ -1,4 +1,4 @@
-import { Component, EventEmitter, input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, input, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 
 import { Game } from '../../models/game';
@@ -24,7 +24,7 @@ import { ScoreboardComponent } from '../scoreboard/scoreboard.component';
     ScoreboardComponent
   ]
 })
-export class GameComponent implements OnInit {
+export class GameComponent {
   game = input.required<Game>();
   activeRound = input.required<Round>();
 
@@ -61,11 +61,6 @@ export class GameComponent implements OnInit {
   showOptions = false;
   showPlayerStats = false;
   showFullScoreboard = false;
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
   onRoundChanged(index: number): void {
     if (this.game().rounds.length > index) {

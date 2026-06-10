@@ -208,16 +208,16 @@ export class GameService {
     const team1Throws: Throw[] = [];
     const team2Throws: Throw[] = [];
     for (let i = 0; i < 4; i++) {
-      team1Throws.push();
-      team2Throws.push();
+      team1Throws.push(new Throw());
+      team2Throws.push(new Throw());
     }
-    game.rounds.push(new Round(team1Throws, team2Throws));
+
+    const round = new Round(team1Throws, team2Throws);
+    game.rounds.push(round);
     this.saveGames();
   }
 
   completeGame(game: Game): void {
-    this.calculateStatsForLastRound(game);
-    this.updateScoreStreak(game);
     this.resetStats(game);
   }
 
