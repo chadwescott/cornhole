@@ -21,13 +21,14 @@
               "base": "dist/cornhole"
             },
             "index": "src/index.html",
-            "polyfills": [
-              "src/polyfills.ts"
-            ],
+            "polyfills": ["src/polyfills.ts"],
             "tsConfig": "tsconfig.app.json",
             "aot": true,
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.scss"],
+            "styles": [
+              "src/assets/font-awesome/css/all.min.css",
+              "src/styles.scss"
+            ],
             "scripts": [],
             "browser": "src/main.ts"
           },
@@ -85,7 +86,10 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.scss"],
+            "styles": [
+              "src/assets/font-awesome/css/all.min.css",
+              "src/styles.scss"
+            ],
             "scripts": []
           }
         },

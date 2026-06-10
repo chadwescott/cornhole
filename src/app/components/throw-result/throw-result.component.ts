@@ -1,5 +1,5 @@
 import { Component, EventEmitter, input, OnInit, Output } from '@angular/core';
-import { MatButtonToggleChange } from '@angular/material/button-toggle';
+import { MatButtonToggleChange, MatButtonToggleModule } from '@angular/material/button-toggle';
 import { GameConstants } from '../../constants/game.constants';
 import { DesignOptions } from '../../models/design-options.enum';
 import { TeamColor } from '../../models/team-color';
@@ -11,7 +11,8 @@ import { ThrowResult } from '../../models/throw-result';
   selector: 'ch-throw-result',
   templateUrl: './throw-result.component.html',
   styleUrls: ['./throw-result.component.scss'],
-  standalone: false
+  standalone: true,
+  imports: [MatButtonToggleModule]
 })
 export class ThrowResultComponent implements OnInit {
   disabled = input<boolean>(false);

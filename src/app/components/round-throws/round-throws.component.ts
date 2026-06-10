@@ -2,11 +2,14 @@ import { Component, EventEmitter, input, OnInit, Output } from '@angular/core';
 import { TeamColor } from '../../models/team-color';
 import { Throw } from '../../models/throw';
 
+import { ThrowResultComponent } from '../throw-result/throw-result.component';
+
 @Component({
   selector: 'ch-round-throws',
   templateUrl: './round-throws.component.html',
   styleUrls: ['./round-throws.component.scss'],
-  standalone: false
+  standalone: true,
+  imports: [ThrowResultComponent]
 })
 export class RoundThrowsComponent implements OnInit {
   disabled = input<boolean>(false);

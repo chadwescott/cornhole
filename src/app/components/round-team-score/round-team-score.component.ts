@@ -14,18 +14,18 @@ import { SCORE_CHANGED_ANIMATION } from '../../constants/animations';
             ])
         ])
     ],
-    standalone: false
+    standalone: true
 })
 export class RoundTeamScoreComponent implements OnInit {
-  @Input()
-  totalScore: number;
+    @Input()
+    totalScore: number;
 
-  @Input()
-  netScore: number;
+    @Input()
+    netScore: number;
 
-  constructor() { }
+    constructor() { }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {
+    }
 
 }

@@ -5,7 +5,7 @@ import { Player } from '../../models/player';
   selector: 'ch-player-selector',
   templateUrl: './player-selector.component.html',
   styleUrls: ['./player-selector.component.scss'],
-  standalone: false
+  standalone: true
 })
 export class PlayerSelectorComponent implements OnInit {
   players = input.required<Player[]>();

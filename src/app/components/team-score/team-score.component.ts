@@ -6,7 +6,7 @@ import { Team } from '../../models/team';
   selector: 'ch-team-score',
   templateUrl: './team-score.component.html',
   styleUrls: ['./team-score.component.scss'],
-  standalone: false
+  standalone: true
 })
 export class TeamScoreComponent implements OnInit {
   teamNumber = input.required<number>();

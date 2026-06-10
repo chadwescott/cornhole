@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, input, OnInit, Output } from '@angular/core';
 import { Game } from '../../models/game';
 import { ThrowResult } from '../../models/throw-result';
@@ -6,7 +7,8 @@ import { ThrowResult } from '../../models/throw-result';
   selector: 'ch-game-stats',
   templateUrl: './game-stats.component.html',
   styleUrls: ['./game-stats.component.scss'],
-  standalone: false
+  standalone: true,
+  imports: [CommonModule]
 })
 export class GameStatsComponent implements OnInit {
   game = input.required<Game>();

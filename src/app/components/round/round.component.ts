@@ -1,7 +1,10 @@
 import { animate, animation, keyframes, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, input, Output } from '@angular/core';
+
 import { Round } from '../../models/round';
 import { TeamColor } from '../../models/team-color';
+import { RoundTeamScoreComponent } from '../round-team-score/round-team-score.component';
+import { RoundThrowsComponent } from '../round-throws/round-throws.component';
 
 @Component({
     selector: 'ch-round',
@@ -20,7 +23,11 @@ import { TeamColor } from '../../models/team-color';
             ])
         ])
     ],
-    standalone: false
+    standalone: true,
+    imports: [
+        RoundTeamScoreComponent,
+        RoundThrowsComponent
+    ]
 })
 export class RoundComponent {
     disabled = input<boolean>(false);

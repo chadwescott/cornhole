@@ -1,13 +1,28 @@
 import { Component, EventEmitter, input, OnInit, Output } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+
 import { Game } from '../../models/game';
 import { Round } from '../../models/round';
 import { Team } from '../../models/team';
+import { FullScoreboardComponent } from '../full-scoreboard/full-scoreboard.component';
+import { GameOptionsComponent } from '../game-options/game-options.component';
+import { PlayerStatsComponent } from '../player-stats/player-stats.component';
+import { RoundComponent } from '../round/round.component';
+import { ScoreboardComponent } from '../scoreboard/scoreboard.component';
 
 @Component({
   selector: 'ch-game',
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss'],
-  standalone: false
+  standalone: true,
+  imports: [
+    FullScoreboardComponent,
+    GameOptionsComponent,
+    MatButtonModule,
+    PlayerStatsComponent,
+    RoundComponent,
+    ScoreboardComponent
+  ]
 })
 export class GameComponent implements OnInit {
   game = input.required<Game>();

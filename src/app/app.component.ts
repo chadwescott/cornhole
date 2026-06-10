@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 
+import { GameSetupComponent } from './components/game-setup/game-setup.component';
+import { GameComponent } from './components/game/game.component';
 import { TEAM_COLORS } from './constants/team-color.constants';
 import { Game } from './models/game';
 import { Round } from './models/round';
@@ -10,7 +13,12 @@ import { GameService } from './services/game.service';
   selector: 'ch-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  standalone: false
+  standalone: true,
+  imports: [
+    GameComponent,
+    GameSetupComponent,
+    MatButtonModule
+  ]
 })
 export class AppComponent implements OnInit {
   game: Game | null = null;

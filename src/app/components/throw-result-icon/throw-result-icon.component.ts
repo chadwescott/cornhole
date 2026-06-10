@@ -6,7 +6,7 @@ import { ThrowResult } from '../../models/throw-result';
   selector: 'ch-throw-result-icon',
   templateUrl: './throw-result-icon.component.html',
   styleUrls: ['./throw-result-icon.component.scss'],
-  standalone: false
+  standalone: true
 })
 export class ThrowResultIconComponent {
   throw = input.required<Throw>();
