@@ -2,9 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { PlayerStats } from 'src/app/models/player-stats';
 
 @Component({
-  selector: 'ch-player-stats',
-  templateUrl: './player-stats.component.html',
-  styleUrls: ['./player-stats.component.scss']
+    selector: 'ch-player-stats',
+    templateUrl: './player-stats.component.html',
+    styleUrls: ['./player-stats.component.scss'],
+    standalone: false
 })
 export class PlayerStatsComponent implements OnInit {
   @Input() playerStats: PlayerStats;

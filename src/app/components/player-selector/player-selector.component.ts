@@ -2,9 +2,10 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Player } from 'src/app/models/player';
 
 @Component({
-  selector: 'ch-player-selector',
-  templateUrl: './player-selector.component.html',
-  styleUrls: ['./player-selector.component.scss']
+    selector: 'ch-player-selector',
+    templateUrl: './player-selector.component.html',
+    styleUrls: ['./player-selector.component.scss'],
+    standalone: false
 })
 export class PlayerSelectorComponent implements OnInit {
   @Input()

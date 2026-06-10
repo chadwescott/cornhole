@@ -3,9 +3,10 @@ import { Game } from 'src/app/models/game';
 import { ThrowResult } from 'src/app/models/throw-result';
 
 @Component({
-  selector: 'ch-game-stats',
-  templateUrl: './game-stats.component.html',
-  styleUrls: ['./game-stats.component.scss']
+    selector: 'ch-game-stats',
+    templateUrl: './game-stats.component.html',
+    styleUrls: ['./game-stats.component.scss'],
+    standalone: false
 })
 export class GameStatsComponent implements OnInit {
   @Input()

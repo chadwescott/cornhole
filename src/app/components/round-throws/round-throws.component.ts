@@ -3,9 +3,10 @@ import { TeamColor } from 'src/app/models/team-color';
 import { Throw } from 'src/app/models/throw';
 
 @Component({
-  selector: 'ch-round-throws',
-  templateUrl: './round-throws.component.html',
-  styleUrls: ['./round-throws.component.scss']
+    selector: 'ch-round-throws',
+    templateUrl: './round-throws.component.html',
+    styleUrls: ['./round-throws.component.scss'],
+    standalone: false
 })
 export class RoundThrowsComponent implements OnInit {
   @Input()

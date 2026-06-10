@@ -8,9 +8,10 @@ import { ThrowResult } from 'src/app/models/throw-result';
 
 
 @Component({
-  selector: 'ch-throw-result',
-  templateUrl: './throw-result.component.html',
-  styleUrls: ['./throw-result.component.scss']
+    selector: 'ch-throw-result',
+    templateUrl: './throw-result.component.html',
+    styleUrls: ['./throw-result.component.scss'],
+    standalone: false
 })
 export class ThrowResultComponent implements OnInit {
   @Input()

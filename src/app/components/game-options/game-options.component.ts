@@ -10,9 +10,10 @@ import { Player } from 'src/app/models/player';
 import { TeamColorPickerDialogComponent } from '../team-color-picker-dialog/team-color-picker-dialog.component';
 
 @Component({
-  selector: 'ch-game-options',
-  templateUrl: './game-options.component.html',
-  styleUrls: ['./game-options.component.scss']
+    selector: 'ch-game-options',
+    templateUrl: './game-options.component.html',
+    styleUrls: ['./game-options.component.scss'],
+    standalone: false
 })
 export class GameOptionsComponent implements OnInit {
   @Input() game: Game;

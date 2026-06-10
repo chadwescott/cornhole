@@ -1,9 +1,15 @@
-<ch-game *ngIf="game" [game]="game" [activeRound]="activeRound" (completeRound)="onCompleteRound($event)"
+@if (game) {
+  <ch-game [game]="game" [activeRound]="activeRound" (completeRound)="onCompleteRound($event)"
     (roundScoreChanged)="onRoundScoreChanged($event)" (roundChanged)="onRoundChanged($event)"
     (playersChanged)="onPlayersChanged()" (teamColorChanged)="onTeamColorChanged($event)"
     (gameSummary)="onGameSummary($event)" (completeGame)="onCompleteGame($event)" (resetStats)="onResetStats($event)"
     (resetStreak)="onResetStreak($event)" (resetGame)="onResetGame($event)">
-</ch-game>
+  </ch-game>
+}
 
-<ch-game-setup *ngIf="!game"></ch-game-setup>
-<button *ngIf="!game" mat-button (click)="createNewGame()">New Game</button>
+@if (!game) {
+  <ch-game-setup></ch-game-setup>
+}
+@if (!game) {
+  <button mat-button (click)="createNewGame()">New Game</button>
+}

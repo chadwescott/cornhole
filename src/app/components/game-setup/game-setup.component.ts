@@ -3,9 +3,10 @@ import { Game } from 'src/app/models/game';
 import { Team } from 'src/app/models/team';
 
 @Component({
-  selector: 'ch-game-setup',
-  templateUrl: './game-setup.component.html',
-  styleUrls: ['./game-setup.component.scss']
+    selector: 'ch-game-setup',
+    templateUrl: './game-setup.component.html',
+    styleUrls: ['./game-setup.component.scss'],
+    standalone: false
 })
 export class GameSetupComponent implements OnInit {
   @Output()

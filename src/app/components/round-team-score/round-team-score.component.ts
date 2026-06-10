@@ -4,16 +4,17 @@ import { Component, Input, OnInit } from '@angular/core';
 import { SCORE_CHANGED_ANIMATION } from '../../constants/animations';
 
 @Component({
-  selector: 'ch-round-team-score',
-  templateUrl: './round-team-score.component.html',
-  styleUrls: ['./round-team-score.component.scss'],
-  animations: [
-    trigger('scoreChanged', [
-      transition('* => *', [
-        useAnimation(SCORE_CHANGED_ANIMATION)
-      ])
-    ])
-  ]
+    selector: 'ch-round-team-score',
+    templateUrl: './round-team-score.component.html',
+    styleUrls: ['./round-team-score.component.scss'],
+    animations: [
+        trigger('scoreChanged', [
+            transition('* => *', [
+                useAnimation(SCORE_CHANGED_ANIMATION)
+            ])
+        ])
+    ],
+    standalone: false
 })
 export class RoundTeamScoreComponent implements OnInit {
   @Input()

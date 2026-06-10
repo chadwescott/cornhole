@@ -3,9 +3,10 @@ import { Game } from 'src/app/models/game';
 import { ThrowResult } from 'src/app/models/throw-result';
 
 @Component({
-  selector: 'ch-full-scoreboard',
-  templateUrl: './full-scoreboard.component.html',
-  styleUrls: ['./full-scoreboard.component.scss']
+    selector: 'ch-full-scoreboard',
+    templateUrl: './full-scoreboard.component.html',
+    styleUrls: ['./full-scoreboard.component.scss'],
+    standalone: false
 })
 export class FullScoreboardComponent implements OnInit {
   @Input()

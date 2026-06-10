@@ -1,39 +1,49 @@
-<div *ngIf="showOptions" class="overlay">
+@if (showOptions) {
+  <div class="overlay">
     <ch-game-options [game]="game" (click)="$event.stopPropagation()" (teamColorChanged)="teamColorChanged.emit($event)"
-        (resetStats)="resetStats.emit($event)" (resetStreak)="resetStreak.emit(game)" (resetGame)="resetGame.emit(game)"
-        (playersChanged)="playersChanged.emit()" (closeOptions)="showOptions = false">
+      (resetStats)="resetStats.emit($event)" (resetStreak)="resetStreak.emit(game)" (resetGame)="resetGame.emit(game)"
+      (playersChanged)="playersChanged.emit()" (closeOptions)="showOptions = false">
     </ch-game-options>
-</div>
-<div *ngIf="showPlayerStats" class="overlay">
+  </div>
+}
+@if (showPlayerStats) {
+  <div class="overlay">
     <ch-player-stats></ch-player-stats>
-</div>
-<div *ngIf="showFullScoreboard" class="overlay">
+  </div>
+}
+@if (showFullScoreboard) {
+  <div class="overlay">
     <ch-full-scoreboard [game]="game" (click)="$event.stopPropagation()" (resetStats)="resetStats.emit($event)"
-        (resetStreak)="resetStreak.emit(game)" (resetGame)="resetGame.emit(game)"
-        (close)="gameSummaryClosed()"></ch-full-scoreboard>
-</div>
+      (resetStreak)="resetStreak.emit(game)" (resetGame)="resetGame.emit(game)"
+    (close)="gameSummaryClosed()"></ch-full-scoreboard>
+  </div>
+}
 <div>
-    <ch-scoreboard [game]="game"></ch-scoreboard>
-    <div class="container">
-        <div></div>
-        <ch-round [round]="activeRound" [team1Color]="game.team1.teamColor" [team2Color]="game.team2.teamColor"
-            [disabled]="activeRound.complete && activeRound != game.rounds[game.rounds.length -1]"
-            (roundScoreChanged)="roundScoreChanged.emit($event)"></ch-round>
-        <div class="button-bar vertical">
-            <div class="button button-icon" (click)="showOptions = true">
-                <i class="fas fa-cog" [class.fa-spin]="showOptions"></i>
-            </div>
-            <div class="button button-icon" (click)="showFullScoreboard = true">
-                <i class="fas fa-clipboard"></i>
-            </div>
-        </div>
+  <ch-scoreboard [game]="game"></ch-scoreboard>
+  <div class="container">
+    <div></div>
+    <ch-round [round]="activeRound" [team1Color]="game.team1.teamColor" [team2Color]="game.team2.teamColor"
+      [disabled]="activeRound.complete && activeRound != game.rounds[game.rounds.length -1]"
+    (roundScoreChanged)="roundScoreChanged.emit($event)"></ch-round>
+    <div class="button-bar vertical">
+      <div class="button button-icon" (click)="showOptions = true">
+        <i class="fas fa-cog" [class.fa-spin]="showOptions"></i>
+      </div>
+      <div class="button button-icon" (click)="showFullScoreboard = true">
+        <i class="fas fa-clipboard"></i>
+      </div>
     </div>
-    <div class="complete-round">
-        <ng-container *ngIf="game.rounds[game.rounds.length - 1].complete">
-            <button *ngIf="!game.complete" mat-raised-button color="primary" (click)="completeRound.emit(game)">Complete
-                Round</button>
-            <button *ngIf="game.complete" mat-raised-button color="primary" (click)="showGameSummary()">Game
-                Summary</button>
-        </ng-container>
-    </div>
+  </div>
+  <div class="complete-round">
+    @if (game.rounds[game.rounds.length - 1].complete) {
+      @if (!game.complete) {
+        <button mat-raised-button color="primary" (click)="completeRound.emit(game)">Complete
+        Round</button>
+      }
+      @if (game.complete) {
+        <button mat-raised-button color="primary" (click)="showGameSummary()">Game
+        Summary</button>
+      }
+    }
+  </div>
 </div>

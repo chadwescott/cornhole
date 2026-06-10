@@ -7,9 +7,10 @@ import { TEAM_COLORS } from '../../constants/team-color.constants';
 import { DesignOptions } from '../../models/design-options.enum';
 
 @Component({
-  selector: 'ch-team-color-picker-dialog',
-  templateUrl: './team-color-picker-dialog.component.html',
-  styleUrls: ['./team-color-picker-dialog.component.scss']
+    selector: 'ch-team-color-picker-dialog',
+    templateUrl: './team-color-picker-dialog.component.html',
+    styleUrls: ['./team-color-picker-dialog.component.scss'],
+    standalone: false
 })
 export class TeamColorPickerDialogComponent {
   designOptions = DesignOptions;

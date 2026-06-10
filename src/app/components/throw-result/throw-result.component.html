@@ -1,5 +1,5 @@
 <div class="container" [attr.color-scheme]="teamColor.colorScheme">
-    <mat-button-toggle-group name="throwResult" vertical="true">
+    <mat-button-toggle-group name="throwResult" vertical="true" [hideSingleSelectionIndicator]="true">
         <mat-button-toggle class="board cornhole" [value]="throwResult.Cornhole" [disabled]="disabled"
             [checked]="throw?.result === throwResult.Cornhole" (change)="onThrowResult($event)">
             <div class="bag" [attr.design]="teamColor.design"></div>

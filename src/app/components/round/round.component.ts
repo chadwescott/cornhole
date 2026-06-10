@@ -4,22 +4,23 @@ import { Round } from 'src/app/models/round';
 import { TeamColor } from 'src/app/models/team-color';
 
 @Component({
-  selector: 'ch-round',
-  templateUrl: './round.component.html',
-  styleUrls: ['./round.component.scss'],
-  animations: [
-    trigger('scoreChanged', [
-      transition('* => *', [
-        animation([
-          style({ transform: 'scale(1)' }),
-          animate('0.5s', keyframes([
-            style({ transform: 'scale(1.5)', offset: 0.50 }),
-            style({ transform: 'scale(1)', offset: 1 })
-          ]))
+    selector: 'ch-round',
+    templateUrl: './round.component.html',
+    styleUrls: ['./round.component.scss'],
+    animations: [
+        trigger('scoreChanged', [
+            transition('* => *', [
+                animation([
+                    style({ transform: 'scale(1)' }),
+                    animate('0.5s', keyframes([
+                        style({ transform: 'scale(1.5)', offset: 0.50 }),
+                        style({ transform: 'scale(1)', offset: 1 })
+                    ]))
+                ])
+            ])
         ])
-      ])
-    ])
-  ]
+    ],
+    standalone: false
 })
 export class RoundComponent implements OnInit {
   @Input()

@@ -4,9 +4,10 @@ import { Round } from 'src/app/models/round';
 import { Team } from 'src/app/models/team';
 
 @Component({
-  selector: 'ch-game',
-  templateUrl: './game.component.html',
-  styleUrls: ['./game.component.scss']
+    selector: 'ch-game',
+    templateUrl: './game.component.html',
+    styleUrls: ['./game.component.scss'],
+    standalone: false
 })
 export class GameComponent implements OnInit {
   @Input()
