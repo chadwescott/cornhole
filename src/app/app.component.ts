@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'ch-root',
@@ -7,7 +7,6 @@ import { RouterLink, RouterOutlet } from '@angular/router';
   styleUrls: ['./app.component.scss'],
   standalone: true,
   imports: [
-    RouterLink,
     RouterOutlet
   ]
 })

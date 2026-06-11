@@ -23,9 +23,14 @@ export class GameService {
   games: Game[] = [];
 
   constructor() {
-    this.games = JSON.parse(localStorage.getItem(this.gamesKey) ?? '') ?? [];
-    this.players = JSON.parse(localStorage.getItem(this.playersKey) ?? '') ?? [];
-    this.teams = JSON.parse(localStorage.getItem(this.teamsKey) ?? '') ?? [];
+    const gamesData = localStorage.getItem(this.gamesKey);
+    const playersData = localStorage.getItem(this.playersKey);
+    const teamsData = localStorage.getItem(this.teamsKey);
+
+    this.games = gamesData ? JSON.parse(gamesData) : [];
+    this.players = playersData ? JSON.parse(playersData) : [];
+    this.teams = teamsData ? JSON.parse(teamsData) : [];
+
     if (this.players) {
       this.players.map(x => {
         if (!x.stats) {
