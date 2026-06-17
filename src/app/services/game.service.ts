@@ -1,22 +1,27 @@
-import { Injectable } from '@angular/core';
+import { EnvironmentInjector, inject, Injectable } from '@angular/core';
+import { Firestore } from '@angular/fire/firestore';
 
 import { GameConstants } from '../constants/game.constants';
-import { Game } from '../models/game';
-import { Player } from '../models/player';
-import { PlayerStats } from '../models/player-stats';
-import { Round } from '../models/round';
-import { Team } from '../models/team';
-import { TeamColor } from '../models/team-color';
-import { Throw } from '../models/throw';
-import { ThrowResult } from '../models/throw-result';
+import { Game } from '../models/game.model';
+import { PlayerStats } from '../models/player-stats.model';
+import { Player } from '../models/player.model';
+import { Round } from '../models/round.model';
+import { TeamColor } from '../models/team-color.model';
+import { Team } from '../models/team.model';
+import { ThrowResult } from '../models/throw-result.model';
+import { Throw } from '../models/throw.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GameService {
+  private readonly environmentInjector = inject(EnvironmentInjector);
+  private readonly firestore = inject(Firestore);
+
   private readonly teamsKey = 'TEAMS';
   private readonly playersKey = 'PLAYERS';
   private readonly gamesKey = 'GAMES';
+
 
   players: Player[] = [];
   teams: Team[] = [];
@@ -76,13 +81,6 @@ export class GameService {
   setTeamColor(team: Team): void {
     this.saveTeams();
     this.saveGames();
-  }
-
-  createPlayer(name: string): Player {
-    const player = new Player(name);
-    this.players.push(player);
-    this.savePlayers();
-    return player;
   }
 
   createTeam(players: Player[], teamNumber: number, teamColor: TeamColor): Team {
@@ -158,15 +156,15 @@ export class GameService {
 
     const playerIndex = game.team1.players.length === 1 ? 0 : (game.rounds.length + 1) % 2;
 
-    lastRound.team1Throws.map(x => this.updateThrowResult(game.team1.players[playerIndex].stats, x.result!));
-    lastRound.team2Throws.map(x => this.updateThrowResult(game.team2.players[playerIndex].stats, x.result!));
-    game.team1.players[playerIndex].stats.pointsGained += lastRound.team1NetScore;
-    game.team2.players[playerIndex].stats.pointsGained += lastRound.team2NetScore;
-    game.team1.players[playerIndex].stats.pointsLost += lastRound.team2NetScore;
-    game.team2.players[playerIndex].stats.pointsLost += lastRound.team1NetScore;
+    lastRound.team1Throws.map(x => this.updateThrowResult(game.team1.players[playerIndex].stats!, x.result!));
+    lastRound.team2Throws.map(x => this.updateThrowResult(game.team2.players[playerIndex].stats!, x.result!));
+    game.team1.players[playerIndex].stats!.pointsGained += lastRound.team1NetScore;
+    game.team2.players[playerIndex].stats!.pointsGained += lastRound.team2NetScore;
+    game.team1.players[playerIndex].stats!.pointsLost += lastRound.team2NetScore;
+    game.team2.players[playerIndex].stats!.pointsLost += lastRound.team1NetScore;
 
-    game.team1.players.forEach((player: Player) => this.calculateScoringRate(player.stats));
-    game.team2.players.forEach((player: Player) => this.calculateScoringRate(player.stats));
+    game.team1.players.forEach((player: Player) => this.calculateScoringRate(player.stats!));
+    game.team2.players.forEach((player: Player) => this.calculateScoringRate(player.stats!));
     this.calculateTeamStats(game.team1);
     this.calculateTeamStats(game.team2);
 
@@ -187,15 +185,15 @@ export class GameService {
 
   private calculateTeamStats(team: Team): void {
     if (team.stats == null) { team.stats = new PlayerStats(); }
-    team.stats.throwResults[ThrowResult.Cornhole] = team.players.map(p => p.stats.throwResults[ThrowResult.Cornhole]).reduce((previous, current) => previous + current);
-    team.stats.throwResults[ThrowResult.OnBoard] = team.players.map(p => p.stats.throwResults[ThrowResult.OnBoard]).reduce((previous, current) => previous + current);
-    team.stats.throwResults[ThrowResult.OffBoard] = team.players.map(p => p.stats.throwResults[ThrowResult.OffBoard]).reduce((previous, current) => previous + current);
-    team.stats.totalThrows = team.players.map(p => p.stats.totalThrows).reduce((previous, current) => previous + current);
-    team.stats.totalPoints = team.players.map(p => p.stats.totalPoints).reduce((previous, current) => previous + current);
+    team.stats.throwResults[ThrowResult.Cornhole] = team.players.map(p => p.stats!.throwResults[ThrowResult.Cornhole]).reduce((previous, current) => previous + current);
+    team.stats.throwResults[ThrowResult.OnBoard] = team.players.map(p => p.stats!.throwResults[ThrowResult.OnBoard]).reduce((previous, current) => previous + current);
+    team.stats.throwResults[ThrowResult.OffBoard] = team.players.map(p => p.stats!.throwResults[ThrowResult.OffBoard]).reduce((previous, current) => previous + current);
+    team.stats.totalThrows = team.players.map(p => p.stats!.totalThrows).reduce((previous, current) => previous + current);
+    team.stats.totalPoints = team.players.map(p => p.stats!.totalPoints).reduce((previous, current) => previous + current);
     team.stats.cornholeRate = team.stats.throwResults[ThrowResult.Cornhole] / team.stats.totalThrows;
     team.stats.scoringRate = team.stats.totalPoints / team.stats.totalThrows * 4;
-    team.stats.pointsGained = team.players.map(p => p.stats.pointsGained).reduce((p, c) => p + c);
-    team.stats.pointsLost = team.players.map(p => p.stats.pointsLost).reduce((p, c) => p + c);
+    team.stats.pointsGained = team.players.map(p => p.stats!.pointsGained).reduce((p, c) => p + c);
+    team.stats.pointsLost = team.players.map(p => p.stats!.pointsLost).reduce((p, c) => p + c);
   }
 
   private updateScoreStreak(game: Game): void {

@@ -1,4 +1,4 @@
-import { ThrowResult } from "./throw-result";
+import { ThrowResult } from "./throw-result.model";
 
 export class Throw {
     public points = 0;

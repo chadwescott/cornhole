@@ -5,7 +5,7 @@ import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/materia
 import { MatRadioChange, MatRadioModule } from '@angular/material/radio';
 import { TEAM_COLORS } from '../../constants/team-color.constants';
 import { DesignOptions } from '../../models/design-options.enum';
-import { TeamColor } from '../../models/team-color';
+import { TeamColor } from '../../models/team-color.model';
 import { CardComponent } from '../card/card.component';
 
 @Component({

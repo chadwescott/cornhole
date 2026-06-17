@@ -1,9 +1,9 @@
 import { Component, EventEmitter, input, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 
-import { Game } from '../../models/game';
-import { Round } from '../../models/round';
-import { Team } from '../../models/team';
+import { Game } from '../../models/game.model';
+import { Round } from '../../models/round.model';
+import { Team } from '../../models/team.model';
 import { FullScoreboardComponent } from '../full-scoreboard/full-scoreboard.component';
 import { GameOptionsComponent } from '../game-options/game-options.component';
 import { PlayerStatsComponent } from '../player-stats/player-stats.component';

@@ -1,6 +1,6 @@
 import { Component, input, OnInit } from '@angular/core';
 import { DesignOptions } from '../../models/design-options.enum';
-import { Team } from '../../models/team';
+import { Team } from '../../models/team.model';
 
 @Component({
   selector: 'ch-team-score',

@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { Game } from '../../models/game';
+import { Game } from '../../models/game.model';
 
 import { TeamScoreComponent } from '../team-score/team-score.component';
 

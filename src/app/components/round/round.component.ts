@@ -1,8 +1,8 @@
 import { animate, animation, keyframes, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, input, Output } from '@angular/core';
 
-import { Round } from '../../models/round';
-import { TeamColor } from '../../models/team-color';
+import { Round } from '../../models/round.model';
+import { TeamColor } from '../../models/team-color.model';
 import { RoundTeamScoreComponent } from '../round-team-score/round-team-score.component';
 import { RoundThrowsComponent } from '../round-throws/round-throws.component';
 

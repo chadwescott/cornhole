@@ -8,10 +8,11 @@ import { MatInputModule } from '@angular/material/input';
 
 import { MatRadioChange, MatRadioModule } from '@angular/material/radio';
 import { DesignOptions } from '../../models/design-options.enum';
-import { Game } from '../../models/game';
-import { Player } from '../../models/player';
-import { Team } from '../../models/team';
-import { TeamColor } from '../../models/team-color';
+import { Game } from '../../models/game.model';
+import { PlayerStats } from '../../models/player-stats.model';
+import { Player } from '../../models/player.model';
+import { TeamColor } from '../../models/team-color.model';
+import { Team } from '../../models/team.model';
 import { CardComponent } from '../card/card.component';
 import { TeamColorPickerDialogComponent } from '../team-color-picker-dialog/team-color-picker-dialog.component';
 
@@ -65,8 +66,8 @@ export class GameOptionsComponent implements OnInit {
       this.game().team2.players.pop();
     }
     else if (change.value === '2' && this.game().team1.players.length === 1) {
-      this.game().team1.players.push(new Player('Player 3'));
-      this.game().team2.players.push(new Player('Player 4'));
+      this.game().team1.players.push({ firstName: 'Player 3', lastName: '', stats: {} as PlayerStats, imagePath: null } as Player);
+      this.game().team2.players.push({ firstName: 'Player 4', lastName: '', stats: {} as PlayerStats, imagePath: null } as Player);
     }
 
     this.playersChanged.emit();

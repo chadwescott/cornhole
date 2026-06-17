@@ -1,5 +1,5 @@
 import { EnumDictionary } from '../utils/enum-dictionary';
-import { ThrowResult } from './throw-result';
+import { ThrowResult } from './throw-result.model';
 
 export class PlayerStats {
     throwResults: EnumDictionary<ThrowResult, number> = {
@@ -15,6 +15,4 @@ export class PlayerStats {
     cornholeRate: number = 0;
     wins: number = 0;
     losses: number = 0;
-
-    constructor() { }
 }

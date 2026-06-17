@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, input, OnInit, Output } from '@angular/core';
-import { Game } from '../../models/game';
-import { ThrowResult } from '../../models/throw-result';
+import { Game } from '../../models/game.model';
+import { ThrowResult } from '../../models/throw-result.model';
 
 @Component({
   selector: 'ch-game-stats',

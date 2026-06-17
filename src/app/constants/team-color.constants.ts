@@ -1,5 +1,5 @@
 import { DesignOptions } from '../models/design-options.enum';
-import { TeamColor } from '../models/team-color';
+import { TeamColor } from '../models/team-color.model';
 
 export const TEAM_COLORS: TeamColor[] = [
     new TeamColor('red', DesignOptions.Solid),

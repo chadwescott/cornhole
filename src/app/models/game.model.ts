@@ -1,7 +1,8 @@
-import { Round } from './round';
-import { Team } from './team';
+import { Round } from './round.model';
+import { Team } from './team.model';
 
 export class Game {
+    public id: string | null = null;
     public rounds: Round[] = [];
     public team1Score = 0;
     public team2Score = 0;

@@ -2,9 +2,9 @@ import { Component, EventEmitter, input, OnInit, Output } from '@angular/core';
 import { MatButtonToggleChange, MatButtonToggleModule } from '@angular/material/button-toggle';
 import { GameConstants } from '../../constants/game.constants';
 import { DesignOptions } from '../../models/design-options.enum';
-import { TeamColor } from '../../models/team-color';
-import { Throw } from '../../models/throw';
-import { ThrowResult } from '../../models/throw-result';
+import { TeamColor } from '../../models/team-color.model';
+import { ThrowResult } from '../../models/throw-result.model';
+import { Throw } from '../../models/throw.model';
 
 
 @Component({

@@ -1,6 +1,6 @@
 import { Component, input } from '@angular/core';
-import { Throw } from '../../models/throw';
-import { ThrowResult } from '../../models/throw-result';
+import { ThrowResult } from '../../models/throw-result.model';
+import { Throw } from '../../models/throw.model';
 
 @Component({
   selector: 'ch-throw-result-icon',

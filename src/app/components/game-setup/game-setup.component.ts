@@ -1,8 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { Game } from 'src/app/models/game';
-import { Team } from 'src/app/models/team';
 
+import { Game } from '../../models/game.model';
+import { Team } from '../../models/team.model';
 import { TeamSelectorComponent } from '../team-selector/team-selector.component';
 
 @Component({
@@ -19,8 +19,8 @@ export class GameSetupComponent implements OnInit {
   @Output()
   createGame = new EventEmitter<Game>();
 
-  team1: Team;
-  team2: Team;
+  team1: Team | null = null;
+  team2: Team | null = null;
 
   constructor() { }
 

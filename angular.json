@@ -24,6 +24,7 @@
             "polyfills": ["src/polyfills.ts"],
             "tsConfig": "tsconfig.app.json",
             "aot": true,
+            "sourceMap": true,
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
               "src/assets/font-awesome/css/all.min.css",

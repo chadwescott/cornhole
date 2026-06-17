@@ -1,6 +1,6 @@
 import { Component, EventEmitter, input, OnInit, Output } from '@angular/core';
-import { TeamColor } from '../../models/team-color';
-import { Throw } from '../../models/throw';
+import { TeamColor } from '../../models/team-color.model';
+import { Throw } from '../../models/throw.model';
 
 import { ThrowResultComponent } from '../throw-result/throw-result.component';
 

@@ -1,4 +1,4 @@
-import { Throw } from './throw';
+import { Throw } from './throw.model';
 
 export class Round {
     public team1NetScore = 0;

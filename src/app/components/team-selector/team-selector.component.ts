@@ -1,6 +1,6 @@
 import { Component, output } from '@angular/core';
+import { Team } from '../../models/team.model';
 
-import { Team } from '../../models/team';
 
 @Component({
   selector: 'ch-team-selector',

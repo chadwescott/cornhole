@@ -1,4 +1,4 @@
-import { ThrowResult } from '../models/throw-result';
+import { ThrowResult } from '../models/throw-result.model';
 import { EnumDictionary } from '../utils/enum-dictionary';
 
 export class GameConstants {
