@@ -107,7 +107,29 @@ export class GameOptionsComponent implements OnInit {
     return `${player.firstName} ${player.lastName}`.trim();
   }
 
+  availablePlayers(targetPlayer: Player): Player[] {
+    const selectedIds = new Set(
+      this.getGamePlayers()
+        .filter(player => player !== targetPlayer && player.id)
+        .map(player => player.id)
+    );
+
+    return this.appStateService.players().filter(player => {
+      if (!player.id) {
+        return false;
+      }
+
+      return !selectedIds.has(player.id) || player.id === targetPlayer.id;
+    });
+  }
+
   setTeamPlayer(targetPlayer: Player, playerId: string | null): void {
+    if (!playerId) {
+      return;
+    }
+
+    this.clearPlayerFromOtherSlots(targetPlayer, playerId);
+
     const selected = this.appStateService.players().find(x => x.id === playerId);
     if (!selected) {
       return;
@@ -118,5 +140,21 @@ export class GameOptionsComponent implements OnInit {
     targetPlayer.lastName = selected.lastName;
     targetPlayer.imagePath = selected.imagePath;
     this.playersChanged.emit();
+  }
+
+  private clearPlayerFromOtherSlots(targetPlayer: Player, playerId: string): void {
+    this.getGamePlayers()
+      .filter(player => player !== targetPlayer && player.id === playerId)
+      .forEach(player => {
+        player.id = null;
+        player.firstName = '';
+        player.lastName = '';
+        player.imagePath = null;
+      });
+  }
+
+  private getGamePlayers(): Player[] {
+    const game = this.game();
+    return [...game.team1.players, ...game.team2.players];
   }
 }

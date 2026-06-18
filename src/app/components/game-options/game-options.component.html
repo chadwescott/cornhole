@@ -21,7 +21,7 @@
             <mat-label>Player {{i + 1}}</mat-label>
             <mat-select panelClass="player-picker-panel" [ngModel]="player.id"
               (ngModelChange)="setTeamPlayer(game().team1.players[i], $event)">
-              @for (appPlayer of appStateService.players(); track appPlayer.id) {
+              @for (appPlayer of availablePlayers(player); track appPlayer.id) {
               <mat-option [value]="appPlayer.id">{{ playerLabel(appPlayer) }}</mat-option>
               }
             </mat-select>
@@ -49,7 +49,7 @@
             <mat-label>Player {{i + 1 + game().team1.players.length}}</mat-label>
             <mat-select panelClass="player-picker-panel" [ngModel]="player.id"
               (ngModelChange)="setTeamPlayer(game().team2.players[i], $event)">
-              @for (appPlayer of appStateService.players(); track appPlayer.id) {
+              @for (appPlayer of availablePlayers(player); track appPlayer.id) {
               <mat-option [value]="appPlayer.id">{{ playerLabel(appPlayer) }}</mat-option>
               }
             </mat-select>
