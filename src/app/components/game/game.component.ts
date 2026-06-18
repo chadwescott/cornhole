@@ -6,7 +6,6 @@ import { Round } from '../../models/round.model';
 import { Team } from '../../models/team.model';
 import { FullScoreboardComponent } from '../full-scoreboard/full-scoreboard.component';
 import { GameOptionsComponent } from '../game-options/game-options.component';
-import { PlayerStatsComponent } from '../player-stats/player-stats.component';
 import { RoundComponent } from '../round/round.component';
 import { ScoreboardComponent } from '../scoreboard/scoreboard.component';
 
@@ -19,7 +18,6 @@ import { ScoreboardComponent } from '../scoreboard/scoreboard.component';
     FullScoreboardComponent,
     GameOptionsComponent,
     MatButtonModule,
-    PlayerStatsComponent,
     RoundComponent,
     ScoreboardComponent
   ]
@@ -59,7 +57,6 @@ export class GameComponent {
   resetGame = new EventEmitter<Game>();
 
   showOptions = false;
-  showPlayerStats = false;
   showFullScoreboard = false;
 
   onRoundChanged(index: number): void {

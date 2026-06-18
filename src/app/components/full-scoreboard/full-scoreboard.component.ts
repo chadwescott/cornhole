@@ -23,15 +23,6 @@ export class FullScoreboardComponent implements OnInit {
   game = input.required<Game>();
 
   @Output()
-  resetStreak = new EventEmitter<Game>();
-
-  @Output()
-  resetStats = new EventEmitter<Game>();
-
-  @Output()
-  resetGame = new EventEmitter<Game>();
-
-  @Output()
   close = new EventEmitter();
 
   throwResult = ThrowResult;

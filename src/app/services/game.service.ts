@@ -6,13 +6,16 @@ import { Game } from '../models/game.model';
 import { PlayerStats } from '../models/player-stats.model';
 import { Player } from '../models/player.model';
 import { Round } from '../models/round.model';
-import { SupabaseGameStats } from '../models/supabase-game-stats.model';
-import { SupabaseGame } from '../models/supabase-game.model';
+import { SupabaseGamePlayer } from '../models/supabase/supabase-game-player.model';
+import { SupabaseGameStats } from '../models/supabase/supabase-game-stats.model';
+import { SupabaseGame } from '../models/supabase/supabase-game.model';
 import { TeamColor } from '../models/team-color.model';
 import { Team } from '../models/team.model';
 import { ThrowResult } from '../models/throw-result.model';
 import { Throw } from '../models/throw.model';
 import { SupabaseService } from './supabase.service';
+
+type SupabaseGamePlayerInsert = Omit<SupabaseGamePlayer, 'players'>;
 
 @Injectable({
   providedIn: 'root'
@@ -73,6 +76,18 @@ export class GameService {
 
   getGames(): Game[] {
     return this.games;
+  }
+
+  async getGamesFromSupabase(): Promise<SupabaseGame[]> {
+    const response = await this.supabaseService.request(
+      'games?select=' +
+      'id,created_at,team1_score,team2_score,team1_color,team2_color,team1_design,team2_design,' +
+      'game_players(game_id,player_id,team_number,player_number,players(id,first_name,last_name)),' +
+      'game_stats(game_id,player_id,total_off_board,total_on_board,total_cornhole,total_points,points_gained,points_lost,scoring_rate,cornhole_rate,players(id,first_name,last_name))' +
+      '&order=id.desc'
+    );
+
+    return await response.json() as SupabaseGame[];
   }
 
   loadGame(game: Game): void {
@@ -226,6 +241,7 @@ export class GameService {
 
   async completeGame(game: Game): Promise<void> {
     const gameId = await this.saveCompletedGameToSupabase(game);
+    await this.saveGamePlayersToSupabase(game, gameId);
     await this.saveGameStatsToSupabase(game, gameId);
     game.id = gameId;
     this.resetStats(game);
@@ -272,6 +288,32 @@ export class GameService {
       },
       body: statsPayload
     });
+  }
+
+  private async saveGamePlayersToSupabase(game: Game, gameId: number): Promise<void> {
+    const gamePlayersPayload = this.buildGamePlayersPayload(game, gameId);
+    if (!gamePlayersPayload.length) {
+      return;
+    }
+
+    await this.supabaseService.request('game_players', {
+      method: 'POST',
+      headers: {
+        Prefer: 'return=minimal'
+      },
+      body: gamePlayersPayload
+    });
+  }
+
+  private buildGamePlayersPayload(game: Game, gameId: number): SupabaseGamePlayerInsert[] {
+    return [game.team1, game.team2].flatMap(team =>
+      team.players.map((player, index) => ({
+        game_id: gameId,
+        player_id: player.id!,
+        team_number: team.teamNumber,
+        player_number: index + 1
+      }))
+    ).filter(gamePlayer => !!gamePlayer.player_id) as SupabaseGamePlayerInsert[];
   }
 
   private buildGameStatsPayload(game: Game, gameId: number): SupabaseGameStats[] {

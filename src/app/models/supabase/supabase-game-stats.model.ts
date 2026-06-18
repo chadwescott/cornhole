@@ -1,3 +1,5 @@
+import { SupabasePlayer } from "./supabase-player.model";
+
 export interface SupabaseGameStats {
     game_id: number;
     player_id: string;
@@ -9,4 +11,5 @@ export interface SupabaseGameStats {
     points_lost: number;
     scoring_rate: number;
     cornhole_rate: number;
+    players?: SupabasePlayer | null;
 }

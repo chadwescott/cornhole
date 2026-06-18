@@ -6,11 +6,6 @@
   </ch-game-options>
 </div>
 }
-@if (showPlayerStats) {
-<div class="overlay">
-  <ch-player-stats></ch-player-stats>
-</div>
-}
 @if (showFullScoreboard) {
 <div class="overlay">
   <ch-full-scoreboard [game]="game()" (click)="$event.stopPropagation()" (resetStats)="resetStats.emit($event)"
