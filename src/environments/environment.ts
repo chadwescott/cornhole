@@ -6,5 +6,9 @@ export const environment = {
     messagingSenderId: '38481895674',
     projectId: 'cornhole-499220',
     storageBucket: 'cornhole-499220.firebasestorage.app'
+  },
+  supabase: {
+    url: 'https://vxabasyhedjdjuvwzmvl.supabase.co',
+    publishableKey: 'sb_publishable_QBZctI_mHDMCE2vGoxiCUg_dVCsPcLZ'
   }
 };

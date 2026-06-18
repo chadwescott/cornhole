@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, inject, input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
@@ -13,6 +13,7 @@ import { PlayerStats } from '../../models/player-stats.model';
 import { Player } from '../../models/player.model';
 import { TeamColor } from '../../models/team-color.model';
 import { Team } from '../../models/team.model';
+import { AppStateService } from '../../services/app-state.service';
 import { CardComponent } from '../card/card.component';
 import { TeamColorPickerDialogComponent } from '../team-color-picker-dialog/team-color-picker-dialog.component';
 
@@ -54,6 +55,8 @@ export class GameOptionsComponent implements OnInit {
   playersChanged = new EventEmitter();
 
   designOptions = DesignOptions;
+
+  readonly appStateService = inject(AppStateService);
 
   constructor(private dialog: MatDialog) { }
 

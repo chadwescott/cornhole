@@ -2,10 +2,18 @@ import { EnvironmentInjector, inject, Injectable, runInInjectionContext } from '
 import { from, map, Observable } from 'rxjs';
 
 
-import { addDoc, collection, CollectionReference, doc, Firestore, FirestoreDataConverter, getDoc, getDocs, QueryDocumentSnapshot, SnapshotOptions } from '@angular/fire/firestore';
+import { addDoc, collection, CollectionReference, doc, Firestore, FirestoreDataConverter, getDoc, QueryDocumentSnapshot, SnapshotOptions } from '@angular/fire/firestore';
+import { environment } from '../../environments/environment';
 import { PlayerStats } from '../models/player-stats.model';
 import { Player } from '../models/player.model';
 import { FirestorePaths } from './firestore-paths';
+
+interface SupabasePlayerRow {
+    id: string;
+    created_at: string;
+    first_name: string;
+    last_name: string;
+}
 
 @Injectable({
     providedIn: 'root'
@@ -61,14 +69,37 @@ export class PlayerService {
     }
 
     getPlayers(): Observable<Player[]> {
-        return runInInjectionContext(this.environmentInjector, () => {
-            const playerRef = collection(this.firestore, FirestorePaths.players)
-                .withConverter(this.playerConverter);
+        return from(this.fetchPlayersFromSupabase()).pipe(
+            map(players => this.sort(players))
+        );
+    }
 
-            return from(getDocs(playerRef)).pipe(
-                map(snapshot => this.sort(snapshot.docs.map(x => x.data())))
-            );
+    private async fetchPlayersFromSupabase(): Promise<Player[]> {
+        const { url, publishableKey } = environment.supabase;
+        const endpoint = `${url}/rest/v1/players?select=id,created_at,first_name,last_name&order=last_name.asc,first_name.asc`;
+
+        const response = await fetch(endpoint, {
+            headers: {
+                apikey: publishableKey,
+                Authorization: `Bearer ${publishableKey}`,
+                Accept: 'application/json'
+            }
         });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`Supabase request failed (${response.status}): ${errorText}`);
+        }
+
+        const rows = await response.json() as SupabasePlayerRow[];
+
+        return rows.map(row => ({
+            id: row.id,
+            firstName: row.first_name,
+            lastName: row.last_name,
+            imagePath: null,
+            stats: new PlayerStats()
+        }));
     }
 
     sort(players: Player[]): Player[] {
