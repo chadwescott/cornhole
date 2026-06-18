@@ -1,11 +1,10 @@
 import { Component, inject, OnInit } from '@angular/core';
 
-import { TEAM_COLORS } from 'src/app/constants/team-color.constants';
+import { TEAM_COLORS } from '../../constants/team-color.constants';
 import { Game } from '../../models/game.model';
 import { Round } from '../../models/round.model';
 import { Team } from '../../models/team.model';
 import { GameService } from '../../services/game.service';
-import { PlayerService } from '../../services/player.service';
 import { GameComponent } from '../game/game.component';
 
 @Component({
@@ -22,7 +21,6 @@ export class GamePageComponent implements OnInit {
     activeRound: Round | null = null;
 
     private readonly gameService = inject(GameService);
-    private readonly playerService = inject(PlayerService);
 
     async ngOnInit(): Promise<void> {
         this.game = this.gameService.getGames()?.find(x => !x.complete) || null;
@@ -30,7 +28,7 @@ export class GamePageComponent implements OnInit {
             this.gameService.loadGame(this.game);
             this.activeRound = this.game.rounds[this.game.rounds.length - 1] || null;
         } else {
-            this.createNewGame();
+            await this.createNewGame();
         }
     }
 
@@ -71,8 +69,8 @@ export class GamePageComponent implements OnInit {
         this.gameService.saveGames();
     }
 
-    onCompleteGame(game: Game): void {
-        this.gameService.completeGame(game);
+    async onCompleteGame(game: Game): Promise<void> {
+        await this.gameService.completeGame(game);
         this.game = this.gameService.createGame(game.team1, game.team2);
         this.activateLastRound(this.game);
     }

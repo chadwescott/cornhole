@@ -6,10 +6,13 @@ import { Game } from '../models/game.model';
 import { PlayerStats } from '../models/player-stats.model';
 import { Player } from '../models/player.model';
 import { Round } from '../models/round.model';
+import { SupabaseGameStats } from '../models/supabase-game-stats.model';
+import { SupabaseGame } from '../models/supabase-game.model';
 import { TeamColor } from '../models/team-color.model';
 import { Team } from '../models/team.model';
 import { ThrowResult } from '../models/throw-result.model';
 import { Throw } from '../models/throw.model';
+import { SupabaseService } from './supabase.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +20,7 @@ import { Throw } from '../models/throw.model';
 export class GameService {
   private readonly environmentInjector = inject(EnvironmentInjector);
   private readonly firestore = inject(Firestore);
+  private readonly supabaseService = inject(SupabaseService);
 
   private readonly teamsKey = 'TEAMS';
   private readonly playersKey = 'PLAYERS';
@@ -220,8 +224,73 @@ export class GameService {
     this.saveGames();
   }
 
-  completeGame(game: Game): void {
-    this.resetStats(game);
+  async completeGame(game: Game): Promise<void> {
+    const gameId = await this.saveCompletedGameToSupabase(game);
+    await this.saveGameStatsToSupabase(game, gameId);
+    game.id = gameId;
+    // this.resetStats(game);
+  }
+
+  private async saveCompletedGameToSupabase(game: Game): Promise<number> {
+    const response = await this.supabaseService.request('games', {
+      method: 'POST',
+      headers: {
+        Prefer: 'return=representation'
+      },
+      body: {
+        team1_score: game.team1Score,
+        team2_score: game.team2Score,
+        team1_color: game.team1.teamColor.colorScheme,
+        team2_color: game.team2.teamColor.colorScheme,
+        team1_design: game.team1.teamColor.design.toString(),
+        team2_design: game.team2.teamColor.design.toString(),
+      }
+    });
+
+    const responseText = await response.text();
+    const createdGames = JSON.parse(responseText) as SupabaseGame[];
+
+    const createdGame = createdGames.length === 1 ? createdGames[0] : null;
+
+    if (!createdGame?.id) {
+      throw new Error('Supabase create game failed: missing game id in response');
+    }
+
+    return createdGame.id;
+  }
+
+  private async saveGameStatsToSupabase(game: Game, gameId: number): Promise<void> {
+    const statsPayload = this.buildGameStatsPayload(game, gameId);
+    if (!statsPayload.length) {
+      return;
+    }
+
+    await this.supabaseService.request('game_stats', {
+      method: 'POST',
+      headers: {
+        Prefer: 'return=minimal'
+      },
+      body: statsPayload
+    });
+  }
+
+  private buildGameStatsPayload(game: Game, gameId: number): SupabaseGameStats[] {
+    const players = [...game.team1.players, ...game.team2.players];
+
+    return players
+      .filter(player => !!player.id && !!player.stats)
+      .map(player => ({
+        game_id: gameId,
+        player_id: player.id!,
+        total_off_board: player.stats!.throwResults[ThrowResult.OffBoard] ?? 0,
+        total_on_board: player.stats!.throwResults[ThrowResult.OnBoard] ?? 0,
+        total_cornhole: player.stats!.throwResults[ThrowResult.Cornhole] ?? 0,
+        total_points: player.stats!.totalPoints ?? 0,
+        points_gained: player.stats!.pointsGained ?? 0,
+        points_lost: player.stats!.pointsLost ?? 0,
+        scoring_rate: player.stats!.scoringRate ?? 0,
+        cornhole_rate: player.stats!.cornholeRate ?? 0
+      }));
   }
 
   resetStats(game: Game): void {

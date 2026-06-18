@@ -3,11 +3,11 @@ import { from, map, Observable } from 'rxjs';
 
 
 import { doc, Firestore, FirestoreDataConverter, getDoc, QueryDocumentSnapshot, SnapshotOptions } from '@angular/fire/firestore';
-import { environment } from '../../environments/environment';
 import { PlayerStats } from '../models/player-stats.model';
 import { Player } from '../models/player.model';
 import { AppStateService } from './app-state.service';
 import { FirestorePaths } from './firestore-paths';
+import { SupabaseService } from './supabase.service';
 
 interface SupabasePlayerRow {
     id: string;
@@ -23,6 +23,7 @@ export class PlayerService {
     private readonly environmentInjector = inject(EnvironmentInjector);
     private readonly firestore = inject(Firestore);
     private readonly appStateService = inject(AppStateService);
+    private readonly supabaseService = inject(SupabaseService);
 
     readonly playerConverter: FirestoreDataConverter<Player> = {
         toFirestore(player: Player) {
@@ -45,27 +46,13 @@ export class PlayerService {
     }
 
     private async createPlayerInSupabase(firstName: string, lastName: string): Promise<void> {
-        const { url, publishableKey } = environment.supabase;
-        const endpoint = `${url}/rest/v1/players`;
-
-        const response = await fetch(endpoint, {
+        await this.supabaseService.request('players', {
             method: 'POST',
-            headers: {
-                apikey: publishableKey,
-                Authorization: `Bearer ${publishableKey}`,
-                'Content-Type': 'application/json',
-                Accept: 'application/json'
-            },
-            body: JSON.stringify({
+            body: {
                 first_name: firstName,
                 last_name: lastName
-            })
+            }
         });
-
-        if (!response.ok) {
-            const errorText = await response.text();
-            throw new Error(`Supabase create player failed (${response.status}): ${errorText}`);
-        }
     }
 
     getPlayerById(playerId: string): Observable<Player | null> {
@@ -92,21 +79,7 @@ export class PlayerService {
     }
 
     private async fetchPlayersFromSupabase(): Promise<Player[]> {
-        const { url, publishableKey } = environment.supabase;
-        const endpoint = `${url}/rest/v1/players?select=id,created_at,first_name,last_name&order=last_name.asc,first_name.asc`;
-
-        const response = await fetch(endpoint, {
-            headers: {
-                apikey: publishableKey,
-                Authorization: `Bearer ${publishableKey}`,
-                Accept: 'application/json'
-            }
-        });
-
-        if (!response.ok) {
-            const errorText = await response.text();
-            throw new Error(`Supabase request failed (${response.status}): ${errorText}`);
-        }
+        const response = await this.supabaseService.request('players?select=id,created_at,first_name,last_name&order=last_name.asc,first_name.asc');
 
         const rows = await response.json() as SupabasePlayerRow[];
 
