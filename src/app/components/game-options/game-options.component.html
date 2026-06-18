@@ -19,7 +19,12 @@
         <div>
           <mat-form-field>
             <mat-label>Player {{i + 1}}</mat-label>
-            <input matInput [(ngModel)]="player.name" (ngModelChange)="playersChanged.emit()">
+            <mat-select panelClass="player-picker-panel" [ngModel]="player.id"
+              (ngModelChange)="setTeamPlayer(game().team1.players[i], $event)">
+              @for (appPlayer of appStateService.players(); track appPlayer.id) {
+              <mat-option [value]="appPlayer.id">{{ playerLabel(appPlayer) }}</mat-option>
+              }
+            </mat-select>
           </mat-form-field>
         </div>
         }
@@ -42,7 +47,12 @@
         <div>
           <mat-form-field>
             <mat-label>Player {{i + 1 + game().team1.players.length}}</mat-label>
-            <input matInput [(ngModel)]="player.name" (ngModelChange)="playersChanged.emit()">
+            <mat-select panelClass="player-picker-panel" [ngModel]="player.id"
+              (ngModelChange)="setTeamPlayer(game().team2.players[i], $event)">
+              @for (appPlayer of appStateService.players(); track appPlayer.id) {
+              <mat-option [value]="appPlayer.id">{{ playerLabel(appPlayer) }}</mat-option>
+              }
+            </mat-select>
           </mat-form-field>
         </div>
         }

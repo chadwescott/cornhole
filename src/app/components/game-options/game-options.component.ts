@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 
 import { MatRadioChange, MatRadioModule } from '@angular/material/radio';
 import { DesignOptions } from '../../models/design-options.enum';
@@ -29,7 +29,7 @@ import { TeamColorPickerDialogComponent } from '../team-color-picker-dialog/team
     MatButtonModule,
     MatDialogModule,
     MatFormFieldModule,
-    MatInputModule,
+    MatSelectModule,
     MatRadioModule
   ]
 })
@@ -101,5 +101,22 @@ export class GameOptionsComponent implements OnInit {
 
     team.players[0].stats = team.players[1].stats;
     team.players[1].stats = statsHold;
+  }
+
+  playerLabel(player: Player): string {
+    return `${player.firstName} ${player.lastName}`.trim();
+  }
+
+  setTeamPlayer(targetPlayer: Player, playerId: string | null): void {
+    const selected = this.appStateService.players().find(x => x.id === playerId);
+    if (!selected) {
+      return;
+    }
+
+    targetPlayer.id = selected.id;
+    targetPlayer.firstName = selected.firstName;
+    targetPlayer.lastName = selected.lastName;
+    targetPlayer.imagePath = selected.imagePath;
+    this.playersChanged.emit();
   }
 }

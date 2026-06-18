@@ -94,6 +94,19 @@ body {
     color: #800000;
 }
 
+
+.player-picker-panel {
+    --bg-color: #fff;
+}
+
+.cdk-overlay-pane .player-picker-panel {
+    --mat-select-panel-background-color: var(--bg-color);
+    opacity: 1;
+    border: solid 1px black;
+    border-top: unset;
+    box-shadow: 2px 2px 4px 2px rgb(0 0 0 / 0.2);
+}
+
 .fa-cog {
     color: dimgrey;
     -webkit-text-stroke-color: black;
