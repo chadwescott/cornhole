@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+
+import { AppDataService } from './services/app-data.service';
 
 @Component({
   selector: 'ch-root',
@@ -11,4 +13,5 @@ import { RouterOutlet } from '@angular/router';
   ]
 })
 export class AppComponent {
+  readonly appDataService = inject(AppDataService);
 }

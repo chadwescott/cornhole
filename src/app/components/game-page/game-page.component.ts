@@ -1,5 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 
+import { TEAM_COLORS } from 'src/app/constants/team-color.constants';
 import { Game } from '../../models/game.model';
 import { Round } from '../../models/round.model';
 import { Team } from '../../models/team.model';
@@ -24,15 +25,6 @@ export class GamePageComponent implements OnInit {
     private readonly playerService = inject(PlayerService);
 
     async ngOnInit(): Promise<void> {
-        // try {
-        //     const player1 = await this.playerService.createPlayer('Player 1', '');
-        //     console.log('ngOnInit createPlayer result', player1);
-        // } catch (err) {
-        //     console.error('ngOnInit createPlayer failed', err);
-        // }
-        this.playerService.getPlayers().subscribe(players => {
-            console.log(players);
-        });
         this.game = this.gameService.getGames()?.find(x => !x.complete) || null;
         if (this.game) {
             this.gameService.loadGame(this.game);
@@ -44,12 +36,10 @@ export class GamePageComponent implements OnInit {
 
     async createNewGame(): Promise<void> {
         this.gameService.clearData();
-        // const player1 = await this.playerService.createPlayer('Player 1', '');
-        // const player2 = await this.playerService.createPlayer('Player 2', '');
-        // const team1 = this.gameService.createTeam([player1], 1, TEAM_COLORS[0]);
-        // const team2 = this.gameService.createTeam([player2], 2, TEAM_COLORS[2]);
-        // this.game = this.gameService.createGame(team1, team2);
-        // this.activateLastRound(this.game);
+        const team1 = this.gameService.createTeam([], 1, TEAM_COLORS[0]);
+        const team2 = this.gameService.createTeam([], 2, TEAM_COLORS[2]);
+        this.game = this.gameService.createGame(team1, team2);
+        this.activateLastRound(this.game);
     }
 
     onRoundChanged(round: Round): void {

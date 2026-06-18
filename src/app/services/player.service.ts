@@ -2,10 +2,11 @@ import { EnvironmentInjector, inject, Injectable, runInInjectionContext } from '
 import { from, map, Observable } from 'rxjs';
 
 
-import { addDoc, collection, CollectionReference, doc, Firestore, FirestoreDataConverter, getDoc, QueryDocumentSnapshot, SnapshotOptions } from '@angular/fire/firestore';
+import { doc, Firestore, FirestoreDataConverter, getDoc, QueryDocumentSnapshot, SnapshotOptions } from '@angular/fire/firestore';
 import { environment } from '../../environments/environment';
 import { PlayerStats } from '../models/player-stats.model';
 import { Player } from '../models/player.model';
+import { AppStateService } from './app-state.service';
 import { FirestorePaths } from './firestore-paths';
 
 interface SupabasePlayerRow {
@@ -21,6 +22,7 @@ interface SupabasePlayerRow {
 export class PlayerService {
     private readonly environmentInjector = inject(EnvironmentInjector);
     private readonly firestore = inject(Firestore);
+    private readonly appStateService = inject(AppStateService);
 
     readonly playerConverter: FirestoreDataConverter<Player> = {
         toFirestore(player: Player) {
@@ -37,18 +39,33 @@ export class PlayerService {
         },
     };
 
-    createPlayer(firstName: string, lastName: string): Promise<Player> {
-        return runInInjectionContext(this.environmentInjector, async () => {
-            const playersRef = collection(this.firestore, FirestorePaths.players)
-                .withConverter(this.playerConverter) as CollectionReference<Player>;
+    async createPlayer(firstName: string, lastName: string): Promise<void> {
+        await this.createPlayerInSupabase(firstName, lastName);
+        this.appStateService.playerAdded.update(Date.now);
+    }
 
-            const player: Player = { firstName, lastName, stats: null, id: null, imagePath: null };
+    private async createPlayerInSupabase(firstName: string, lastName: string): Promise<void> {
+        const { url, publishableKey } = environment.supabase;
+        const endpoint = `${url}/rest/v1/players`;
 
-            return addDoc(playersRef, player).then(docRef => {
-                player.id = docRef.id;
-                return player;
-            });
+        const response = await fetch(endpoint, {
+            method: 'POST',
+            headers: {
+                apikey: publishableKey,
+                Authorization: `Bearer ${publishableKey}`,
+                'Content-Type': 'application/json',
+                Accept: 'application/json'
+            },
+            body: JSON.stringify({
+                first_name: firstName,
+                last_name: lastName
+            })
         });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`Supabase create player failed (${response.status}): ${errorText}`);
+        }
     }
 
     getPlayerById(playerId: string): Observable<Player | null> {

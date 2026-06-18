@@ -7,14 +7,15 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 
 import { MatRadioChange, MatRadioModule } from '@angular/material/radio';
+import { PlayerService } from 'src/app/services/player.service';
 import { DesignOptions } from '../../models/design-options.enum';
 import { Game } from '../../models/game.model';
-import { PlayerStats } from '../../models/player-stats.model';
 import { Player } from '../../models/player.model';
 import { TeamColor } from '../../models/team-color.model';
 import { Team } from '../../models/team.model';
 import { AppStateService } from '../../services/app-state.service';
 import { CardComponent } from '../card/card.component';
+import { PlayerAddDialogComponent, PlayerAddDialogData } from '../player-add-dialog/player-add-dialog.component';
 import { TeamColorPickerDialogComponent } from '../team-color-picker-dialog/team-color-picker-dialog.component';
 
 @Component({
@@ -57,6 +58,7 @@ export class GameOptionsComponent implements OnInit {
   designOptions = DesignOptions;
 
   readonly appStateService = inject(AppStateService);
+  readonly playerService = inject(PlayerService);
 
   constructor(private dialog: MatDialog) { }
 
@@ -64,13 +66,18 @@ export class GameOptionsComponent implements OnInit {
   }
 
   teamPlayersChanged(change: MatRadioChange): void {
-    if (change.value === '1' && this.game().team1.players.length === 2) {
-      this.game().team1.players.pop();
-      this.game().team2.players.pop();
+    if (change.value === '1') {
+      if (this.game().team1.players.length === 2) {
+        this.game().team1.players.pop();
+        this.game().team2.players.pop();
+      } else {
+        this.game().team1.players.push({} as Player);
+        this.game().team2.players.push({} as Player);
+      }
     }
     else if (change.value === '2' && this.game().team1.players.length === 1) {
-      this.game().team1.players.push({ firstName: 'Player 3', lastName: '', stats: {} as PlayerStats, imagePath: null } as Player);
-      this.game().team2.players.push({ firstName: 'Player 4', lastName: '', stats: {} as PlayerStats, imagePath: null } as Player);
+      this.game().team1.players.push({} as Player);
+      this.game().team2.players.push({} as Player);
     }
 
     this.playersChanged.emit();
@@ -156,5 +163,21 @@ export class GameOptionsComponent implements OnInit {
   private getGamePlayers(): Player[] {
     const game = this.game();
     return [...game.team1.players, ...game.team2.players];
+  }
+
+  openAddPlayerDialog(): void {
+    const dialogRef = this.dialog.open(PlayerAddDialogComponent, {
+      disableClose: true
+    });
+    dialogRef.afterClosed().subscribe((result: PlayerAddDialogData | undefined) => {
+      if (result) {
+        this.createNewPlayer(result.firstName, result.lastName);
+      }
+    });
+  }
+
+  private async createNewPlayer(firstName: string, lastName: string): Promise<void> {
+    await this.playerService.createPlayer(firstName, lastName);
+    this.playersChanged.emit();
   }
 }
