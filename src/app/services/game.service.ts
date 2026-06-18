@@ -228,7 +228,7 @@ export class GameService {
     const gameId = await this.saveCompletedGameToSupabase(game);
     await this.saveGameStatsToSupabase(game, gameId);
     game.id = gameId;
-    // this.resetStats(game);
+    this.resetStats(game);
   }
 
   private async saveCompletedGameToSupabase(game: Game): Promise<number> {

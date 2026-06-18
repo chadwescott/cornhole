@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 
-import { GamePageComponent } from './components/game-page/game-page.component';
+import { ScoreKeeperComponent } from './components/score-keeper/score-keeper.component';
 
 export const routes: Routes = [
     {
@@ -10,7 +10,7 @@ export const routes: Routes = [
     },
     {
         path: 'game',
-        component: GamePageComponent
+        component: ScoreKeeperComponent
     },
     {
         path: '**',

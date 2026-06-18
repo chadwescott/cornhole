@@ -8,15 +8,15 @@ import { GameService } from '../../services/game.service';
 import { GameComponent } from '../game/game.component';
 
 @Component({
-    selector: 'ch-game-page',
-    templateUrl: './game-page.component.html',
-    styleUrls: ['./game-page.component.scss'],
+    selector: 'ch-score-keeper',
+    templateUrl: './score-keeper.component.html',
+    styleUrls: ['./score-keeper.component.scss'],
     standalone: true,
     imports: [
         GameComponent
     ]
 })
-export class GamePageComponent implements OnInit {
+export class ScoreKeeperComponent implements OnInit {
     game: Game | null = null;
     activeRound: Round | null = null;
 
@@ -30,6 +30,7 @@ export class GamePageComponent implements OnInit {
         } else {
             await this.createNewGame();
         }
+        console.log(this.game);
     }
 
     async createNewGame(): Promise<void> {

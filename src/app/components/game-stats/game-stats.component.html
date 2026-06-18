@@ -25,7 +25,7 @@
       @for (player of game().team1.players; track player) {
       <tr [attr.color-scheme]="game().team1.teamColor.colorScheme" class="bag">
         <ng-container [ngTemplateOutlet]="statRow"
-          [ngTemplateOutletContext]="{name: player.name, stats: player.stats}"></ng-container>
+          [ngTemplateOutletContext]="{name: player.firstName + ' ' + player.lastName, stats: player.stats}"></ng-container>
       </tr>
       }
       @if (game().team1.players.length > 1) {
@@ -37,7 +37,7 @@
       @for (player of game().team2.players; track player) {
       <tr [attr.color-scheme]="game().team2.teamColor.colorScheme" class="bag">
         <ng-container [ngTemplateOutlet]="statRow"
-          [ngTemplateOutletContext]="{name: player.name, stats: player.stats}"></ng-container>
+          [ngTemplateOutletContext]="{name: player.firstName + ' ' + player.lastName, stats: player.stats}"></ng-container>
       </tr>
       }
       @if (game().team2.players.length > 1) {
