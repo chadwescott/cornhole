@@ -1,11 +1,4 @@
 .game-stats-dialog {
-  position: relative;
-  padding: 2rem;
-}
-
-.button--close {
-  position: absolute;
-  right: 0.25em;
-  top: 0;
-  z-index: 1;
+  max-height: 90vh;
+  overflow: auto;
 }

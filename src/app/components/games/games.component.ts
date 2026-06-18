@@ -12,6 +12,7 @@ import { SupabaseGame } from '../../models/supabase/supabase-game.model';
 import { TeamColor } from '../../models/team-color.model';
 import { Team } from '../../models/team.model';
 import { ThrowResult } from '../../models/throw-result.model';
+import { Throw } from '../../models/throw.model';
 import { GameService } from '../../services/game.service';
 
 @Component({
@@ -43,7 +44,6 @@ export class GamesComponent implements OnInit {
 
     private setTeamPlayers(game: SupabaseGame): SupabaseGame {
         const gamePlayers = game.game_players ?? [];
-        const gameStats = game.game_stats ?? [];
         const team1Players = gamePlayers
             .filter(gamePlayer => gamePlayer.team_number === 1)
             .sort((a, b) => a.player_number - b.player_number)
@@ -58,9 +58,7 @@ export class GamesComponent implements OnInit {
         return {
             ...game,
             team1Players,
-            team2Players,
-            team1Stats: this.teamStats(gameStats, gamePlayers, 1),
-            team2Stats: this.teamStats(gameStats, gamePlayers, 2)
+            team2Players
         };
     }
 
@@ -76,23 +74,18 @@ export class GamesComponent implements OnInit {
         return stat.points_gained - stat.points_lost;
     }
 
-    openGameStats(game: SupabaseGame): void {
-        const mappedGame = this.mapSupabaseGameToGame(game);
-        this.dialog.open(GameStatsDialogComponent, {
-            width: '980px',
-            maxWidth: '95vw',
-            data: { game: mappedGame }
-        });
-    }
+    async openGameStats(game: SupabaseGame): Promise<void> {
+        try {
+            const fullGame = await this.gameService.getGameDetailsFromSupabase(game.id);
+            const mappedGame = this.mapSupabaseGameToGame(fullGame);
 
-    private teamStats(stats: SupabaseGameStats[], gamePlayers: SupabaseGame['game_players'], teamNumber: number): SupabaseGameStats[] {
-        const orderedPlayers = gamePlayers
-            .filter(gamePlayer => gamePlayer.team_number === teamNumber)
-            .sort((a, b) => a.player_number - b.player_number);
-
-        return orderedPlayers
-            .map(gamePlayer => stats.find(stat => stat.player_id === gamePlayer.player_id))
-            .filter((stat): stat is SupabaseGameStats => !!stat);
+            this.dialog.open(GameStatsDialogComponent, {
+                maxWidth: '95vw',
+                data: { game: mappedGame }
+            });
+        } catch (error) {
+            this.errorMessage = error instanceof Error ? error.message : 'Failed to load game details';
+        }
     }
 
     private mapSupabaseGameToGame(source: SupabaseGame): Game {
@@ -101,6 +94,7 @@ export class GamesComponent implements OnInit {
 
         const game = new Game(team1, team2);
         game.id = source.id;
+        game.rounds = this.mapRounds(source);
         game.team1Score = source.team1_score;
         game.team2Score = source.team2_score;
         game.complete = true;
@@ -131,6 +125,28 @@ export class GamesComponent implements OnInit {
             imagePath: null,
             stats: this.mapPlayerStats(stat)
         };
+    }
+
+    private mapRounds(source: SupabaseGame): any[] {
+        return (source.game_rounds ?? []).map(roundData => {
+            const round = {
+                team1Throws: this.createEmptyThrows(),
+                team2Throws: this.createEmptyThrows(),
+                team1NetScore: roundData.team1_net_score,
+                team2NetScore: roundData.team2_net_score,
+                team1GrossScore: roundData.team1_gross_score,
+                team2GrossScore: roundData.team2_gross_score,
+                team1TotalScore: roundData.team1_gross_score,
+                team2TotalScore: roundData.team2_gross_score,
+                complete: true
+            };
+
+            return round as any;
+        });
+    }
+
+    private createEmptyThrows(): Throw[] {
+        return Array.from({ length: 4 }, () => new Throw());
     }
 
     private mapPlayerStats(stat: SupabaseGameStats | undefined): PlayerStats {

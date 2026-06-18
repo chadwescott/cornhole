@@ -18,7 +18,7 @@ import { SCORE_CHANGED_ANIMATION } from '../../constants/animations';
 })
 export class RoundTeamScoreComponent implements OnInit {
     @Input()
-    totalScore: number;
+    grossScore: number;
 
     @Input()
     netScore: number;

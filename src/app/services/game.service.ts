@@ -7,6 +7,7 @@ import { PlayerStats } from '../models/player-stats.model';
 import { Player } from '../models/player.model';
 import { Round } from '../models/round.model';
 import { SupabaseGamePlayer } from '../models/supabase/supabase-game-player.model';
+import { SupabaseGameRound } from '../models/supabase/supabase-game-round.model';
 import { SupabaseGameStats } from '../models/supabase/supabase-game-stats.model';
 import { SupabaseGame } from '../models/supabase/supabase-game.model';
 import { TeamColor } from '../models/team-color.model';
@@ -16,6 +17,7 @@ import { Throw } from '../models/throw.model';
 import { SupabaseService } from './supabase.service';
 
 type SupabaseGamePlayerInsert = Omit<SupabaseGamePlayer, 'players'>;
+type SupabaseGameRoundInsert = SupabaseGameRound;
 
 @Injectable({
   providedIn: 'root'
@@ -82,12 +84,31 @@ export class GameService {
     const response = await this.supabaseService.request(
       'games?select=' +
       'id,created_at,team1_score,team2_score,team1_color,team2_color,team1_design,team2_design,' +
-      'game_players(game_id,player_id,team_number,player_number,players(id,first_name,last_name)),' +
-      'game_stats(game_id,player_id,total_off_board,total_on_board,total_cornhole,total_points,points_gained,points_lost,scoring_rate,cornhole_rate,players(id,first_name,last_name))' +
+      'game_players(game_id,player_id,team_number,player_number,players(id,first_name,last_name))' +
       '&order=id.desc'
     );
 
     return await response.json() as SupabaseGame[];
+  }
+
+  async getGameDetailsFromSupabase(gameId: number): Promise<SupabaseGame> {
+    const response = await this.supabaseService.request(
+      'games?select=' +
+      'id,created_at,team1_score,team2_score,team1_color,team2_color,team1_design,team2_design,' +
+      'game_players(game_id,player_id,team_number,player_number,players(id,first_name,last_name)),' +
+      'game_rounds(game_id,team1_net_score,team2_net_score,team1_gross_score,team2_gross_score),' +
+      'game_stats(game_id,player_id,total_off_board,total_on_board,total_cornhole,total_points,points_gained,points_lost,scoring_rate,cornhole_rate,players(id,first_name,last_name))' +
+      `&id=eq.${gameId}&limit=1`
+    );
+
+    const games = await response.json() as SupabaseGame[];
+    const game = games[0];
+
+    if (!game) {
+      throw new Error(`Game ${gameId} not found`);
+    }
+
+    return game;
   }
 
   loadGame(game: Game): void {
@@ -125,14 +146,14 @@ export class GameService {
   roundScoreChanged(round: Round): void {
     let team1Score = 0;
     round.team1Throws.map(x => team1Score += x.points);
-    round.team1TotalScore = team1Score;
+    round.team1GrossScore = team1Score;
 
     let team2Score = 0;
     round.team2Throws.map(x => team2Score += x.points);
-    round.team2TotalScore = team2Score;
+    round.team2GrossScore = team2Score;
 
-    round.team1NetScore = Math.max(round.team1TotalScore - round.team2TotalScore, 0);
-    round.team2NetScore = Math.max(round.team2TotalScore - round.team1TotalScore, 0);
+    round.team1NetScore = Math.max(round.team1GrossScore - round.team2GrossScore, 0);
+    round.team2NetScore = Math.max(round.team2GrossScore - round.team1GrossScore, 0);
     round.complete = !round.team1Throws.find(x => !x.result) && !round.team2Throws.find(x => !x.result);
 
     const game = this.games.find(x => x.rounds.includes(round));
@@ -242,6 +263,7 @@ export class GameService {
   async completeGame(game: Game): Promise<void> {
     const gameId = await this.saveCompletedGameToSupabase(game);
     await this.saveGamePlayersToSupabase(game, gameId);
+    await this.saveGameRoundsToSupabase(game, gameId);
     await this.saveGameStatsToSupabase(game, gameId);
     game.id = gameId;
     this.resetStats(game);
@@ -305,6 +327,21 @@ export class GameService {
     });
   }
 
+  private async saveGameRoundsToSupabase(game: Game, gameId: number): Promise<void> {
+    const gameRoundsPayload = this.buildGameRoundsPayload(game, gameId);
+    if (!gameRoundsPayload.length) {
+      return;
+    }
+
+    await this.supabaseService.request('game_rounds', {
+      method: 'POST',
+      headers: {
+        Prefer: 'return=minimal'
+      },
+      body: gameRoundsPayload
+    });
+  }
+
   private buildGamePlayersPayload(game: Game, gameId: number): SupabaseGamePlayerInsert[] {
     return [game.team1, game.team2].flatMap(team =>
       team.players.map((player, index) => ({
@@ -314,6 +351,16 @@ export class GameService {
         player_number: index + 1
       }))
     ).filter(gamePlayer => !!gamePlayer.player_id) as SupabaseGamePlayerInsert[];
+  }
+
+  private buildGameRoundsPayload(game: Game, gameId: number): SupabaseGameRoundInsert[] {
+    return game.rounds.map(round => ({
+      game_id: gameId,
+      team1_net_score: round.team1NetScore,
+      team2_net_score: round.team2NetScore,
+      team1_gross_score: round.team1GrossScore,
+      team2_gross_score: round.team2GrossScore
+    }));
   }
 
   private buildGameStatsPayload(game: Game, gameId: number): SupabaseGameStats[] {

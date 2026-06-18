@@ -1,7 +1,3 @@
 <div class="game-stats-dialog">
-    <button type="button" mat-icon-button class="button--close" (click)="close()" aria-label="Close dialog">
-        <i class="fas fa-times"></i>
-    </button>
-
-    <ch-game-stats [game]="data.game"></ch-game-stats>
+    <ch-full-scoreboard [game]="data.game" (close)="close()"></ch-full-scoreboard>
 </div>

@@ -15,11 +15,12 @@
                     <th>Date</th>
                     <th>Team 1</th>
                     <th>Team 2</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 @for (game of games; track game.id) {
-                <tr class="clickable-row" (click)="openGameStats(game)">
+                <tr>
                     <td>{{ game.created_at | date: 'short' }}</td>
                     <td>
                         <div>
@@ -39,6 +40,11 @@
                             {{ player.first_name }} {{ player.last_name }}
                             }
                             {{ game.team2_score }}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="button button-icon clickable" (click)="openGameStats(game)">
+                            <i class="fas fa-clipboard"></i>
                         </div>
                     </td>
                 </tr>

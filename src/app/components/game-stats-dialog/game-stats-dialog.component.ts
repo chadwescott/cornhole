@@ -1,9 +1,8 @@
 import { Component, inject } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 
 import { Game } from '../../models/game.model';
-import { GameStatsComponent } from '../game-stats/game-stats.component';
+import { FullScoreboardComponent } from '../full-scoreboard/full-scoreboard.component';
 
 export interface GameStatsDialogData {
     game: Game;
@@ -16,8 +15,7 @@ export interface GameStatsDialogData {
     standalone: true,
     imports: [
         MatDialogModule,
-        MatButtonModule,
-        GameStatsComponent
+        FullScoreboardComponent
     ]
 })
 export class GameStatsDialogComponent {
