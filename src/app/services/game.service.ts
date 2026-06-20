@@ -1,31 +1,50 @@
-import { Injectable } from '@angular/core';
+import { EnvironmentInjector, inject, Injectable } from '@angular/core';
+import { Firestore } from '@angular/fire/firestore';
 
 import { GameConstants } from '../constants/game.constants';
-import { Game } from '../models/game';
-import { Player } from '../models/player';
-import { PlayerStats } from '../models/player-stats';
-import { Round } from '../models/round';
-import { Team } from '../models/team';
-import { TeamColor } from '../models/team-color';
-import { Throw } from '../models/throw';
-import { ThrowResult } from '../models/throw-result';
+import { Game } from '../models/game.model';
+import { PlayerStats } from '../models/player-stats.model';
+import { Player } from '../models/player.model';
+import { Round } from '../models/round.model';
+import { SupabaseGamePlayer } from '../models/supabase/supabase-game-player.model';
+import { SupabaseGameRound } from '../models/supabase/supabase-game-round.model';
+import { SupabaseGameStats } from '../models/supabase/supabase-game-stats.model';
+import { SupabaseGame } from '../models/supabase/supabase-game.model';
+import { TeamColor } from '../models/team-color.model';
+import { Team } from '../models/team.model';
+import { ThrowResult } from '../models/throw-result.model';
+import { Throw } from '../models/throw.model';
+import { SupabaseService } from './supabase.service';
+
+type SupabaseGamePlayerInsert = Omit<SupabaseGamePlayer, 'players'>;
+type SupabaseGameRoundInsert = SupabaseGameRound;
 
 @Injectable({
   providedIn: 'root'
 })
 export class GameService {
+  private readonly environmentInjector = inject(EnvironmentInjector);
+  private readonly firestore = inject(Firestore);
+  private readonly supabaseService = inject(SupabaseService);
+
   private readonly teamsKey = 'TEAMS';
   private readonly playersKey = 'PLAYERS';
   private readonly gamesKey = 'GAMES';
+
 
   players: Player[] = [];
   teams: Team[] = [];
   games: Game[] = [];
 
   constructor() {
-    this.games = JSON.parse(localStorage.getItem(this.gamesKey));
-    this.players = JSON.parse(localStorage.getItem(this.playersKey));
-    this.teams = JSON.parse(localStorage.getItem(this.gamesKey));
+    const gamesData = localStorage.getItem(this.gamesKey);
+    const playersData = localStorage.getItem(this.playersKey);
+    const teamsData = localStorage.getItem(this.teamsKey);
+
+    this.games = gamesData ? JSON.parse(gamesData) : [];
+    this.players = playersData ? JSON.parse(playersData) : [];
+    this.teams = teamsData ? JSON.parse(teamsData) : [];
+
     if (this.players) {
       this.players.map(x => {
         if (!x.stats) {
@@ -61,6 +80,37 @@ export class GameService {
     return this.games;
   }
 
+  async getGamesFromSupabase(): Promise<SupabaseGame[]> {
+    const response = await this.supabaseService.request(
+      'games?select=' +
+      'id,created_at,team1_score,team2_score,team1_color,team2_color,team1_design,team2_design,' +
+      'game_players(game_id,player_id,team_number,player_number,players(id,first_name,last_name))' +
+      '&order=id.desc'
+    );
+
+    return await response.json() as SupabaseGame[];
+  }
+
+  async getGameDetailsFromSupabase(gameId: number): Promise<SupabaseGame> {
+    const response = await this.supabaseService.request(
+      'games?select=' +
+      'id,created_at,team1_score,team2_score,team1_color,team2_color,team1_design,team2_design,' +
+      'game_players(game_id,player_id,team_number,player_number,players(id,first_name,last_name)),' +
+      'game_rounds(game_id,team1_net_score,team2_net_score,team1_gross_score,team2_gross_score),' +
+      'game_stats(game_id,player_id,total_off_board,total_on_board,total_cornhole,total_points,points_gained,points_lost,scoring_rate,cornhole_rate,players(id,first_name,last_name))' +
+      `&id=eq.${gameId}&limit=1`
+    );
+
+    const games = await response.json() as SupabaseGame[];
+    const game = games[0];
+
+    if (!game) {
+      throw new Error(`Game ${gameId} not found`);
+    }
+
+    return game;
+  }
+
   loadGame(game: Game): void {
     this.setTeamColor(game.team1);
     this.setTeamColor(game.team2);
@@ -71,13 +121,6 @@ export class GameService {
   setTeamColor(team: Team): void {
     this.saveTeams();
     this.saveGames();
-  }
-
-  createPlayer(name: string): Player {
-    const player = new Player(name);
-    this.players.push(player);
-    this.savePlayers();
-    return player;
   }
 
   createTeam(players: Player[], teamNumber: number, teamColor: TeamColor): Team {
@@ -103,14 +146,14 @@ export class GameService {
   roundScoreChanged(round: Round): void {
     let team1Score = 0;
     round.team1Throws.map(x => team1Score += x.points);
-    round.team1TotalScore = team1Score;
+    round.team1GrossScore = team1Score;
 
     let team2Score = 0;
     round.team2Throws.map(x => team2Score += x.points);
-    round.team2TotalScore = team2Score;
+    round.team2GrossScore = team2Score;
 
-    round.team1NetScore = Math.max(round.team1TotalScore - round.team2TotalScore, 0);
-    round.team2NetScore = Math.max(round.team2TotalScore - round.team1TotalScore, 0);
+    round.team1NetScore = Math.max(round.team1GrossScore - round.team2GrossScore, 0);
+    round.team2NetScore = Math.max(round.team2GrossScore - round.team1GrossScore, 0);
     round.complete = !round.team1Throws.find(x => !x.result) && !round.team2Throws.find(x => !x.result);
 
     const game = this.games.find(x => x.rounds.includes(round));
@@ -153,15 +196,15 @@ export class GameService {
 
     const playerIndex = game.team1.players.length === 1 ? 0 : (game.rounds.length + 1) % 2;
 
-    lastRound.team1Throws.map(x => this.updateThrowResult(game.team1.players[playerIndex].stats, x.result));
-    lastRound.team2Throws.map(x => this.updateThrowResult(game.team2.players[playerIndex].stats, x.result));
-    game.team1.players[playerIndex].stats.pointsGained += lastRound.team1NetScore;
-    game.team2.players[playerIndex].stats.pointsGained += lastRound.team2NetScore;
-    game.team1.players[playerIndex].stats.pointsLost += lastRound.team2NetScore;
-    game.team2.players[playerIndex].stats.pointsLost += lastRound.team1NetScore;
+    lastRound.team1Throws.map(x => this.updateThrowResult(game.team1.players[playerIndex].stats!, x.result!));
+    lastRound.team2Throws.map(x => this.updateThrowResult(game.team2.players[playerIndex].stats!, x.result!));
+    game.team1.players[playerIndex].stats!.pointsGained += lastRound.team1NetScore;
+    game.team2.players[playerIndex].stats!.pointsGained += lastRound.team2NetScore;
+    game.team1.players[playerIndex].stats!.pointsLost += lastRound.team2NetScore;
+    game.team2.players[playerIndex].stats!.pointsLost += lastRound.team1NetScore;
 
-    game.team1.players.forEach((player: Player) => this.calculateScoringRate(player.stats));
-    game.team2.players.forEach((player: Player) => this.calculateScoringRate(player.stats));
+    game.team1.players.forEach((player: Player) => this.calculateScoringRate(player.stats!));
+    game.team2.players.forEach((player: Player) => this.calculateScoringRate(player.stats!));
     this.calculateTeamStats(game.team1);
     this.calculateTeamStats(game.team2);
 
@@ -182,15 +225,15 @@ export class GameService {
 
   private calculateTeamStats(team: Team): void {
     if (team.stats == null) { team.stats = new PlayerStats(); }
-    team.stats.throwResults[ThrowResult.Cornhole] = team.players.map(p => p.stats.throwResults[ThrowResult.Cornhole]).reduce((previous, current) => previous + current);
-    team.stats.throwResults[ThrowResult.OnBoard] = team.players.map(p => p.stats.throwResults[ThrowResult.OnBoard]).reduce((previous, current) => previous + current);
-    team.stats.throwResults[ThrowResult.OffBoard] = team.players.map(p => p.stats.throwResults[ThrowResult.OffBoard]).reduce((previous, current) => previous + current);
-    team.stats.totalThrows = team.players.map(p => p.stats.totalThrows).reduce((previous, current) => previous + current);
-    team.stats.totalPoints = team.players.map(p => p.stats.totalPoints).reduce((previous, current) => previous + current);
+    team.stats.throwResults[ThrowResult.Cornhole] = team.players.map(p => p.stats!.throwResults[ThrowResult.Cornhole]).reduce((previous, current) => previous + current);
+    team.stats.throwResults[ThrowResult.OnBoard] = team.players.map(p => p.stats!.throwResults[ThrowResult.OnBoard]).reduce((previous, current) => previous + current);
+    team.stats.throwResults[ThrowResult.OffBoard] = team.players.map(p => p.stats!.throwResults[ThrowResult.OffBoard]).reduce((previous, current) => previous + current);
+    team.stats.totalThrows = team.players.map(p => p.stats!.totalThrows).reduce((previous, current) => previous + current);
+    team.stats.totalPoints = team.players.map(p => p.stats!.totalPoints).reduce((previous, current) => previous + current);
     team.stats.cornholeRate = team.stats.throwResults[ThrowResult.Cornhole] / team.stats.totalThrows;
     team.stats.scoringRate = team.stats.totalPoints / team.stats.totalThrows * 4;
-    team.stats.pointsGained = team.players.map(p => p.stats.pointsGained).reduce((p, c) => p + c);
-    team.stats.pointsLost = team.players.map(p => p.stats.pointsLost).reduce((p, c) => p + c);
+    team.stats.pointsGained = team.players.map(p => p.stats!.pointsGained).reduce((p, c) => p + c);
+    team.stats.pointsLost = team.players.map(p => p.stats!.pointsLost).reduce((p, c) => p + c);
   }
 
   private updateScoreStreak(game: Game): void {
@@ -208,17 +251,135 @@ export class GameService {
     const team1Throws: Throw[] = [];
     const team2Throws: Throw[] = [];
     for (let i = 0; i < 4; i++) {
-      team1Throws.push(new Throw(null));
-      team2Throws.push(new Throw(null));
+      team1Throws.push(new Throw());
+      team2Throws.push(new Throw());
     }
-    game.rounds.push(new Round(team1Throws, team2Throws));
+
+    const round = new Round(team1Throws, team2Throws);
+    game.rounds.push(round);
     this.saveGames();
   }
 
-  completeGame(game: Game): void {
-    this.calculateStatsForLastRound(game);
-    this.updateScoreStreak(game);
+  async completeGame(game: Game): Promise<void> {
+    const gameId = await this.saveCompletedGameToSupabase(game);
+    await this.saveGamePlayersToSupabase(game, gameId);
+    await this.saveGameRoundsToSupabase(game, gameId);
+    await this.saveGameStatsToSupabase(game, gameId);
+    game.id = gameId;
     this.resetStats(game);
+  }
+
+  private async saveCompletedGameToSupabase(game: Game): Promise<number> {
+    const response = await this.supabaseService.request('games', {
+      method: 'POST',
+      headers: {
+        Prefer: 'return=representation'
+      },
+      body: {
+        team1_score: game.team1Score,
+        team2_score: game.team2Score,
+        team1_color: game.team1.teamColor.colorScheme,
+        team2_color: game.team2.teamColor.colorScheme,
+        team1_design: game.team1.teamColor.design.toString(),
+        team2_design: game.team2.teamColor.design.toString(),
+      }
+    });
+
+    const responseText = await response.text();
+    const createdGames = JSON.parse(responseText) as SupabaseGame[];
+
+    const createdGame = createdGames.length === 1 ? createdGames[0] : null;
+
+    if (!createdGame?.id) {
+      throw new Error('Supabase create game failed: missing game id in response');
+    }
+
+    return createdGame.id;
+  }
+
+  private async saveGameStatsToSupabase(game: Game, gameId: number): Promise<void> {
+    const statsPayload = this.buildGameStatsPayload(game, gameId);
+    if (!statsPayload.length) {
+      return;
+    }
+
+    await this.supabaseService.request('game_stats', {
+      method: 'POST',
+      headers: {
+        Prefer: 'return=minimal'
+      },
+      body: statsPayload
+    });
+  }
+
+  private async saveGamePlayersToSupabase(game: Game, gameId: number): Promise<void> {
+    const gamePlayersPayload = this.buildGamePlayersPayload(game, gameId);
+    if (!gamePlayersPayload.length) {
+      return;
+    }
+
+    await this.supabaseService.request('game_players', {
+      method: 'POST',
+      headers: {
+        Prefer: 'return=minimal'
+      },
+      body: gamePlayersPayload
+    });
+  }
+
+  private async saveGameRoundsToSupabase(game: Game, gameId: number): Promise<void> {
+    const gameRoundsPayload = this.buildGameRoundsPayload(game, gameId);
+    if (!gameRoundsPayload.length) {
+      return;
+    }
+
+    await this.supabaseService.request('game_rounds', {
+      method: 'POST',
+      headers: {
+        Prefer: 'return=minimal'
+      },
+      body: gameRoundsPayload
+    });
+  }
+
+  private buildGamePlayersPayload(game: Game, gameId: number): SupabaseGamePlayerInsert[] {
+    return [game.team1, game.team2].flatMap(team =>
+      team.players.map((player, index) => ({
+        game_id: gameId,
+        player_id: player.id!,
+        team_number: team.teamNumber,
+        player_number: index + 1
+      }))
+    ).filter(gamePlayer => !!gamePlayer.player_id) as SupabaseGamePlayerInsert[];
+  }
+
+  private buildGameRoundsPayload(game: Game, gameId: number): SupabaseGameRoundInsert[] {
+    return game.rounds.map(round => ({
+      game_id: gameId,
+      team1_net_score: round.team1NetScore,
+      team2_net_score: round.team2NetScore,
+      team1_gross_score: round.team1GrossScore,
+      team2_gross_score: round.team2GrossScore
+    }));
+  }
+
+  private buildGameStatsPayload(game: Game, gameId: number): SupabaseGameStats[] {
+    const players = [...game.team1.players, ...game.team2.players];
+
+    return players
+      .filter(player => !!player.id && !!player.stats)
+      .map(player => ({
+        game_id: gameId,
+        player_id: player.id!,
+        total_off_board: player.stats!.throwResults[ThrowResult.OffBoard] ?? 0,
+        total_on_board: player.stats!.throwResults[ThrowResult.OnBoard] ?? 0,
+        total_cornhole: player.stats!.throwResults[ThrowResult.Cornhole] ?? 0,
+        total_points: player.stats!.totalPoints ?? 0,
+        points_gained: player.stats!.pointsGained ?? 0,
+        points_lost: player.stats!.pointsLost ?? 0,
+        scoring_rate: player.stats!.scoringRate ?? 0,
+        cornhole_rate: player.stats!.cornholeRate ?? 0
+      }));
   }
 
   resetStats(game: Game): void {

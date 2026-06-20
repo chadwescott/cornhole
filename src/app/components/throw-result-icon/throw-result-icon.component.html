@@ -1,2 +1,6 @@
-<i *ngIf="throw?.result" class="fas" [class]="iconClass[throw.result]"></i>
-<i *ngIf="!throw?.result" class="fas fa-question"></i>
+@if (throw()?.result !== null) {
+<i class="fas" [class]="iconClass[throw().result!]"></i>
+}
+@if (!throw()?.result) {
+<i class="fas fa-question"></i>
+}

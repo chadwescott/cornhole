@@ -1,0 +1,46 @@
+.games-page {
+  padding: 1rem;
+}
+
+.error {
+  color: #b00020;
+}
+
+.table-container {
+  overflow: auto;
+  display: inline-block;
+}
+
+table {
+  width: unset;
+}
+
+thead th {
+  font-weight: 600;
+}
+
+td {
+  padding: 0.5rem;
+}
+
+.clickable,
+.clickable-row {
+  cursor: pointer;
+}
+
+.clickable-row:hover {
+  background: rgb(0 0 0 / 0.04);
+}
+
+td > div {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.bag {
+    height: 1.5rem;
+    width: 1.5rem;
+    border-radius: 0.4em;
+    border: solid 2px black;
+}

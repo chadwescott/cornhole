@@ -1,14 +1,14 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Player } from 'src/app/models/player';
+import { Component, EventEmitter, input, OnInit, Output } from '@angular/core';
+import { Player } from '../../models/player';
 
 @Component({
   selector: 'ch-player-selector',
   templateUrl: './player-selector.component.html',
-  styleUrls: ['./player-selector.component.scss']
+  styleUrls: ['./player-selector.component.scss'],
+  standalone: true
 })
 export class PlayerSelectorComponent implements OnInit {
-  @Input()
-  players: Player[];
+  players = input.required<Player[]>();
 
   @Output()
   playerSelected = new EventEmitter<Player>();

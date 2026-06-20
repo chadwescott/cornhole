@@ -4,27 +4,28 @@ import { Component, Input, OnInit } from '@angular/core';
 import { SCORE_CHANGED_ANIMATION } from '../../constants/animations';
 
 @Component({
-  selector: 'ch-round-team-score',
-  templateUrl: './round-team-score.component.html',
-  styleUrls: ['./round-team-score.component.scss'],
-  animations: [
-    trigger('scoreChanged', [
-      transition('* => *', [
-        useAnimation(SCORE_CHANGED_ANIMATION)
-      ])
-    ])
-  ]
+    selector: 'ch-round-team-score',
+    templateUrl: './round-team-score.component.html',
+    styleUrls: ['./round-team-score.component.scss'],
+    animations: [
+        trigger('scoreChanged', [
+            transition('* => *', [
+                useAnimation(SCORE_CHANGED_ANIMATION)
+            ])
+        ])
+    ],
+    standalone: true
 })
 export class RoundTeamScoreComponent implements OnInit {
-  @Input()
-  totalScore: number;
+    @Input()
+    grossScore: number;
 
-  @Input()
-  netScore: number;
+    @Input()
+    netScore: number;
 
-  constructor() { }
+    constructor() { }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {
+    }
 
 }

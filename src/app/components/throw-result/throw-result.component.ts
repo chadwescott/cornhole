@@ -1,29 +1,25 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { MatButtonToggleChange } from '@angular/material/button-toggle';
-import { GameConstants } from 'src/app/constants/game.constants';
-import { DesignOptions } from 'src/app/models/design-options.enum';
-import { TeamColor } from 'src/app/models/team-color';
-import { Throw } from 'src/app/models/throw';
-import { ThrowResult } from 'src/app/models/throw-result';
+import { Component, EventEmitter, input, OnInit, Output } from '@angular/core';
+import { MatButtonToggleChange, MatButtonToggleModule } from '@angular/material/button-toggle';
+import { GameConstants } from '../../constants/game.constants';
+import { DesignOptions } from '../../models/design-options.enum';
+import { TeamColor } from '../../models/team-color.model';
+import { ThrowResult } from '../../models/throw-result.model';
+import { Throw } from '../../models/throw.model';
 
 
 @Component({
   selector: 'ch-throw-result',
   templateUrl: './throw-result.component.html',
-  styleUrls: ['./throw-result.component.scss']
+  styleUrls: ['./throw-result.component.scss'],
+  standalone: true,
+  imports: [MatButtonToggleModule]
 })
 export class ThrowResultComponent implements OnInit {
-  @Input()
-  disabled = false;
+  disabled = input<boolean>(false);
 
-  @Input()
-  teamNumber: number;
-
-  @Input()
-  teamColor: TeamColor;
-
-  @Input()
-  throw: Throw;
+  teamNumber = input.required<number>();
+  teamColor = input.required<TeamColor>();
+  throw = input.required<Throw>();
 
   @Output()
   throwResultChanged = new EventEmitter<Throw>();
@@ -37,8 +33,8 @@ export class ThrowResultComponent implements OnInit {
   }
 
   onThrowResult(event: MatButtonToggleChange): void {
-    this.throw.result = this.throw.result === event.value ? null : event.value;
-    this.throw.points = GameConstants.POINTS[this.throw.result] ?? 0;
-    this.throwResultChanged.emit(this.throw);
+    this.throw().result = this.throw().result === event.value ? null : event.value;
+    this.throw().points = GameConstants.POINTS[this.throw().result ?? ThrowResult.OffBoard] ?? 0;
+    this.throwResultChanged.emit(this.throw());
   }
 }

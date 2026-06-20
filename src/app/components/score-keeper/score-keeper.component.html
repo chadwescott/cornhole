@@ -1,0 +1,8 @@
+@if (game) {
+<ch-game [game]="game" [activeRound]="activeRound!" (completeRound)="onCompleteRound($event)"
+    (roundScoreChanged)="onRoundScoreChanged($event)" (roundChanged)="onRoundChanged($event)"
+    (playersChanged)="onPlayersChanged()" (teamColorChanged)="onTeamColorChanged($event)"
+    (gameSummary)="onGameSummary($event)" (completeGame)="onCompleteGame($event)" (resetStats)="onResetStats($event)"
+    (resetStreak)="onResetStreak($event)" (resetGame)="onResetGame($event)">
+</ch-game>
+}

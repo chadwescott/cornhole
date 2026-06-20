@@ -1,19 +1,30 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Game } from 'src/app/models/game';
-import { Round } from 'src/app/models/round';
-import { Team } from 'src/app/models/team';
+import { Component, EventEmitter, input, Output } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+
+import { Game } from '../../models/game.model';
+import { Round } from '../../models/round.model';
+import { Team } from '../../models/team.model';
+import { FullScoreboardComponent } from '../full-scoreboard/full-scoreboard.component';
+import { GameOptionsComponent } from '../game-options/game-options.component';
+import { RoundComponent } from '../round/round.component';
+import { ScoreboardComponent } from '../scoreboard/scoreboard.component';
 
 @Component({
   selector: 'ch-game',
   templateUrl: './game.component.html',
-  styleUrls: ['./game.component.scss']
+  styleUrls: ['./game.component.scss'],
+  standalone: true,
+  imports: [
+    FullScoreboardComponent,
+    GameOptionsComponent,
+    MatButtonModule,
+    RoundComponent,
+    ScoreboardComponent
+  ]
 })
-export class GameComponent implements OnInit {
-  @Input()
-  game: Game;
-
-  @Input()
-  activeRound: Round;
+export class GameComponent {
+  game = input.required<Game>();
+  activeRound = input.required<Round>();
 
   @Output()
   roundChanged = new EventEmitter<Round>();
@@ -46,29 +57,23 @@ export class GameComponent implements OnInit {
   resetGame = new EventEmitter<Game>();
 
   showOptions = false;
-  showPlayerStats = false;
   showFullScoreboard = false;
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
   onRoundChanged(index: number): void {
-    if (this.game.rounds.length > index) {
-      this.roundChanged.emit(this.game.rounds[index]);
+    if (this.game().rounds.length > index) {
+      this.roundChanged.emit(this.game().rounds[index]);
     }
   }
 
   showGameSummary(): void {
-    this.gameSummary.emit(this.game);
+    this.gameSummary.emit(this.game());
     this.showFullScoreboard = true;
   }
 
   gameSummaryClosed(): void {
     this.showFullScoreboard = false;
-    if (this.game.complete) {
-      this.completeGame.emit(this.game);
+    if (this.game().complete) {
+      this.completeGame.emit(this.game());
     }
   }
 }

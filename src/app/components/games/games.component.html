@@ -1,0 +1,56 @@
+<section class="games-page">
+    <h2>Games</h2>
+
+    @if (isLoading) {
+    <p>Loading games...</p>
+    } @else if (errorMessage) {
+    <p class="error">{{ errorMessage }}</p>
+    } @else if (!games.length) {
+    <p>No games found.</p>
+    } @else {
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Team 1</th>
+                    <th>Team 2</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (game of games; track game.id) {
+                <tr>
+                    <td>{{ game.created_at | date: 'short' }}</td>
+                    <td>
+                        <div>
+                            <div class="bag" [attr.color-scheme]="game.team1_color" [attr.design]="game.team1_design">
+                            </div>
+                            @for (player of game.team1Players ?? []; track player.id) {
+                            {{ player.first_name }} {{ player.last_name }}
+                            }
+                            {{ game.team1_score }}
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <div class="bag" [attr.color-scheme]="game.team2_color" [attr.design]="game.team2_design">
+                            </div>
+                            @for (player of game.team2Players ?? []; track player.id) {
+                            {{ player.first_name }} {{ player.last_name }}
+                            }
+                            {{ game.team2_score }}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="button button-icon clickable" (click)="openGameStats(game)">
+                            <i class="fas fa-clipboard"></i>
+                        </div>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    }
+</section>

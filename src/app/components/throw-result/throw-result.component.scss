@@ -2,6 +2,21 @@
     box-shadow: 2px 2px 4px 2px rgb(var(--cc-dark-brown) / 0.2);
 }
 
+.container
+    mat-button-toggle-group.mat-button-toggle-group-appearance-standard.mat-button-toggle-vertical {
+    .mat-button-toggle-appearance-standard.board + .mat-button-toggle-appearance-standard.board {
+        border-left: solid 1px var(--clr-dark-brown);
+        border-right: solid 1px var(--clr-dark-brown);
+        border-top: solid 1px var(--clr-dark-brown);
+    }
+
+    .mat-button-toggle-appearance-standard + .mat-button-toggle-appearance-standard.off-board {
+        border-left: solid 1px green;
+        border-right: solid 1px green;
+        border-top: solid 1px green;
+    }
+}
+
 .mat-button-toggle-vertical .mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
     padding: 0;
     display: flex;

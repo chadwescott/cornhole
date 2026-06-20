@@ -4,6 +4,7 @@
     grid-template-columns: 1fr auto auto;
     justify-content: center;
     gap: 1rem;
+    width: 100%;
 
     &.two-players {
         grid-template-columns: 1fr auto auto auto;

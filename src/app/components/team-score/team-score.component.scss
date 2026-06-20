@@ -2,8 +2,8 @@
     position: relative;
     --player-width: 1fr;
     --score-width: auto;
-    --streak-width: 2rem;
-    padding: 0 0.5rem;
+    --streak-width: 2.5em;
+    padding: 0 1em;
     color: var(--text-color);
 
     &::before {
@@ -11,7 +11,6 @@
         position: absolute;
         height: 100%;
         width: 100%;
-        // background-color: black;
     }
 
     > * {
@@ -22,7 +21,7 @@
 .team1,
 .team2 {
     display: grid;
-    gap: 0.4rem;
+    gap: 1.4em;
     justify-content: center;
     grid-template-areas: var(--gta);
     align-items: center;
@@ -63,28 +62,30 @@
 .streak {
     position: relative;
     grid-area: streak;
+    align-self: center;
 
     &::after {
         content: attr(streak);
         position: absolute;
         inset: 0;
-        padding-top: 25%;
+        display: grid;
+        place-items: center;
         border-radius: 50%;
-        font-size: 1rem;
+        font-size: 1.5em;
+        line-height: 1;
         font-style: italic;
         font-weight: bold;
         color: white;
-        text-align: center;
         -webkit-text-stroke-width: 1px;
-        -webkit-text-stroke-color: red;
+        -webkit-text-stroke-color: black;
     }
 }
 
 .fa-fire-flame-curved {
     position: relative;
-    font-size: 1.5rem;
+    font-size: 2.25em;
     border-radius: 50%;
-    padding: 4px 6px;
+    padding: .125em 0.25em;
     border: solid 0.125rem yellow;
     outline: solid 0.125rem var(--background-color);
     background: linear-gradient(yellow, orange);

@@ -1,15 +1,17 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Game } from 'src/app/models/game';
-import { ThrowResult } from 'src/app/models/throw-result';
+import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, input, OnInit, Output } from '@angular/core';
+import { Game } from '../../models/game.model';
+import { ThrowResult } from '../../models/throw-result.model';
 
 @Component({
   selector: 'ch-game-stats',
   templateUrl: './game-stats.component.html',
-  styleUrls: ['./game-stats.component.scss']
+  styleUrls: ['./game-stats.component.scss'],
+  standalone: true,
+  imports: [CommonModule]
 })
 export class GameStatsComponent implements OnInit {
-  @Input()
-  game: Game;
+  game = input.required<Game>();
 
   @Output()
   close = new EventEmitter();

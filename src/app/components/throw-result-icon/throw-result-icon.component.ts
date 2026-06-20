@@ -1,25 +1,19 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Throw } from 'src/app/models/throw';
-import { ThrowResult } from 'src/app/models/throw-result';
+import { Component, input } from '@angular/core';
+import { ThrowResult } from '../../models/throw-result.model';
+import { Throw } from '../../models/throw.model';
 
 @Component({
   selector: 'ch-throw-result-icon',
   templateUrl: './throw-result-icon.component.html',
-  styleUrls: ['./throw-result-icon.component.scss']
+  styleUrls: ['./throw-result-icon.component.scss'],
+  standalone: true
 })
-export class ThrowResultIconComponent implements OnInit {
-  @Input()
-  throw: Throw;
+export class ThrowResultIconComponent {
+  throw = input.required<Throw>();
 
-  iconClass = {};
-
-  constructor() {
-    this.iconClass[ThrowResult.OffBoard] = 'fa-times';
-    this.iconClass[ThrowResult.OnBoard] = 'fa-square';
-    this.iconClass[ThrowResult.Cornhole] = 'fa-circle';
-  }
-
-  ngOnInit(): void {
-  }
-
+  iconClass: Record<ThrowResult, string> = {
+    [ThrowResult.OffBoard]: 'fa-times',
+    [ThrowResult.OnBoard]: 'fa-square',
+    [ThrowResult.Cornhole]: 'fa-circle'
+  };
 }
