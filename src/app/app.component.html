@@ -1,3 +1,22 @@
-<main class="app-main">
+<header class="app-header">
+  <button type="button" class="menu-toggle" aria-label="Open menu" [attr.aria-expanded]="isMenuOpen"
+    (click)="toggleMenu()">
+    <i class="fas fa-bars" aria-hidden="true"></i>
+  </button>
+
+  @if (isMenuOpen) {
+  <nav class="app-nav" aria-label="Main navigation">
+    <a routerLink="/score-keeper" routerLinkActive="is-active" [routerLinkActiveOptions]="{ exact: true }"
+      class="app-nav__link" (click)="closeMenu()">
+      Score Keeper
+    </a>
+    <a routerLink="/games" routerLinkActive="is-active" class="app-nav__link" (click)="closeMenu()">
+      Games
+    </a>
+  </nav>
+  }
+</header>
+
+<main class="app-main" (click)="closeMenu()">
   <router-outlet></router-outlet>
 </main>

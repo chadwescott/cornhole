@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 import { AppDataService } from './services/app-data.service';
 
@@ -9,9 +9,20 @@ import { AppDataService } from './services/app-data.service';
   styleUrls: ['./app.component.scss'],
   standalone: true,
   imports: [
+    RouterLink,
+    RouterLinkActive,
     RouterOutlet
   ]
 })
 export class AppComponent {
   readonly appDataService = inject(AppDataService);
+  isMenuOpen = false;
+
+  toggleMenu(): void {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
+
+  closeMenu(): void {
+    this.isMenuOpen = false;
+  }
 }
