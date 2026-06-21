@@ -7,6 +7,7 @@ import { DesignOptions } from '../../models/design-options.enum';
 import { Game } from '../../models/game.model';
 import { PlayerStats } from '../../models/player-stats.model';
 import { Player } from '../../models/player.model';
+import { SupabaseGameRound } from '../../models/supabase/supabase-game-round.model';
 import { SupabaseGameStats } from '../../models/supabase/supabase-game-stats.model';
 import { SupabaseGame } from '../../models/supabase/supabase-game.model';
 import { TeamColor } from '../../models/team-color.model';
@@ -129,9 +130,12 @@ export class GamesComponent implements OnInit {
 
     private mapRounds(source: SupabaseGame): any[] {
         return (source.game_rounds ?? []).map(roundData => {
+            const team1Throws = this.mapTeamThrowsForRound(roundData, 1);
+            const team2Throws = this.mapTeamThrowsForRound(roundData, 2);
+
             const round = {
-                team1Throws: this.createEmptyThrows(),
-                team2Throws: this.createEmptyThrows(),
+                team1Throws,
+                team2Throws,
                 team1NetScore: roundData.team1_net_score,
                 team2NetScore: roundData.team2_net_score,
                 team1GrossScore: roundData.team1_gross_score,
@@ -143,6 +147,48 @@ export class GamesComponent implements OnInit {
 
             return round as any;
         });
+    }
+
+    private mapTeamThrowsForRound(roundData: SupabaseGameRound, teamNumber: number): Throw[] {
+        const roundThrow = (roundData.round_throws ?? []).find(x => x.team_number === teamNumber);
+        if (!roundThrow) {
+            return this.createEmptyThrows();
+        }
+
+        const throwResults: Array<number | null> = [
+            roundThrow.throw1_result,
+            roundThrow.throw2_result,
+            roundThrow.throw3_result,
+            roundThrow.throw4_result
+        ];
+
+        return throwResults.map(result => this.createThrowFromResult(result));
+    }
+
+    private createThrowFromResult(result: number | null): Throw {
+        const mappedThrow = new Throw();
+
+        if (result === null) {
+            return mappedThrow;
+        }
+
+        const throwResult = result as ThrowResult;
+        mappedThrow.result = throwResult;
+        mappedThrow.points = this.pointsForThrowResult(throwResult);
+
+        return mappedThrow;
+    }
+
+    private pointsForThrowResult(result: ThrowResult): number {
+        if (result === ThrowResult.Cornhole) {
+            return 3;
+        }
+
+        if (result === ThrowResult.OnBoard) {
+            return 1;
+        }
+
+        return 0;
     }
 
     private createEmptyThrows(): Throw[] {
