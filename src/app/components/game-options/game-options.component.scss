@@ -1,41 +1,28 @@
-.team-options {
-    display: grid;
-    align-items: center;
-    grid-template-columns: 1fr auto auto;
-    justify-content: center;
-    gap: 1rem;
-    width: 100%;
+mat-form-field input {
+    margin-top: 1rem;
+}
 
-    &.two-players {
-        grid-template-columns: 1fr auto auto auto;
-    }
+.mat-icon-button {
+    font-size: .9em;
+}
 
-    .mat-icon-button {
-        font-size: 2em;
-    }
-
-    .bag {
-        height: 2.5rem;
-        width: 2.5rem;
-        border-radius: 0.4em;
-        border: solid 2px black;
-    }
-
-    mat-form-field input {
-        margin-top: 1rem;
-    }
+.bag {
+    height: 2.5em;
+    width: 2.5em;
+    border-radius: 0.4em;
+    border: solid 2px black;
 }
 
 .fa-palette {
     position: absolute;
-    left: -0.1rem;
-    top: -0.1rem;
+    left: 0.3rem;
+    top: 0.125rem;
     color: var(--clr-tan);
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: black;
-    font-size: 2rem;
+    font-size: .9em;
     border-radius: 50%;
     background-color: var(--clr-dark-brown);
-    border: solid 0.25rem rgb(0 0 0);
-    padding: 0.25rem;
+    border: solid 0.125em rgb(0 0 0);
+    padding: 0.125em;
 }

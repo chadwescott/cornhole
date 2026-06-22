@@ -71,6 +71,7 @@ export class ScoreKeeperComponent implements OnInit {
     }
 
     async onCompleteGame(game: Game): Promise<void> {
+        this.game = null;
         await this.gameService.completeGame(game);
         this.game = this.gameService.createGame(game.team1, game.team2);
         this.activateLastRound(this.game);
