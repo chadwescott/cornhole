@@ -82,12 +82,8 @@ export class EventsComponent implements OnInit {
         this.successMessage = 'Event saved.';
     }
 
-    navigateToEventGames(event: SupabaseEvent): void {
-        this.router.navigate(['games', event.id]);
-    }
-
-    navigateToEventPlayerStats(event: SupabaseEvent): void {
-        this.router.navigate(['player-stats', event.id]);
+    navigateToEventDetails(event: SupabaseEvent): void {
+        this.router.navigate(['event-details', event.id]);
     }
 
     async deleteEvent(event: SupabaseEvent): Promise<void> {

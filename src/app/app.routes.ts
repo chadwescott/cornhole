@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 
+import { EventDetailsComponent } from './components/event-details/event-details.component';
 import { EventsComponent } from './components/events/events.component';
 import { GamesComponent } from './components/games/games.component';
 import { PlayerStatsComponent } from './components/player-stats/player-stats.component';
@@ -21,12 +22,12 @@ export const routes: Routes = [
         component: GamesComponent
     },
     {
-        path: 'games/:eventId',
-        component: GamesComponent
-    },
-    {
         path: 'events',
         component: EventsComponent
+    },
+    {
+        path: 'event-details/:eventId',
+        component: EventDetailsComponent
     },
     {
         path: 'players',
@@ -34,10 +35,6 @@ export const routes: Routes = [
     },
     {
         path: 'player-stats',
-        component: PlayerStatsComponent
-    },
-    {
-        path: 'player-stats/:eventId',
         component: PlayerStatsComponent
     },
     {

@@ -1,0 +1,12 @@
+<section class="event-details-page">
+    @if (isLoading) {
+    <p>Loading event...</p>
+    } @else if (errorMessage) {
+    <p class="error">{{ errorMessage }}</p>
+    } @else if (event) {
+    <h2>{{ event.name }}</h2>
+    <p class="event-date">{{ event.event_date | date: 'mediumDate' }}</p>
+    <ch-player-stats [event]="event"></ch-player-stats>
+    <ch-games [event]="event"></ch-games>
+    }
+</section>
