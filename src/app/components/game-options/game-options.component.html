@@ -14,77 +14,17 @@
         </mat-radio-group>
       </div>
 
-      <div class="row" space-between>
-        <h3>Team 1</h3>
-        <div>
-          <div class="row">
-            <div class="bag" [attr.color-scheme]="game().team1.teamColor.colorScheme"
-              [attr.design]="game().team1.teamColor.design">
-            </div>
-            <button mat-icon-button (click)="pickTeamColor(game().team1)">
-              <i class="fas fa-palette"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div>
-          @for (player of game().team1.players; track player; let i = $index) {
-          <div>
-            <mat-form-field>
-              <mat-label>Player {{i + 1}}</mat-label>
-              <mat-select panelClass="player-picker-panel" [ngModel]="player.id"
-                (ngModelChange)="setTeamPlayer(game().team1.players[i], $event)">
-                @for (appPlayer of availablePlayers(player); track appPlayer.id) {
-                <mat-option [value]="appPlayer.id">{{ playerLabel(appPlayer) }}</mat-option>
-                }
-              </mat-select>
-            </mat-form-field>
-          </div>
-          }
-        </div>
-        @if (game().team1.players.length > 1) {
-        <button mat-icon-button (click)="swapPlayers(game().team1)">
-          <i class="fa-solid fa-arrow-right-arrow-left fa-rotate-90"></i>
-        </button>
-        }
-      </div>
+      <ng-container *ngTemplateOutlet="teamOptionsTemplate; context: {
+        title: 'Team 1',
+        team: game().team1,
+        labelOffset: 0
+      }"></ng-container>
 
-      <div class="row" space-between>
-        <h3>Team 2</h3>
-        <div>
-          <div class="row">
-            <div class="bag" [attr.color-scheme]="game().team2.teamColor.colorScheme"
-              [attr.design]="game().team2.teamColor.design">
-            </div>
-            <button mat-icon-button (click)="pickTeamColor(game().team2)">
-              <i class="fas fa-palette"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div>
-          @for (player of game().team2.players; track player; let i = $index) {
-          <div>
-            <mat-form-field>
-              <mat-label>Player {{i + 1 + game().team1.players.length}}</mat-label>
-              <mat-select panelClass="player-picker-panel" [ngModel]="player.id"
-                (ngModelChange)="setTeamPlayer(game().team2.players[i], $event)">
-                @for (appPlayer of availablePlayers(player); track appPlayer.id) {
-                <mat-option [value]="appPlayer.id">{{ playerLabel(appPlayer) }}</mat-option>
-                }
-              </mat-select>
-            </mat-form-field>
-          </div>
-          }
-        </div>
-        @if (game().team2.players.length > 1) {
-        <button mat-icon-button (click)="swapPlayers(game().team2)">
-          <i class="fa-solid fa-arrow-right-arrow-left fa-rotate-90"></i>
-        </button>
-        }
-      </div>
+      <ng-container *ngTemplateOutlet="teamOptionsTemplate; context: {
+        title: 'Team 2',
+        team: game().team2,
+        labelOffset: game().team1.players.length
+      }"></ng-container>
 
       <div class="button-bar">
         <h3>Add Player</h3>
@@ -100,5 +40,50 @@
         <button type="button" mat-raised-button color="primary" (click)="resetGame.emit(game())">Reset Game</button>
       </div>
     </div>
+
+    <ng-template #teamOptionsTemplate let-title="title" let-team="team" let-labelOffset="labelOffset">
+      <div class="row" space-between>
+        <h3>{{ title }}</h3>
+        <div>
+          <div class="button-bar">
+            <div class="bag" [attr.color-scheme]="team.teamColor.colorScheme" [attr.design]="team.teamColor.design">
+            </div>
+            <button mat-icon-button (click)="pickTeamColor(team)">
+              <i class="fas fa-palette"></i>
+            </button>
+          </div>
+          <!-- <div class="row">
+            <div class="bag" [attr.color-scheme]="team.teamColor.colorScheme" [attr.design]="team.teamColor.design">
+            </div>
+            <button mat-icon-button (click)="pickTeamColor(team)">
+              <i class="fas fa-palette"></i>
+            </button>
+          </div> -->
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          @for (player of team.players; track player; let i = $index) {
+          <div>
+            <mat-form-field>
+              <mat-label>Player {{ i + 1 + labelOffset }}</mat-label>
+              <mat-select panelClass="player-picker-panel" [ngModel]="player.id"
+                (ngModelChange)="setTeamPlayer(team.players[i], $event)">
+                @for (appPlayer of availablePlayers(player); track appPlayer.id) {
+                <mat-option [value]="appPlayer.id">{{ playerLabel(appPlayer) }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+          </div>
+          }
+        </div>
+        @if (team.players.length > 1) {
+        <button mat-icon-button (click)="swapPlayers(team)">
+          <i class="fa-solid fa-arrow-right-arrow-left fa-rotate-90"></i>
+        </button>
+        }
+      </div>
+    </ng-template>
   </ng-container>
 </ch-card>

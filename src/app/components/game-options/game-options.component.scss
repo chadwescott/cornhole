@@ -2,9 +2,9 @@ mat-form-field input {
     margin-top: 1rem;
 }
 
-.mat-icon-button {
-    font-size: .9em;
-}
+// .mat-icon-button {
+//     font-size: .9em;
+// }
 
 .bag {
     height: 2.5em;
@@ -14,15 +14,14 @@ mat-form-field input {
 }
 
 .fa-palette {
-    position: absolute;
-    left: 0.3rem;
-    top: 0.125rem;
     color: var(--clr-tan);
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: black;
-    font-size: .9em;
-    border-radius: 50%;
     background-color: var(--clr-dark-brown);
     border: solid 0.125em rgb(0 0 0);
-    padding: 0.125em;
+    padding: 0.25em;
+}
+
+.button-bar {
+    margin-bottom: 0.5rem;
 }
