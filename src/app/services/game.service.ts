@@ -10,6 +10,7 @@ import { SupabaseGamePlayer } from '../models/supabase/supabase-game-player.mode
 import { SupabaseGameRound } from '../models/supabase/supabase-game-round.model';
 import { SupabaseGameStats } from '../models/supabase/supabase-game-stats.model';
 import { SupabaseGame } from '../models/supabase/supabase-game.model';
+import { SupabasePlayerStatsRow } from '../models/supabase/supabase-player-stats-row.model';
 import { SupabaseRoundThrow } from '../models/supabase/supabase-round-throw.model';
 import { TeamColor } from '../models/team-color.model';
 import { Team } from '../models/team.model';
@@ -91,6 +92,15 @@ export class GameService {
     );
 
     return await response.json() as SupabaseGame[];
+  }
+
+  async getPlayerStatsFromSupabase(): Promise<SupabasePlayerStatsRow[]> {
+    const response = await this.supabaseService.request('rpc/get_player_stats', {
+      method: 'POST',
+      body: {}
+    });
+
+    return await response.json() as SupabasePlayerStatsRow[];
   }
 
   async getGameDetailsFromSupabase(gameId: number): Promise<SupabaseGame> {
