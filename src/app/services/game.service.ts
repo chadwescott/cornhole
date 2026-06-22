@@ -113,6 +113,56 @@ export class GameService {
     return game;
   }
 
+  async deleteGameFromSupabase(gameId: number): Promise<void> {
+    const roundIds = await this.getGameRoundIdsFromSupabase(gameId);
+
+    if (roundIds.length) {
+      await this.supabaseService.request(`round_throws?round_id=in.(${roundIds.join(',')})`, {
+        method: 'DELETE',
+        headers: {
+          Prefer: 'return=minimal'
+        }
+      });
+    }
+
+    await this.supabaseService.request(`game_players?game_id=eq.${gameId}`, {
+      method: 'DELETE',
+      headers: {
+        Prefer: 'return=minimal'
+      }
+    });
+
+    await this.supabaseService.request(`game_stats?game_id=eq.${gameId}`, {
+      method: 'DELETE',
+      headers: {
+        Prefer: 'return=minimal'
+      }
+    });
+
+    await this.supabaseService.request(`game_rounds?game_id=eq.${gameId}`, {
+      method: 'DELETE',
+      headers: {
+        Prefer: 'return=minimal'
+      }
+    });
+
+    await this.supabaseService.request(`games?id=eq.${gameId}`, {
+      method: 'DELETE',
+      headers: {
+        Prefer: 'return=minimal'
+      }
+    });
+  }
+
+  private async getGameRoundIdsFromSupabase(gameId: number): Promise<number[]> {
+    const response = await this.supabaseService.request(`game_rounds?select=id&game_id=eq.${gameId}`);
+    const gameRounds = await response.json() as Array<{ id: number }>;
+
+    return gameRounds
+      .map(round => round.id)
+      .filter((id): id is number => Number.isFinite(id));
+  }
+
   loadGame(game: Game): void {
     this.setTeamColor(game.team1);
     this.setTeamColor(game.team2);

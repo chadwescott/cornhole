@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { GameStatsDialogComponent } from '../game-stats-dialog/game-stats-dialog.component';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 import { DesignOptions } from '../../models/design-options.enum';
 import { Game } from '../../models/game.model';
@@ -28,6 +29,7 @@ import { GameService } from '../../services/game.service';
 export class GamesComponent implements OnInit {
     games: SupabaseGame[] = [];
     isLoading = true;
+    deletingGameId: number | null = null;
     errorMessage: string | null = null;
 
     private readonly gameService = inject(GameService);
@@ -86,6 +88,34 @@ export class GamesComponent implements OnInit {
             });
         } catch (error) {
             this.errorMessage = error instanceof Error ? error.message : 'Failed to load game details';
+        }
+    }
+
+    async deleteGame(game: SupabaseGame): Promise<void> {
+        const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+            data: {
+                title: 'Delete Game',
+                message: 'Are you sure you want to delete this game? This action cannot be undone.',
+                confirmText: 'Delete',
+                cancelText: 'Cancel'
+            }
+        });
+
+        const confirmed = await dialogRef.afterClosed().toPromise();
+        if (!confirmed) {
+            return;
+        }
+
+        this.errorMessage = null;
+        this.deletingGameId = game.id;
+
+        try {
+            await this.gameService.deleteGameFromSupabase(game.id);
+            this.games = this.games.filter(x => x.id !== game.id);
+        } catch (error) {
+            this.errorMessage = error instanceof Error ? error.message : 'Failed to delete game';
+        } finally {
+            this.deletingGameId = null;
         }
     }
 
