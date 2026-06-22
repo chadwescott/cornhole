@@ -20,6 +20,7 @@
                 <tr>
                     <th>Name</th>
                     <th>Event Date</th>
+                    <th>Complete</th>
                     <th></th>
                 </tr>
             </thead>
@@ -28,6 +29,7 @@
                 <tr>
                     <td>{{ event.name }}</td>
                     <td>{{ event.event_date | date: 'mediumDate' }}</td>
+                    <td>{{ event.complete ? 'Yes' : 'No' }}</td>
                     <td>
                         <div class="row">
                             <button type="button" class="button button-icon clickable" aria-label="View Event Details"

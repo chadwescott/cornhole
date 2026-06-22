@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -23,6 +24,7 @@ export interface EventDialogData {
         CommonModule,
         FormsModule,
         MatButtonModule,
+        MatCheckboxModule,
         MatDialogModule,
         MatFormFieldModule,
         MatInputModule
@@ -33,6 +35,7 @@ export class EventDialogComponent {
 
     name = this.data.event?.name ?? '';
     eventDate = this.data.event?.event_date ?? '';
+    complete = this.data.event?.complete ?? false;
     isSaving = false;
     errorMessage: string | null = null;
 
@@ -64,7 +67,7 @@ export class EventDialogComponent {
             return false;
         }
 
-        return name !== original.name || eventDate !== original.event_date;
+        return name !== original.name || eventDate !== original.event_date || this.complete !== original.complete;
     }
 
     async save(): Promise<void> {
@@ -78,16 +81,17 @@ export class EventDialogComponent {
         try {
             const name = this.name.trim();
             const eventDate = this.eventDate.trim();
+            const complete = this.complete;
 
             if (this.data.mode === 'add') {
-                await this.eventService.createEvent(name, eventDate);
+                await this.eventService.createEvent(name, eventDate, complete);
             } else {
                 const original = this.data.event;
                 if (!original) {
                     throw new Error('Missing event data for edit mode.');
                 }
 
-                await this.eventService.updateEvent(original.id, name, eventDate);
+                await this.eventService.updateEvent(original.id, name, eventDate, complete);
             }
 
             this.dialogRef.close(true);
