@@ -1,4 +1,4 @@
-import { Component, EventEmitter, input, Output } from '@angular/core';
+import { Component, EventEmitter, input, OnInit, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 
 import { Game } from '../../models/game.model';
@@ -22,7 +22,7 @@ import { ScoreboardComponent } from '../scoreboard/scoreboard.component';
     ScoreboardComponent
   ]
 })
-export class GameComponent {
+export class GameComponent implements OnInit {
   game = input.required<Game>();
   activeRound = input.required<Round>();
 
@@ -48,9 +48,6 @@ export class GameComponent {
   teamColorChanged = new EventEmitter<Team>();
 
   @Output()
-  resetStats = new EventEmitter<Game>();
-
-  @Output()
   resetStreak = new EventEmitter<Game>();
 
   @Output()
@@ -58,6 +55,12 @@ export class GameComponent {
 
   showOptions = false;
   showFullScoreboard = false;
+
+  ngOnInit(): void {
+    const team1HasAllIds = this.game().team1.players.every(p => !!p.id);
+    const team2HasAllIds = this.game().team2.players.every(p => !!p.id);
+    this.showOptions = this.game().team1.players.length === 0 || this.game().team2.players.length === 0 || !team1HasAllIds || !team2HasAllIds;
+  }
 
   onRoundChanged(index: number): void {
     if (this.game().rounds.length > index) {

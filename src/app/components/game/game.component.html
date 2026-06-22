@@ -1,15 +1,14 @@
 @if (showOptions) {
 <div class="overlay">
   <ch-game-options [game]="game()" (click)="$event.stopPropagation()" (teamColorChanged)="teamColorChanged.emit($event)"
-    (resetStats)="resetStats.emit($event)" (resetStreak)="resetStreak.emit(game())" (resetGame)="resetGame.emit(game())"
+    (resetStreak)="resetStreak.emit(game())" (resetGame)="resetGame.emit(game())"
     (playersChanged)="playersChanged.emit()" (closeOptions)="showOptions = false">
   </ch-game-options>
 </div>
 }
 @if (showFullScoreboard) {
 <div class="overlay">
-  <ch-full-scoreboard [game]="game()" (click)="$event.stopPropagation()" (resetStats)="resetStats.emit($event)"
-    (resetStreak)="resetStreak.emit(game())" (resetGame)="resetGame.emit(game())"
+  <ch-full-scoreboard [game]="game()" (click)="$event.stopPropagation()"
     (close)="gameSummaryClosed()"></ch-full-scoreboard>
 </div>
 }

@@ -77,10 +77,6 @@ export class ScoreKeeperComponent implements OnInit {
         this.activateLastRound(this.game);
     }
 
-    onResetStats(game: Game): void {
-        this.gameService.resetStats(game);
-    }
-
     onResetStreak(game: Game): void {
         this.gameService.resetStreak(game);
     }

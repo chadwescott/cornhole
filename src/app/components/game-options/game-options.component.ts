@@ -43,9 +43,6 @@ export class GameOptionsComponent implements OnInit {
   resetStreak = new EventEmitter<Game>();
 
   @Output()
-  resetStats = new EventEmitter<Game>();
-
-  @Output()
   resetGame = new EventEmitter<Game>();
 
   @Output()
@@ -57,10 +54,23 @@ export class GameOptionsComponent implements OnInit {
   designOptions = DesignOptions;
 
   readonly appStateService = inject(AppStateService);
-
-  constructor(private dialog: MatDialog) { }
+  private dialog = inject(MatDialog);
 
   ngOnInit(): void {
+    this.checkTeamPlayers(this.game().team1.players);
+    this.checkTeamPlayers(this.game().team2.players);
+  }
+
+  checkTeamPlayers(players: Player[]): void {
+    if (players.length === 0) {
+      players.push({} as Player);
+    }
+  }
+
+  canCloseOptions(): boolean {
+    const team1HasAllIds = this.game().team1.players.every(p => !!p.id);
+    const team2HasAllIds = this.game().team2.players.every(p => !!p.id);
+    return team1HasAllIds && team2HasAllIds;
   }
 
   teamPlayersChanged(change: MatRadioChange): void {
