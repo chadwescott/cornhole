@@ -21,6 +21,10 @@ export const routes: Routes = [
         component: GamesComponent
     },
     {
+        path: 'games/:eventId',
+        component: GamesComponent
+    },
+    {
         path: 'events',
         component: EventsComponent
     },

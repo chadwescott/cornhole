@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { GameStatsDialogComponent } from '../game-stats-dialog/game-stats-dialog.component';
+import { ActivatedRoute } from '@angular/router';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { GameStatsDialogComponent } from '../game-stats-dialog/game-stats-dialog.component';
 
 import { DesignOptions } from '../../models/design-options.enum';
 import { Game } from '../../models/game.model';
@@ -15,6 +16,7 @@ import { TeamColor } from '../../models/team-color.model';
 import { Team } from '../../models/team.model';
 import { ThrowResult } from '../../models/throw-result.model';
 import { Throw } from '../../models/throw.model';
+import { EventService } from '../../services/event.service';
 import { GameService } from '../../services/game.service';
 
 @Component({
@@ -28,15 +30,32 @@ import { GameService } from '../../services/game.service';
 })
 export class GamesComponent implements OnInit {
     games: SupabaseGame[] = [];
+    pageTitle = 'All Games';
     isLoading = true;
     deletingGameId: number | null = null;
     errorMessage: string | null = null;
 
+    private readonly route = inject(ActivatedRoute);
+    private readonly eventService = inject(EventService);
     private readonly gameService = inject(GameService);
     private readonly dialog = inject(MatDialog);
 
     async ngOnInit(): Promise<void> {
         try {
+            const eventIdParam = this.route.snapshot.paramMap.get('eventId');
+            const eventId = eventIdParam === null ? null : Number(eventIdParam);
+
+            if (eventId !== null && Number.isFinite(eventId)) {
+                const [event, games] = await Promise.all([
+                    this.eventService.getEventById(eventId),
+                    this.gameService.getGamesFromSupabase(eventId)
+                ]);
+
+                this.pageTitle = `${event.name} Games`;
+                this.games = games.map(game => this.setTeamPlayers(game));
+                return;
+            }
+
             this.games = (await this.gameService.getGamesFromSupabase()).map(game => this.setTeamPlayers(game));
         } catch (error) {
             this.errorMessage = error instanceof Error ? error.message : 'Failed to load games';

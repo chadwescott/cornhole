@@ -6,6 +6,7 @@ import { SupabasePlayer } from "./supabase-player.model";
 export interface SupabaseGame {
     id: number;
     created_at: Date;
+    event_id?: number | null;
     team1_score: number;
     team2_score: number;
     team1_color: string;

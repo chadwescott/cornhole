@@ -83,12 +83,16 @@ export class GameService {
     return this.games;
   }
 
-  async getGamesFromSupabase(): Promise<SupabaseGame[]> {
+  async getGamesFromSupabase(eventId?: number): Promise<SupabaseGame[]> {
+    const eventFilter = Number.isFinite(eventId)
+      ? `&event_id=eq.${eventId}`
+      : '';
+
     const response = await this.supabaseService.request(
       'games?select=' +
-      'id,created_at,team1_score,team2_score,team1_color,team2_color,team1_design,team2_design,' +
+      'id,created_at,event_id,team1_score,team2_score,team1_color,team2_color,team1_design,team2_design,' +
       'game_players(game_id,player_id,team_number,player_number,players(id,first_name,last_name))' +
-      '&order=id.desc'
+      `${eventFilter}&order=id.desc`
     );
 
     return await response.json() as SupabaseGame[];

@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 
 import { SupabaseEvent } from '../../models/supabase/supabase-event.model';
@@ -30,6 +31,7 @@ export class EventsComponent implements OnInit {
 
     private readonly eventService = inject(EventService);
     private readonly dialog = inject(MatDialog);
+    private readonly router = inject(Router);
 
     async ngOnInit(): Promise<void> {
         await this.loadEvents();
@@ -78,6 +80,10 @@ export class EventsComponent implements OnInit {
 
         await this.loadEvents(false);
         this.successMessage = 'Event saved.';
+    }
+
+    navigateToEventGames(event: SupabaseEvent): void {
+        this.router.navigate(['games', event.id]);
     }
 
     async deleteEvent(event: SupabaseEvent): Promise<void> {
