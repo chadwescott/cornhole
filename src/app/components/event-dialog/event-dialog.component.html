@@ -7,13 +7,13 @@
 
     <div>
         <mat-form-field>
-            <mat-label>First Name</mat-label>
-            <input matInput [(ngModel)]="firstName" (keyup.enter)="save()" placeholder="Enter first name" />
+            <mat-label>Name</mat-label>
+            <input matInput [(ngModel)]="name" (keyup.enter)="save()" placeholder="Enter event name" />
         </mat-form-field>
 
         <mat-form-field>
-            <mat-label>Last Name</mat-label>
-            <input matInput [(ngModel)]="lastName" (keyup.enter)="save()" placeholder="Enter last name" />
+            <mat-label>Event Date</mat-label>
+            <input matInput type="date" [(ngModel)]="eventDate" (keyup.enter)="save()" />
         </mat-form-field>
     </div>
 </div>

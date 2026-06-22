@@ -1,0 +1,53 @@
+<section class="events-page">
+    <div class="row" space-between>
+        <h2>Events</h2>
+        <button type="button" mat-icon-button (click)="openAddEventDialog()" title="Add new event"
+            aria-label="Add event">
+            <i class="fas fa-calendar-plus"></i>
+        </button>
+    </div>
+
+    @if (isLoading) {
+    <p>Loading events...</p>
+    } @else if (errorMessage) {
+    <p class="error">{{ errorMessage }}</p>
+    } @else if (!events.length) {
+    <p>No events found.</p>
+    } @else {
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Event Date</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (event of events; track event.id) {
+                <tr>
+                    <td>{{ event.name }}</td>
+                    <td>{{ event.event_date | date: 'mediumDate' }}</td>
+                    <td>
+                        <div class="row">
+                            <button type="button" class="button button-icon clickable" aria-label="Edit Event"
+                                [disabled]="deletingEventId === event.id" (click)="editEvent(event)">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button type="button" class="button button-icon clickable" aria-label="Delete Event"
+                                [disabled]="deletingEventId === event.id" (click)="deleteEvent(event)">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    @if (successMessage) {
+    <p class="success">{{ successMessage }}</p>
+    }
+    }
+</section>

@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 
+import { EventsComponent } from './components/events/events.component';
 import { GamesComponent } from './components/games/games.component';
 import { PlayerStatsComponent } from './components/player-stats/player-stats.component';
 import { PlayersComponent } from './components/players/players.component';
@@ -18,6 +19,10 @@ export const routes: Routes = [
     {
         path: 'games',
         component: GamesComponent
+    },
+    {
+        path: 'events',
+        component: EventsComponent
     },
     {
         path: 'players',
