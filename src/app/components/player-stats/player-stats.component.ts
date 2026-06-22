@@ -3,7 +3,7 @@ import { Component, inject, input, OnInit } from '@angular/core';
 
 import { SupabaseEvent } from '../../models/supabase/supabase-event.model';
 import { SupabasePlayerStatsRow } from '../../models/supabase/supabase-player-stats-row.model';
-import { GameService } from '../../services/game.service';
+import { PlayerStatsService } from '../../services/player-stats.service';
 
 type SortColumn = keyof Omit<SupabasePlayerStatsRow, 'player_id'> | 'name';
 type SortDirection = 'asc' | 'desc';
@@ -27,15 +27,15 @@ export class PlayerStatsComponent implements OnInit {
     sortColumn: SortColumn = 'wins';
     sortDirection: SortDirection = 'desc';
 
-    private readonly gameService = inject(GameService);
+    private readonly playerStatsService = inject(PlayerStatsService);
 
     async ngOnInit(): Promise<void> {
         try {
             const event = this.event();
             if (event) {
-                this.rows = await this.gameService.getPlayerStatsByEventIdFromSupabase(event.id);
+                this.rows = await this.playerStatsService.getPlayerStatsByEventId(event.id);
             } else {
-                this.rows = await this.gameService.getPlayerStatsFromSupabase();
+                this.rows = await this.playerStatsService.getPlayerStats();
             }
             this.applySort();
         } catch (error) {
