@@ -86,17 +86,17 @@ body {
     position: absolute;
     display: flex;
     justify-content: center;
-    padding: 1rem 0;
+    align-items: center;
     z-index: 2;
     height: 100vh;
     width: 100vw;
+    inset: 0;
     background: rgba(0, 0, 0, 0.4);
 }
 
 .mat-mdc-icon-button.button--close {
     color: #800000;
 }
-
 
 .player-picker-panel {
     --bg-color: #fff;
