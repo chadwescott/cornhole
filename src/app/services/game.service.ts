@@ -107,6 +107,17 @@ export class GameService {
     return await response.json() as SupabasePlayerStatsRow[];
   }
 
+  async getPlayerStatsByEventIdFromSupabase(eventId: number): Promise<SupabasePlayerStatsRow[]> {
+    const response = await this.supabaseService.request('rpc/get_player_stats_by_event_id', {
+      method: 'POST',
+      body: {
+        event_id_param: eventId
+      }
+    });
+
+    return await response.json() as SupabasePlayerStatsRow[];
+  }
+
   async getGameDetailsFromSupabase(gameId: number): Promise<SupabaseGame> {
     const response = await this.supabaseService.request(
       'games?select=' +

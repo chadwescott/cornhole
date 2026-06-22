@@ -86,6 +86,10 @@ export class EventsComponent implements OnInit {
         this.router.navigate(['games', event.id]);
     }
 
+    navigateToEventPlayerStats(event: SupabaseEvent): void {
+        this.router.navigate(['player-stats', event.id]);
+    }
+
     async deleteEvent(event: SupabaseEvent): Promise<void> {
         const dialogRef = this.dialog.open(ConfirmDialogComponent, {
             data: {

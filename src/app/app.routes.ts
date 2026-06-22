@@ -37,6 +37,10 @@ export const routes: Routes = [
         component: PlayerStatsComponent
     },
     {
+        path: 'player-stats/:eventId',
+        component: PlayerStatsComponent
+    },
+    {
         path: '**',
         redirectTo: 'score-keeper'
     }
