@@ -32,17 +32,6 @@ td {
   background: rgb(0 0 0 / 0.04);
 }
 
-button.clickable {
-  border: 0;
-  background: transparent;
-  padding: 0;
-}
-
-button.clickable:disabled {
-  opacity: 0.55;
-  cursor: not-allowed;
-}
-
 td > div {
   display: flex;
   align-items: center;

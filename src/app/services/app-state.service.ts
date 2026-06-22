@@ -7,6 +7,7 @@ import { Player } from '../models/player.model';
 export class AppStateService {
     players = signal<Player[]>([]);
     playerAdded = signal<number>(0);
+    playerDeleted = signal<number>(0);
 
     constructor() {
         console.log('AppStateService initialized');

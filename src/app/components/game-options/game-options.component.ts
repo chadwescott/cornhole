@@ -7,7 +7,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 
 import { MatRadioChange, MatRadioModule } from '@angular/material/radio';
-import { PlayerService } from 'src/app/services/player.service';
 import { DesignOptions } from '../../models/design-options.enum';
 import { Game } from '../../models/game.model';
 import { Player } from '../../models/player.model';
@@ -15,7 +14,7 @@ import { TeamColor } from '../../models/team-color.model';
 import { Team } from '../../models/team.model';
 import { AppStateService } from '../../services/app-state.service';
 import { CardComponent } from '../card/card.component';
-import { PlayerAddDialogComponent, PlayerAddDialogData } from '../player-add-dialog/player-add-dialog.component';
+import { PlayerDialogComponent } from '../player-dialog/player-dialog.component';
 import { TeamColorPickerDialogComponent } from '../team-color-picker-dialog/team-color-picker-dialog.component';
 
 @Component({
@@ -58,7 +57,6 @@ export class GameOptionsComponent implements OnInit {
   designOptions = DesignOptions;
 
   readonly appStateService = inject(AppStateService);
-  readonly playerService = inject(PlayerService);
 
   constructor(private dialog: MatDialog) { }
 
@@ -166,18 +164,18 @@ export class GameOptionsComponent implements OnInit {
   }
 
   openAddPlayerDialog(): void {
-    const dialogRef = this.dialog.open(PlayerAddDialogComponent, {
-      disableClose: true
-    });
-    dialogRef.afterClosed().subscribe((result: PlayerAddDialogData | undefined) => {
-      if (result) {
-        this.createNewPlayer(result.firstName, result.lastName);
+    const dialogRef = this.dialog.open(PlayerDialogComponent, {
+      disableClose: true,
+      width: '28rem',
+      maxWidth: '95vw',
+      data: {
+        mode: 'add'
       }
     });
-  }
-
-  private async createNewPlayer(firstName: string, lastName: string): Promise<void> {
-    await this.playerService.createPlayer(firstName, lastName);
-    this.playersChanged.emit();
+    dialogRef.afterClosed().subscribe((saved: boolean | undefined) => {
+      if (saved) {
+        this.playersChanged.emit();
+      }
+    });
   }
 }

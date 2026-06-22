@@ -5,7 +5,7 @@ import { Game } from '../../models/game.model';
 import { ThrowResult } from '../../models/throw-result.model';
 import { CardComponent } from '../card/card.component';
 import { GameStatsComponent } from '../game-stats/game-stats.component';
-import { ThrowResultIconComponent } from '../throw-result-icon/throw-result-icon.component';
+import { RoundScoresComponent } from '../round-scores/round-scores.component';
 
 @Component({
   selector: 'ch-full-scoreboard',
@@ -16,7 +16,7 @@ import { ThrowResultIconComponent } from '../throw-result-icon/throw-result-icon
     CardComponent,
     GameStatsComponent,
     MatButtonModule,
-    ThrowResultIconComponent
+    RoundScoresComponent
   ]
 })
 export class FullScoreboardComponent implements OnInit {

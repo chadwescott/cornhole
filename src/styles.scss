@@ -87,7 +87,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 2;
+    z-index: 20;
     height: 100vh;
     width: 100vw;
     inset: 0;
@@ -241,6 +241,7 @@ table {
     border-radius: 0.25rem;
     border: solid 1px var(--clr-dark-brown);
     box-shadow: 2px 2px 4px 2px rgb(var(--cc-dark-brown) / 0.2);
+    margin-bottom: 1rem;
 }
 
 .fixed-header {
@@ -250,7 +251,7 @@ table {
         thead,
         tfoot {
             position: sticky;
-            z-index: 1;
+            z-index: 10;
         }
 
         thead {
@@ -272,9 +273,29 @@ table {
     align-items: center;
     justify-content: flex-start;
     width: 100%;
+    column-gap: 0.5em;
+
+    &[center] {
+        justify-content: center;
+    }
+
+    &[space-between] {
+        justify-content: space-between;
+    }
 }
 
-h3 {
+h3, h4 {
     margin-block-start: 0;
     margin-block-end: 0;
+}
+
+button.clickable {
+  border: 0;
+  background: transparent;
+  padding: 0;
+}
+
+button.clickable:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
 }

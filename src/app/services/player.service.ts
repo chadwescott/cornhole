@@ -45,6 +45,47 @@ export class PlayerService {
         this.appStateService.playerAdded.update(Date.now);
     }
 
+    async editPlayer(player: Player): Promise<void> {
+        if (!player.id) {
+            throw new Error('Cannot edit player without an id.');
+        }
+
+        const firstName = player.firstName.trim();
+        const lastName = player.lastName.trim();
+
+        if (!firstName || !lastName) {
+            throw new Error('First name and last name are required.');
+        }
+
+        await this.supabaseService.request(`players?id=eq.${encodeURIComponent(player.id)}`, {
+            method: 'PATCH',
+            headers: {
+                Prefer: 'return=minimal'
+            },
+            body: {
+                first_name: firstName,
+                last_name: lastName
+            }
+        });
+
+        this.appStateService.playerAdded.update(Date.now);
+    }
+
+    async deletePlayer(playerId: string): Promise<void> {
+        if (!playerId) {
+            throw new Error('Cannot delete player without an id.');
+        }
+
+        await this.supabaseService.request(`players?id=eq.${encodeURIComponent(playerId)}`, {
+            method: 'DELETE',
+            headers: {
+                Prefer: 'return=minimal'
+            }
+        });
+
+        this.appStateService.playerDeleted.update(Date.now);
+    }
+
     private async createPlayerInSupabase(firstName: string, lastName: string): Promise<void> {
         await this.supabaseService.request('players', {
             method: 'POST',

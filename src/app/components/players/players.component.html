@@ -1,0 +1,53 @@
+<section class="players-page">
+    <div class="row" space-between>
+        <h2>Players</h2>
+        <button type="button" mat-icon-button (click)="openAddPlayerDialog()" title="Add new player"
+            aria-label="Add player">
+            <i class="fas fa-user-plus"></i>
+        </button>
+    </div>
+
+    @if (isLoading) {
+    <p>Loading players...</p>
+    } @else if (errorMessage) {
+    <p class="error">{{ errorMessage }}</p>
+    } @else if (!players.length) {
+    <p>No players found.</p>
+    } @else {
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (player of players; track player.id ?? $index) {
+                <tr>
+                    <td>{{ player.firstName }}</td>
+                    <td>{{ player.lastName }}</td>
+                    <td>
+                        <div class="row">
+                            <button type="button" class="button button-icon clickable" aria-label="Edit Player"
+                                [disabled]="deletingPlayerId === player.id" (click)="editPlayer(player)">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button type="button" class="button button-icon clickable" aria-label="Delete Player"
+                                [disabled]="deletingPlayerId === player.id" (click)="deletePlayer(player)">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    @if (successMessage) {
+    <p class="success">{{ successMessage }}</p>
+    }
+    }
+</section>

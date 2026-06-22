@@ -1,0 +1,26 @@
+<h2 mat-dialog-title>{{ title }}</h2>
+
+<div mat-dialog-content>
+    @if (errorMessage) {
+    <p class="error">{{ errorMessage }}</p>
+    }
+
+    <div class="form-grid">
+        <mat-form-field>
+            <mat-label>First Name</mat-label>
+            <input matInput [(ngModel)]="firstName" (keyup.enter)="save()" placeholder="Enter first name" />
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Last Name</mat-label>
+            <input matInput [(ngModel)]="lastName" (keyup.enter)="save()" placeholder="Enter last name" />
+        </mat-form-field>
+    </div>
+</div>
+
+<div mat-dialog-actions align="end">
+    <button type="button" mat-button (click)="cancel()">Cancel</button>
+    <button type="button" mat-raised-button color="primary" (click)="save()" [disabled]="isSaving || !canSave()">
+        {{ actionLabel }}
+    </button>
+</div>
