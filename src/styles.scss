@@ -98,11 +98,11 @@ body {
     color: #800000;
 }
 
-.player-picker-panel {
+.select-panel {
     --bg-color: #fff;
 }
 
-.cdk-overlay-pane .player-picker-panel {
+.cdk-overlay-pane .select-panel {
     --mat-select-panel-background-color: var(--bg-color);
     opacity: 1;
     border: solid 1px black;

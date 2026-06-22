@@ -1,6 +1,6 @@
 create or replace function public.get_player_stats()
 returns table (
-    player_id uuid,
+    player_id bigint,
     first_name text,
     last_name text,
     wins bigint,
@@ -15,7 +15,11 @@ returns table (
 language sql
 stable
 as $$
-with player_totals as (
+with played_players as (
+    select distinct gp.player_id
+    from public.game_players gp
+),
+player_totals as (
     select
         p.id as player_id,
         p.first_name,
@@ -25,7 +29,8 @@ with player_totals as (
         coalesce(sum(gs.total_cornhole), 0)::bigint as cornholes,
         coalesce(sum(gs.total_off_board + gs.total_on_board + gs.total_cornhole), 0)::bigint as total_throws,
         coalesce(sum(gs.total_points), 0)::numeric as total_points
-    from public.players p
+    from played_players pp
+    join public.players p on p.id = pp.player_id
     left join public.game_stats gs on gs.player_id = p.id
     group by p.id, p.first_name, p.last_name
 ),

@@ -16,6 +16,20 @@
         </mat-radio-group>
       </div>
 
+      <div>
+        <mat-form-field>
+          <mat-label>Event</mat-label>
+          <mat-select panelClass="select-panel" [ngModel]="game().event_id" (ngModelChange)="setEventId($event)">
+            @for (event of availableEvents; track event.id) {
+            <mat-option [value]="event.id">{{ eventLabel(event) }}</mat-option>
+            }
+          </mat-select>
+          @if (!game().event_id) {
+          <mat-error>Event is required</mat-error>
+          }
+        </mat-form-field>
+      </div>
+
       <ng-container *ngTemplateOutlet="teamOptionsTemplate; context: {
         title: 'Team 1',
         team: game().team1,
@@ -62,7 +76,7 @@
           <div>
             <mat-form-field>
               <mat-label>Player {{ i + 1 + labelOffset }}</mat-label>
-              <mat-select panelClass="player-picker-panel" [ngModel]="player.id"
+              <mat-select panelClass="select-panel" [ngModel]="player.id"
                 (ngModelChange)="setTeamPlayer(team.players[i], $event)">
                 @for (appPlayer of availablePlayers(player); track appPlayer.id) {
                 <mat-option [value]="appPlayer.id">{{ playerLabel(appPlayer) }}</mat-option>

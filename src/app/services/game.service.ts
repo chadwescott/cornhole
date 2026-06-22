@@ -333,6 +333,7 @@ export class GameService {
         Prefer: 'return=representation'
       },
       body: {
+        event_id: game.event_id,
         team1_score: game.team1Score,
         team2_score: game.team2Score,
         team1_color: game.team1.teamColor.colorScheme,
@@ -513,6 +514,7 @@ export class GameService {
       .map(player => ({
         game_id: gameId,
         player_id: player.id!,
+        event_id: game.event_id ?? null,
         total_off_board: player.stats!.throwResults[ThrowResult.OffBoard] ?? 0,
         total_on_board: player.stats!.throwResults[ThrowResult.OnBoard] ?? 0,
         total_cornhole: player.stats!.throwResults[ThrowResult.Cornhole] ?? 0,

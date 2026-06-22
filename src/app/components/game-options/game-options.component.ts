@@ -10,9 +10,11 @@ import { MatRadioChange, MatRadioModule } from '@angular/material/radio';
 import { DesignOptions } from '../../models/design-options.enum';
 import { Game } from '../../models/game.model';
 import { Player } from '../../models/player.model';
+import { SupabaseEvent } from '../../models/supabase/supabase-event.model';
 import { TeamColor } from '../../models/team-color.model';
 import { Team } from '../../models/team.model';
 import { AppStateService } from '../../services/app-state.service';
+import { EventService } from '../../services/event.service';
 import { CardComponent } from '../card/card.component';
 import { PlayerDialogComponent } from '../player-dialog/player-dialog.component';
 import { TeamColorPickerDialogComponent } from '../team-color-picker-dialog/team-color-picker-dialog.component';
@@ -35,6 +37,7 @@ import { TeamColorPickerDialogComponent } from '../team-color-picker-dialog/team
 })
 export class GameOptionsComponent implements OnInit {
   game = input.required<Game>();
+  availableEvents: SupabaseEvent[] = [];
 
   @Output()
   teamColorChanged = new EventEmitter<Team>();
@@ -54,11 +57,15 @@ export class GameOptionsComponent implements OnInit {
   designOptions = DesignOptions;
 
   readonly appStateService = inject(AppStateService);
+  private readonly eventService = inject(EventService);
   private dialog = inject(MatDialog);
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.checkTeamPlayers(this.game().team1.players);
     this.checkTeamPlayers(this.game().team2.players);
+
+    const events = await this.eventService.getEvents();
+    this.availableEvents = events.filter(event => !event.complete);
   }
 
   checkTeamPlayers(players: Player[]): void {
@@ -70,7 +77,12 @@ export class GameOptionsComponent implements OnInit {
   canCloseOptions(): boolean {
     const team1HasAllIds = this.game().team1.players.every(p => !!p.id);
     const team2HasAllIds = this.game().team2.players.every(p => !!p.id);
-    return team1HasAllIds && team2HasAllIds;
+    const hasEventId = Number.isFinite(this.game().event_id);
+    return team1HasAllIds && team2HasAllIds && hasEventId;
+  }
+
+  setEventId(eventId: number | null): void {
+    this.game().event_id = eventId;
   }
 
   teamPlayersChanged(change: MatRadioChange): void {
@@ -187,5 +199,9 @@ export class GameOptionsComponent implements OnInit {
         this.playersChanged.emit();
       }
     });
+  }
+
+  eventLabel(event: SupabaseEvent): string {
+    return `${event.name} (${event.event_date})`;
   }
 }

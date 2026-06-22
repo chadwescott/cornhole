@@ -1,6 +1,6 @@
 create or replace function public.get_player_stats_by_event_id(event_id_param bigint)
 returns table (
-    player_id uuid,
+    player_id bigint,
     first_name text,
     last_name text,
     wins bigint,
@@ -21,6 +21,12 @@ with filtered_game_stats as (
     join public.games g on g.id = gs.game_id
     where g.event_id = event_id_param
 ),
+event_players as (
+    select distinct gp.player_id
+    from public.game_players gp
+    join public.games g on g.id = gp.game_id
+    where g.event_id = event_id_param
+),
 player_totals as (
     select
         p.id as player_id,
@@ -31,7 +37,8 @@ player_totals as (
         coalesce(sum(fgs.total_cornhole), 0)::bigint as cornholes,
         coalesce(sum(fgs.total_off_board + fgs.total_on_board + fgs.total_cornhole), 0)::bigint as total_throws,
         coalesce(sum(fgs.total_points), 0)::numeric as total_points
-    from public.players p
+    from event_players ep
+    join public.players p on p.id = ep.player_id
     left join filtered_game_stats fgs on fgs.player_id = p.id
     group by p.id, p.first_name, p.last_name
 ),
