@@ -6,6 +6,7 @@ import { GamesComponent } from './components/games/games.component';
 import { PlayerStatsComponent } from './components/player-stats/player-stats.component';
 import { PlayersComponent } from './components/players/players.component';
 import { ScoreKeeperComponent } from './components/score-keeper/score-keeper.component';
+import { TeamStatsComponent } from './components/team-stats/team-stats.component';
 
 export const routes: Routes = [
     {
@@ -36,6 +37,10 @@ export const routes: Routes = [
     {
         path: 'player-stats',
         component: PlayerStatsComponent
+    },
+    {
+        path: 'team-stats',
+        component: TeamStatsComponent
     },
     {
         path: '**',

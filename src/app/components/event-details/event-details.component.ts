@@ -6,6 +6,7 @@ import { SupabaseEvent } from '../../models/supabase/supabase-event.model';
 import { EventService } from '../../services/event.service';
 import { GamesComponent } from '../games/games.component';
 import { PlayerStatsComponent } from '../player-stats/player-stats.component';
+import { TeamStatsComponent } from '../team-stats/team-stats.component';
 
 @Component({
     selector: 'ch-event-details',
@@ -15,7 +16,8 @@ import { PlayerStatsComponent } from '../player-stats/player-stats.component';
     imports: [
         CommonModule,
         GamesComponent,
-        PlayerStatsComponent
+        PlayerStatsComponent,
+        TeamStatsComponent
     ]
 })
 export class EventDetailsComponent implements OnInit {

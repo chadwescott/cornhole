@@ -1,0 +1,49 @@
+<section>
+    <h2>{{ pageTitle }}</h2>
+
+    @if (isLoading) {
+    <p>Loading team stats...</p>
+    } @else if (errorMessage) {
+    <p class="error">{{ errorMessage }}</p>
+    } @else if (!rows.length) {
+    <p>No team stats found.</p>
+    } @else {
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th class="sortable" (click)="sort('team_name')">Team <i [class]="sortIcon('team_name')"></i></th>
+                    <th class="sortable" (click)="sort('wins')">Wins <i [class]="sortIcon('wins')"></i></th>
+                    <th class="sortable" (click)="sort('losses')">Loses <i [class]="sortIcon('losses')"></i></th>
+                    <th class="sortable" (click)="sort('total_throws')">Total Throws <i
+                            [class]="sortIcon('total_throws')"></i></th>
+                    <th class="sortable" (click)="sort('misses')">Misses <i [class]="sortIcon('misses')"></i></th>
+                    <th class="sortable" (click)="sort('on_board_throws')">On-Board Throws <i
+                            [class]="sortIcon('on_board_throws')"></i></th>
+                    <th class="sortable" (click)="sort('cornholes')">Cornholes <i [class]="sortIcon('cornholes')"></i>
+                    </th>
+                    <th class="sortable" (click)="sort('scoring_rate')">Scoring Rate <i
+                            [class]="sortIcon('scoring_rate')"></i></th>
+                    <th class="sortable" (click)="sort('cornhole_rate')">Cornhole Rate <i
+                            [class]="sortIcon('cornhole_rate')"></i></th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (row of sortedRows; track row.team_id) {
+                <tr>
+                    <td>{{ row.team_name }}</td>
+                    <td>{{ row.wins }}</td>
+                    <td>{{ row.losses }}</td>
+                    <td>{{ row.total_throws }}</td>
+                    <td>{{ row.misses }}</td>
+                    <td>{{ row.on_board_throws }}</td>
+                    <td>{{ row.cornholes }}</td>
+                    <td>{{ row.scoring_rate | number: '1.2-2' }}</td>
+                    <td>{{ row.cornhole_rate | percent: '1.1-1' }}</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    }
+</section>

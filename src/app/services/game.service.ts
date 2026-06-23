@@ -449,7 +449,6 @@ export class GameService {
 
         payload.push({
           game_id: gameId,
-          player_id: playerId,
           team_player_id: teamPlayerId!,
           team_number: team.teamNumber,
           player_number: index + 1
