@@ -1,6 +1,6 @@
 .header {
     .team {
-        padding: 0.25rem;
+        padding: 0.25rem .75rem;
     }
 }
 
@@ -18,7 +18,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 0.5rem;
 }
 
 .tie,
@@ -76,7 +75,6 @@
     color: var(--background-color);
 
     > div {
-        padding: 0.5rem;
         gap: 0.5rem;
         display: grid;
         grid-template-columns: repeat(5, 1fr);

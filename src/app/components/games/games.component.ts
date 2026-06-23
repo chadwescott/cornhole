@@ -9,9 +9,11 @@ import { Game } from '../../models/game.model';
 import { PlayerStats } from '../../models/player-stats.model';
 import { Player } from '../../models/player.model';
 import { SupabaseEvent } from '../../models/supabase/supabase-event.model';
+import { SupabaseGamePlayer } from '../../models/supabase/supabase-game-player.model';
 import { SupabaseGameRound } from '../../models/supabase/supabase-game-round.model';
 import { SupabaseGameStats } from '../../models/supabase/supabase-game-stats.model';
 import { SupabaseGame } from '../../models/supabase/supabase-game.model';
+import { SupabasePlayer } from '../../models/supabase/supabase-player.model';
 import { TeamColor } from '../../models/team-color.model';
 import { Team } from '../../models/team.model';
 import { ThrowResult } from '../../models/throw-result.model';
@@ -60,12 +62,12 @@ export class GamesComponent implements OnInit {
         const team1Players = gamePlayers
             .filter(gamePlayer => gamePlayer.team_number === 1)
             .sort((a, b) => a.player_number - b.player_number)
-            .map(gamePlayer => gamePlayer.players!)
+            .map(gamePlayer => this.getSupabasePlayerFromGamePlayer(gamePlayer))
             .filter(player => !!player);
         const team2Players = gamePlayers
             .filter(gamePlayer => gamePlayer.team_number === 2)
             .sort((a, b) => a.player_number - b.player_number)
-            .map(gamePlayer => gamePlayer.players!)
+            .map(gamePlayer => this.getSupabasePlayerFromGamePlayer(gamePlayer))
             .filter(player => !!player);
 
         return {
@@ -148,24 +150,49 @@ export class GamesComponent implements OnInit {
             .filter(gamePlayer => gamePlayer.team_number === teamNumber)
             .sort((a, b) => a.player_number - b.player_number);
 
-        const players = gamePlayers.map(gamePlayer => this.mapPlayer(source, gamePlayer.player_id));
+        const players = gamePlayers
+            .map(gamePlayer => this.mapPlayer(source, this.getPlayerIdFromGamePlayer(gamePlayer)))
+            .filter((player): player is Player => !!player);
+
         const team = new Team(players, teamNumber, new TeamColor(color, design as DesignOptions));
         team.stats = this.aggregateTeamStats(players);
 
         return team;
     }
 
-    private mapPlayer(source: SupabaseGame, playerId: number): Player {
-        const gamePlayer = (source.game_players ?? []).find(x => x.player_id === playerId);
-        const stat = (source.game_stats ?? []).find(x => x.player_id === playerId);
+    private mapPlayer(source: SupabaseGame, playerId: number | null): Player | null {
+        if (!Number.isFinite(playerId)) {
+            return null;
+        }
+
+        const resolvedPlayerId = playerId as number;
+        const gamePlayer = (source.game_players ?? []).find(x => this.getPlayerIdFromGamePlayer(x) === resolvedPlayerId);
+        const stat = (source.game_stats ?? []).find(x => x.player_id === resolvedPlayerId);
+        const supabasePlayer = gamePlayer ? this.getSupabasePlayerFromGamePlayer(gamePlayer) : null;
 
         return {
-            id: playerId,
-            firstName: gamePlayer?.players?.first_name ?? '',
-            lastName: gamePlayer?.players?.last_name ?? '',
+            id: resolvedPlayerId,
+            firstName: supabasePlayer?.first_name ?? '',
+            lastName: supabasePlayer?.last_name ?? '',
             imagePath: null,
             stats: this.mapPlayerStats(stat)
         };
+    }
+
+    private getPlayerIdFromGamePlayer(gamePlayer: SupabaseGamePlayer): number | null {
+        if (Number.isFinite(gamePlayer?.player_id)) {
+            return gamePlayer.player_id as number;
+        }
+
+        if (Number.isFinite(gamePlayer?.team_players?.player_id)) {
+            return gamePlayer.team_players?.player_id as number;
+        }
+
+        return null;
+    }
+
+    private getSupabasePlayerFromGamePlayer(gamePlayer: SupabaseGamePlayer): SupabasePlayer | null {
+        return gamePlayer.team_players?.players ?? gamePlayer.players ?? null;
     }
 
     private mapRounds(source: SupabaseGame): any[] {

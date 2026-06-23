@@ -92,7 +92,7 @@ export class GameService {
     const response = await this.supabaseService.request(
       'games?select=' +
       'id,created_at,event_id,team1_score,team2_score,team1_color,team2_color,team1_design,team2_design,' +
-      'game_players(game_id,player_id,team_number,player_number,players(id,first_name,last_name))' +
+      'game_players(game_id,team_player_id,team_number,player_number,team_players(player_id,players(id,first_name,last_name)))' +
       `${eventFilter}&order=id.desc`
     );
 
@@ -103,7 +103,7 @@ export class GameService {
     const response = await this.supabaseService.request(
       'games?select=' +
       'id,created_at,team1_score,team2_score,team1_color,team2_color,team1_design,team2_design,' +
-      'game_players(game_id,player_id,team_number,player_number,players(id,first_name,last_name)),' +
+      'game_players(game_id,team_player_id,team_number,player_number,team_players(player_id,players(id,first_name,last_name))),' +
       'game_rounds(id,game_id,team1_net_score,team2_net_score,team1_gross_score,team2_gross_score,round_throws(round_id,team_number,throw1_result,throw2_result,throw3_result,throw4_result)),' +
       'game_stats(game_id,player_id,total_off_board,total_on_board,total_cornhole,total_points,points_gained,points_lost,scoring_rate,cornhole_rate,players(id,first_name,last_name))' +
       `&id=eq.${gameId}&limit=1`

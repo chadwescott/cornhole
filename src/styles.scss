@@ -337,11 +337,6 @@ section {
         border-bottom: 1px solid #dcdcdc;
     }
 
-    td,
-    th {
-        padding: 0.5rem 0.75rem;
-    }
-
     th.sortable {
         cursor: pointer;
         user-select: none;
@@ -365,7 +360,11 @@ section {
 
     td,
     th {
-        padding: 0.5rem 0.75rem;
+        padding: 0.25rem 0.75rem;
+    }
+
+    tfoot td {
+        padding: 0 0.75rem;
     }
 
     tbody tr:not(.bag):nth-child(even) {
