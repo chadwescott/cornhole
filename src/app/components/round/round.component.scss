@@ -1,9 +1,15 @@
 .container {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: min-content;
+    background: rgb(255 255 255 / 0.4);
+    padding: 2rem;
+    border-radius: 0.5rem;
+    border: solid 1px rgb(0 0 0 / 0.1);
+    box-shadow: 0.125em 0.125em 0.5em 0.25em rgb(0 0 0 / 0.1);
 
     .score {
         width: 100%;
