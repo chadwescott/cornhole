@@ -15,9 +15,14 @@
     [routerLinkActiveOptions]="{ exact: true }">Score Keeper</a>
   <a mat-menu-item routerLink="/games" routerLinkActive="is-active">Games</a>
   <a mat-menu-item routerLink="/events" routerLinkActive="is-active">Events</a>
+  <button mat-menu-item [matMenuTriggerFor]="statisticsMenu">Statistics</button>
   <a mat-menu-item routerLink="/players" routerLinkActive="is-active">Players</a>
-  <a mat-menu-item routerLink="/player-stats" routerLinkActive="is-active">Player Stats</a>
+</mat-menu>
+
+<mat-menu #statisticsMenu="matMenu">
+  <a mat-menu-item routerLink="/player-stats" routerLinkActive="is-active">Overall Stats</a>
   <a mat-menu-item routerLink="/team-stats" routerLinkActive="is-active">Team Stats</a>
+  <a mat-menu-item routerLink="/individual-stats" routerLinkActive="is-active">Individual Stats</a>
 </mat-menu>
 
 <main class="content">

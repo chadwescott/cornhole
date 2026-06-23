@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { SupabaseEvent } from '../../models/supabase/supabase-event.model';
 import { EventService } from '../../services/event.service';
 import { GamesComponent } from '../games/games.component';
+import { IndividualStatsComponent } from '../individual-stats/individual-stats.component';
 import { PlayerStatsComponent } from '../player-stats/player-stats.component';
 import { TeamStatsComponent } from '../team-stats/team-stats.component';
 
@@ -16,6 +17,7 @@ import { TeamStatsComponent } from '../team-stats/team-stats.component';
     imports: [
         CommonModule,
         GamesComponent,
+        IndividualStatsComponent,
         PlayerStatsComponent,
         TeamStatsComponent
     ]
