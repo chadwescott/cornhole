@@ -1,5 +1,10 @@
 .container {
     display: flex;
+    flex-direction: column;
+
+    @media (min-width: var(--large-screen)) {
+        flex-direction: row;
+    }
 
     > div {
         border-top: solid 0.2rem rgba(0, 0, 0, 0.4);
