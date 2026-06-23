@@ -6,6 +6,20 @@
     --clr-dark-brown: rgb(var(--cc-dark-brown));
     --clr-gray: rgb(128 128 128);
     --body-background: linear-gradient(135deg, #eef, #cde, #eef);
+	--banner-color: rgb(0, 107, 137);
+    --bag-red: rgb(255, 0, 0);
+    --bag-orange: rgb(255 140 0);
+    --bag-yellow: rgb(241 201 39);
+    --bag-blue: rgb(0 0 255);
+    --bag-navy: rgb(0 0 128);
+    --bag-green: rgb(0 128 0);
+    --bag-purple: rgb(128 0 255);
+    --bag-green: rgb(0 128 0);
+    --bag-pink: rgb(255 77 166);   
+    --bag-brown: rgb(128 64 0);
+    --bag-black: rgb(0 0 0);
+    --bag-gray: rgb(180 180 180);
+    --bag-white: rgb(255 255 255);
 }
 
 [color-scheme] {
@@ -14,75 +28,75 @@
 }
 
 [color-scheme='red'] {
-    --background-color: rgb(255 0 0);
+    --background-color: var(--bag-red);
     --text-color: rgb(255 255 255);
     --alt-color: rgb(0 0 0);
 }
 
 [color-scheme='orange'] {
-    --background-color: rgb(255 140 0);
+    --background-color: var(--bag-orange);
     --text-color: rgb(0 0 0);
     --alt-color: rgb(255 255 255);
 }
 
 [color-scheme='yellow'] {
-    --background-color: rgb(241 201 39);
+    --background-color: var(--bag-yellow);
     --text-color: rgb(0 0 0);
     --alt-color: rgb(255 255 255);
     --design-color: color-mix(in srgb, var(--background-color), var(--alt-color) 40%);
 }
 
 [color-scheme='blue'] {
-    --background-color: rgb(0 0 255);
+    --background-color: var(--bag-blue);
     --text-color: rgb(255 255 255);
     --alt-color: rgb(0 0 0);
 }
 
 [color-scheme='navy'] {
-    --background-color: rgb(0 0 128);
+    --background-color: var(--bag-navy);
     --text-color: rgb(255 255 255);
     --alt-color: rgb(0 0 0);
 }
 
 [color-scheme='green'] {
-    --background-color: rgb(0 128 0);
+    --background-color: var(--bag-green);
     --text-color: rgb(255 255 255);
     --alt-color: rgb(0 0 0);
 }
 
 [color-scheme='purple'] {
-    --background-color: rgb(128 0 255);
+    --background-color: var(--bag-purple);
     --text-color: rgb(255 255 255);
     --alt-color: rgb(0 0 0);
 }
 
 [color-scheme='pink'] {
-    --background-color: rgb(255 77 166);
+    --background-color: var(--bag-pink);
     --text-color: rgb(0 0 0);
     --alt-color: rgb(255 255 255);
     --design-color: color-mix(in srgb, var(--background-color), var(--alt-color) 40%);
 }
 
 [color-scheme='brown'] {
-    --background-color: rgb(128 64 0);
+    --background-color: var(--bag-brown);
     --text-color: rgb(255 255 255);
     --alt-color: rgb(0 0 0);
 }
 
 [color-scheme='black'] {
-    --background-color: rgb(0 0 0);
+    --background-color: var(--bag-black);
     --text-color: rgb(255 255 255);
     --alt-color: rgb(150 150 150);
 }
 
 [color-scheme='gray'] {
-    --background-color: rgb(180 180 180);
+    --background-color: var(--bag-gray);
     --text-color: rgb(0 0 0);
     --alt-color: rgb(255 255 255);
 }
 
 [color-scheme='white'] {
-    --background-color: rgb(255 255 255);
+    --background-color: var(--bag-white);
     --text-color: rgb(0 0 0);
     --alt-color: rgb(255 255 255);
     --light-color: color-mix(in srgb, var(--background-color), black 10%);

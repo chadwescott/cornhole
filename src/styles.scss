@@ -110,6 +110,11 @@ body {
     box-shadow: 2px 2px 4px 2px rgb(0 0 0 / 0.2);
 }
 
+.cdk-overlay-pane {
+    background: white;
+    box-shadow: 0 0 4px 4px rgb(0 0 0 / 0.15);
+}
+
 .fa-cog {
     color: dimgrey;
     -webkit-text-stroke-color: black;
@@ -299,3 +304,80 @@ button.clickable:disabled {
   opacity: 0.55;
   cursor: not-allowed;
 }
+
+section {
+    padding: 0 1rem;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    max-width: 100%;
+}
+
+.error {
+    color: #b00020;
+}
+
+.success {
+    color: #0b6e2d;
+}
+
+.table-container {
+    overflow: auto;
+    display: inline-block;
+    margin-bottom: 1rem;
+
+    table {
+        border-collapse: collapse;
+    }
+
+    thead th {
+        text-align: left;
+        font-weight: 600;
+        border-bottom: 1px solid #dcdcdc;
+    }
+
+    td,
+    th {
+        padding: 0.5rem 0.75rem;
+    }
+
+    th.sortable {
+        cursor: pointer;
+        user-select: none;
+    }
+
+    th.sortable:hover {
+        background: rgb(0 0 0 / 0.04);
+    }
+
+    th.sortable i {
+        margin-left: 0.3rem;
+        opacity: 0.5;
+        font-size: 0.8em;
+    }
+
+    th.sortable i.fa-sort-up,
+    th.sortable i.fa-sort-down {
+        opacity: 1;
+        color: #2f5f90;
+    }
+
+    td,
+    th {
+        padding: 0.5rem 0.75rem;
+    }
+
+    tbody tr:nth-child(even) {
+        background: rgb(0 0 0 / 0.03);
+    }
+}
+
+.clickable,
+.clickable-row {
+  cursor: pointer;
+}
+
+.clickable-row:hover {
+  background: rgb(0 0 0 / 0.04);
+}
+

@@ -1,63 +1,66 @@
-.app-header {
-	position: sticky;
-	top: 0;
-	z-index: 1;
-	padding: 0.75rem 1rem;
-	background: #ffffff;
-	border-bottom: 1px solid #d9d9d9;
+:host {
+    --toolbar-height: 56px;
+    display: block;
 }
 
-.app-nav {
-	position: absolute;
-	top: calc(100% - 0.25rem);
-	left: 1rem;
-	display: flex;
-	flex-direction: column;
-	gap: 0.5rem;
-	padding: 0.75rem;
-	min-width: 12rem;
-	background: #ffffff;
-	border: 1px solid #d9d9d9;
-	border-radius: 0.75rem;
-	box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
+@media screen and (min-width: 600px) {
+    :host {
+        --toolbar-height: 64px;
+    }
 }
 
-.menu-toggle {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	width: 2.5rem;
-	height: 2.5rem;
-	border: 1px solid #cfcfcf;
-	border-radius: 0.6rem;
-	background: #ffffff;
-	color: #2f5f90;
-	cursor: pointer;
-	transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease;
+mat-toolbar.mat-toolbar {
+    background: var(--banner-color);
+    color: #fff;
+    box-shadow: 0 0 4px 4px rgb(0 0 0 / 0.25), 0 0 2px 1px rgb(0 0 0 / 0.5);
+    font-size: 1.5rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+
+    h1, h2, h3, h4, h5, h6 {
+        font-family: var(--header-font-family);
+    }   
 }
 
-.menu-toggle:hover {
-	background: #f7f7f7;
-	border-color: #b7b7b7;
+mat-icon.menu-icon,
+.app-title {
+    text-shadow: black .05em .05em 0;
 }
 
-.app-nav__link {
-	display: block;
-	text-decoration: none;
-	color: #3a3a3a;
-	border: 1px solid #e7e7e7;
-	border-radius: 0.5rem;
-	padding: 0.5rem 0.75rem;
-	transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease;
+.app-title {
+    margin: 0 .5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
 }
 
-.app-nav__link:hover {
-	border-color: #cfcfcf;
-	background: #f7f7f7;
+.content {
+    margin: var(--toolbar-height) 0 0 0 ;
 }
 
-.app-nav__link.is-active {
-	color: #ffffff;
-	background: #2f5f90;
-	border-color: #2f5f90;
+.logo {
+    background: black;
+    border: solid 2px white;
+    border-radius: 50%;
+    height: 2rem;
+    width: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .bag {
+        height: .9em;
+        width: .9em;
+        border-radius: 0.25rem;
+        border: solid 2px black;
+    }
+}
+
+.fa.fa-square {
+    position: absolute;
+    color: var(--bag-yellow);
+    inset: 0;
 }

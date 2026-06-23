@@ -1,4 +1,4 @@
-<section class="player-stats-page">
+<section>
     <h2>{{ pageTitle }}</h2>
 
     @if (isLoading) {
@@ -15,12 +15,17 @@
                     <th class="sortable" (click)="sort('name')">Name <i [class]="sortIcon('name')"></i></th>
                     <th class="sortable" (click)="sort('wins')">Wins <i [class]="sortIcon('wins')"></i></th>
                     <th class="sortable" (click)="sort('losses')">Loses <i [class]="sortIcon('losses')"></i></th>
-                    <th class="sortable" (click)="sort('total_throws')">Total Throws <i [class]="sortIcon('total_throws')"></i></th>
+                    <th class="sortable" (click)="sort('total_throws')">Total Throws <i
+                            [class]="sortIcon('total_throws')"></i></th>
                     <th class="sortable" (click)="sort('misses')">Misses <i [class]="sortIcon('misses')"></i></th>
-                    <th class="sortable" (click)="sort('on_board_throws')">On-Board Throws <i [class]="sortIcon('on_board_throws')"></i></th>
-                    <th class="sortable" (click)="sort('cornholes')">Cornholes <i [class]="sortIcon('cornholes')"></i></th>
-                    <th class="sortable" (click)="sort('scoring_rate')">Scoring Rate <i [class]="sortIcon('scoring_rate')"></i></th>
-                    <th class="sortable" (click)="sort('cornhole_rate')">Cornhole Rate <i [class]="sortIcon('cornhole_rate')"></i></th>
+                    <th class="sortable" (click)="sort('on_board_throws')">On-Board Throws <i
+                            [class]="sortIcon('on_board_throws')"></i></th>
+                    <th class="sortable" (click)="sort('cornholes')">Cornholes <i [class]="sortIcon('cornholes')"></i>
+                    </th>
+                    <th class="sortable" (click)="sort('scoring_rate')">Scoring Rate <i
+                            [class]="sortIcon('scoring_rate')"></i></th>
+                    <th class="sortable" (click)="sort('cornhole_rate')">Cornhole Rate <i
+                            [class]="sortIcon('cornhole_rate')"></i></th>
                 </tr>
             </thead>
             <tbody>
