@@ -1,3 +1,5 @@
+@use '../../../assets/scss/vars.scss' as vars;
+
 .score-component {
     position: relative;
     --player-width: 1fr;
@@ -30,7 +32,7 @@
     text-align: left;
 }
 
-@media (min-width: var(--large-screen)) {
+@media (min-width: vars.$large-screen) {
     .team1 {
         --gta: 'streak players score';
 

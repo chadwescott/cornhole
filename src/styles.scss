@@ -1,5 +1,5 @@
 @use './assets/scss/colors.scss';
-@use './assets/scss/vars.scss';
+@use './assets/scss/vars.scss' as vars;
 @use '@angular/material' as mat;
 
 @include mat.elevation-classes();
@@ -42,7 +42,7 @@ body {
     user-select: none; /* Likely future */
 }
 
-@media (min-width: var(--large-screen)) {
+@media (min-width: vars.$large-screen) {
     body {
         font-size: 1rem;
     }

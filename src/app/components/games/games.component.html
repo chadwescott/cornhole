@@ -24,8 +24,6 @@
                     <td>{{ game.created_at | date: 'short' }}</td>
                     <td>
                         <div>
-                            <div class="bag" [attr.color-scheme]="game.team1_color" [attr.design]="game.team1_design">
-                            </div>
                             @for (player of game.team1Players ?? []; track player.id) {
                             {{ player.first_name }} {{ player.last_name }}
                             }
@@ -34,8 +32,6 @@
                     </td>
                     <td>
                         <div>
-                            <div class="bag" [attr.color-scheme]="game.team2_color" [attr.design]="game.team2_design">
-                            </div>
                             @for (player of game.team2Players ?? []; track player.id) {
                             {{ player.first_name }} {{ player.last_name }}
                             }
