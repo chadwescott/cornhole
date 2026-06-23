@@ -6,9 +6,9 @@
     } @else if (event) {
     <h2>{{ event.name }}</h2>
     <p class="event-date">{{ event.event_date | date: 'mediumDate' }}</p>
-    <ch-individual-stats [event]="event"></ch-individual-stats>
+    <ch-overall-stats [event]="event"></ch-overall-stats>
     <ch-team-stats [event]="event"></ch-team-stats>
-    <ch-player-stats [event]="event"></ch-player-stats>
+    <ch-individual-stats [event]="event"></ch-individual-stats>
     <ch-games [event]="event"></ch-games>
     }
 </section>

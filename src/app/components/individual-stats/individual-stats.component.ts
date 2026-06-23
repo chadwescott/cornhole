@@ -20,7 +20,7 @@ export class IndividualStatsComponent implements OnInit {
 
     rows: SupabasePlayerStatsRow[] = [];
     sortedRows: SupabasePlayerStatsRow[] = [];
-    pageTitle = 'Individual Stats';
+    pageTitle = 'Individual Statistics';
     isLoading = true;
     errorMessage: string | null = null;
 

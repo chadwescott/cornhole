@@ -2,7 +2,7 @@
     <h2>{{ pageTitle }}</h2>
 
     @if (isLoading) {
-    <p>Loading individual stats...</p>
+    <p>Loading individual statistics...</p>
     } @else if (errorMessage) {
     <p class="error">{{ errorMessage }}</p>
     } @else if (!rows.length) {

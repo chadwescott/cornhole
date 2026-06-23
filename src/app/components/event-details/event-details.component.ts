@@ -6,7 +6,7 @@ import { SupabaseEvent } from '../../models/supabase/supabase-event.model';
 import { EventService } from '../../services/event.service';
 import { GamesComponent } from '../games/games.component';
 import { IndividualStatsComponent } from '../individual-stats/individual-stats.component';
-import { PlayerStatsComponent } from '../player-stats/player-stats.component';
+import { OverallStatsComponent } from '../overall-stats/overall-stats.component';
 import { TeamStatsComponent } from '../team-stats/team-stats.component';
 
 @Component({
@@ -18,7 +18,7 @@ import { TeamStatsComponent } from '../team-stats/team-stats.component';
         CommonModule,
         GamesComponent,
         IndividualStatsComponent,
-        PlayerStatsComponent,
+        OverallStatsComponent,
         TeamStatsComponent
     ]
 })

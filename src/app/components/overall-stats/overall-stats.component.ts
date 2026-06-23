@@ -9,18 +9,18 @@ type SortColumn = keyof Omit<SupabasePlayerStatsRow, 'player_id'> | 'name';
 type SortDirection = 'asc' | 'desc';
 
 @Component({
-    selector: 'ch-player-stats',
-    templateUrl: './player-stats.component.html',
-    styleUrls: ['./player-stats.component.scss'],
+    selector: 'ch-overall-stats',
+    templateUrl: './overall-stats.component.html',
+    styleUrls: ['./overall-stats.component.scss'],
     standalone: true,
     imports: [CommonModule]
 })
-export class PlayerStatsComponent implements OnInit {
+export class OverallStatsComponent implements OnInit {
     event = input<SupabaseEvent | null>(null);
 
     rows: SupabasePlayerStatsRow[] = [];
     sortedRows: SupabasePlayerStatsRow[] = [];
-    pageTitle = 'Player Stats';
+    pageTitle = 'Overall Statistics';
     isLoading = true;
     errorMessage: string | null = null;
 

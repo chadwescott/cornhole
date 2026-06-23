@@ -4,7 +4,7 @@ import { EventDetailsComponent } from './components/event-details/event-details.
 import { EventsComponent } from './components/events/events.component';
 import { GamesComponent } from './components/games/games.component';
 import { IndividualStatsComponent } from './components/individual-stats/individual-stats.component';
-import { PlayerStatsComponent } from './components/player-stats/player-stats.component';
+import { OverallStatsComponent } from './components/overall-stats/overall-stats.component';
 import { PlayersComponent } from './components/players/players.component';
 import { ScoreKeeperComponent } from './components/score-keeper/score-keeper.component';
 import { TeamStatsComponent } from './components/team-stats/team-stats.component';
@@ -37,7 +37,7 @@ export const routes: Routes = [
     },
     {
         path: 'player-stats',
-        component: PlayerStatsComponent
+        component: OverallStatsComponent
     },
     {
         path: 'team-stats',
