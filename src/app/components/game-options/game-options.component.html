@@ -16,10 +16,12 @@
         </mat-radio-group>
       </div>
 
+      @if (availableEvents.length > 0) {
       <div>
         <mat-form-field>
           <mat-label>Event</mat-label>
           <mat-select panelClass="select-panel" [ngModel]="game().event_id" (ngModelChange)="setEventId($event)">
+            <mat-option [value]="null">Select an event</mat-option>
             @for (event of availableEvents; track event.id) {
             <mat-option [value]="event.id">{{ eventLabel(event) }}</mat-option>
             }
@@ -29,6 +31,7 @@
           }
         </mat-form-field>
       </div>
+      }
 
       <ng-container *ngTemplateOutlet="teamOptionsTemplate; context: {
         title: 'Team 1',

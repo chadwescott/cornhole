@@ -77,8 +77,7 @@ export class GameOptionsComponent implements OnInit {
   canCloseOptions(): boolean {
     const team1HasAllIds = this.game().team1.players.every(p => !!p.id);
     const team2HasAllIds = this.game().team2.players.every(p => !!p.id);
-    const hasEventId = Number.isFinite(this.game().event_id);
-    return team1HasAllIds && team2HasAllIds && hasEventId;
+    return team1HasAllIds && team2HasAllIds;
   }
 
   setEventId(eventId: number | null): void {
