@@ -22,9 +22,10 @@ with filtered_game_stats as (
     where g.event_id = event_id_param
 ),
 event_players as (
-    select distinct gp.player_id
+    select distinct tp.player_id
     from public.game_players gp
     join public.games g on g.id = gp.game_id
+    join public.team_players tp on tp.id = gp.team_player_id
     where g.event_id = event_id_param
 ),
 player_totals as (
@@ -44,7 +45,7 @@ player_totals as (
 ),
 win_loss as (
     select
-        gp.player_id,
+        tp.player_id,
         coalesce(sum(case
             when gp.team_number = 1 and g.team1_score > g.team2_score then 1
             when gp.team_number = 2 and g.team2_score > g.team1_score then 1
@@ -57,8 +58,9 @@ win_loss as (
         end), 0)::bigint as losses
     from public.game_players gp
     join public.games g on g.id = gp.game_id
+    join public.team_players tp on tp.id = gp.team_player_id
     where g.event_id = event_id_param
-    group by gp.player_id
+    group by tp.player_id
 )
 select
     pt.player_id,

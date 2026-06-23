@@ -149,7 +149,7 @@ export class GameOptionsComponent implements OnInit {
     });
   }
 
-  setTeamPlayer(targetPlayer: Player, playerId: string | null): void {
+  setTeamPlayer(targetPlayer: Player, playerId: number | null): void {
     if (!playerId) {
       return;
     }
@@ -168,7 +168,7 @@ export class GameOptionsComponent implements OnInit {
     this.playersChanged.emit();
   }
 
-  private clearPlayerFromOtherSlots(targetPlayer: Player, playerId: string): void {
+  private clearPlayerFromOtherSlots(targetPlayer: Player, playerId: number): void {
     this.getGamePlayers()
       .filter(player => player !== targetPlayer && player.id === playerId)
       .forEach(player => {

@@ -16,6 +16,7 @@ import { Team } from '../models/team.model';
 import { ThrowResult } from '../models/throw-result.model';
 import { Throw } from '../models/throw.model';
 import { SupabaseService } from './supabase.service';
+import { TeamService } from './team.service';
 
 type SupabaseGamePlayerInsert = Omit<SupabaseGamePlayer, 'players'>;
 type SupabaseGameRoundInsert = SupabaseGameRound;
@@ -28,6 +29,7 @@ export class GameService {
   private readonly environmentInjector = inject(EnvironmentInjector);
   private readonly firestore = inject(Firestore);
   private readonly supabaseService = inject(SupabaseService);
+  private readonly teamService = inject(TeamService);
 
   private readonly teamsKey = 'TEAMS';
   private readonly playersKey = 'PLAYERS';
@@ -371,7 +373,7 @@ export class GameService {
   }
 
   private async saveGamePlayersToSupabase(game: Game, gameId: number): Promise<void> {
-    const gamePlayersPayload = this.buildGamePlayersPayload(game, gameId);
+    const gamePlayersPayload = await this.buildGamePlayersPayload(game, gameId);
     if (!gamePlayersPayload.length) {
       return;
     }
@@ -424,15 +426,38 @@ export class GameService {
     });
   }
 
-  private buildGamePlayersPayload(game: Game, gameId: number): SupabaseGamePlayerInsert[] {
-    return [game.team1, game.team2].flatMap(team =>
-      team.players.map((player, index) => ({
-        game_id: gameId,
-        player_id: player.id!,
-        team_number: team.teamNumber,
-        player_number: index + 1
-      }))
-    ).filter(gamePlayer => !!gamePlayer.player_id) as SupabaseGamePlayerInsert[];
+  private async buildGamePlayersPayload(game: Game, gameId: number): Promise<SupabaseGamePlayerInsert[]> {
+    const payload: SupabaseGamePlayerInsert[] = [];
+
+    for (const team of [game.team1, game.team2]) {
+      const players = team.players.filter(player => !!player.id);
+      if (!players.length) {
+        continue;
+      }
+
+      const teamPlayerMap = await this.teamService.getOrCreateTeamPlayerMap(
+        players.map(player => player.id!)
+      );
+
+      players.forEach((player, index) => {
+        const playerId = player.id!;
+        const teamPlayerId = teamPlayerMap.get(String(playerId));
+
+        if (!Number.isFinite(teamPlayerId)) {
+          throw new Error(`Unable to resolve team_player_id for player ${playerId}`);
+        }
+
+        payload.push({
+          game_id: gameId,
+          player_id: playerId,
+          team_player_id: teamPlayerId!,
+          team_number: team.teamNumber,
+          player_number: index + 1
+        });
+      });
+    }
+
+    return payload;
   }
 
   private buildGameRoundsPayload(game: Game, gameId: number): SupabaseGameRoundInsert[] {
@@ -514,7 +539,6 @@ export class GameService {
       .map(player => ({
         game_id: gameId,
         player_id: player.id!,
-        event_id: game.event_id ?? null,
         total_off_board: player.stats!.throwResults[ThrowResult.OffBoard] ?? 0,
         total_on_board: player.stats!.throwResults[ThrowResult.OnBoard] ?? 0,
         total_cornhole: player.stats!.throwResults[ThrowResult.Cornhole] ?? 0,

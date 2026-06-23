@@ -2,7 +2,7 @@ import { SupabasePlayer } from "./supabase-player.model";
 
 export interface SupabaseGameStats {
     game_id: number;
-    player_id: string;
+    player_id: number;
     total_off_board: number;
     total_on_board: number;
     total_cornhole: number;

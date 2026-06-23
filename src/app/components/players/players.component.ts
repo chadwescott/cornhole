@@ -22,11 +22,11 @@ import { PlayerDialogComponent } from '../player-dialog/player-dialog.component'
 export class PlayersComponent implements OnInit {
     players: Player[] = [];
     isLoading = true;
-    deletingPlayerId: string | null = null;
+    deletingPlayerId: number | null = null;
     errorMessage: string | null = null;
     successMessage: string | null = null;
 
-    selectedPlayerId: string | null = null;
+    selectedPlayerId: number | null = null;
 
     private readonly playerService = inject(PlayerService);
     private readonly dialog = inject(MatDialog);

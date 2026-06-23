@@ -368,7 +368,7 @@ section {
         padding: 0.5rem 0.75rem;
     }
 
-    tbody tr:nth-child(even) {
+    tbody tr:not(.bag):nth-child(even) {
         background: rgb(0 0 0 / 0.03);
     }
 }

@@ -77,7 +77,7 @@ export class GamesComponent implements OnInit {
 
     playerName(stat: SupabaseGameStats): string {
         if (!stat.players) {
-            return stat.player_id;
+            return stat.player_id.toString();
         }
 
         return `${stat.players.first_name} ${stat.players.last_name}`.trim();
@@ -155,7 +155,7 @@ export class GamesComponent implements OnInit {
         return team;
     }
 
-    private mapPlayer(source: SupabaseGame, playerId: string): Player {
+    private mapPlayer(source: SupabaseGame, playerId: number): Player {
         const gamePlayer = (source.game_players ?? []).find(x => x.player_id === playerId);
         const stat = (source.game_stats ?? []).find(x => x.player_id === playerId);
 
