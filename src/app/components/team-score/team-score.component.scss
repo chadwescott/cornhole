@@ -89,6 +89,26 @@
     }
 }
 
+.players > div {
+    display: flex;
+    align-items: center;
+    
+    gap: 0.5em;
+
+    .throwing-badge {
+        font-size: 0.5em;
+        border-radius: 999px;
+        padding: 0.35em 0.6em;
+        border: 1px solid var(--text-color);
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.1) 25%, rgba(255, 255, 255, 0.1) 75%, rgba(255, 255, 255, 0.8));
+        box-shadow: 1px 1px var(--alt-color);
+        color: var(--text-color);
+        text-shadow: none;
+        font-weight: 700;
+        font-style: italic;
+    }
+}
+
 .fa-fire-flame-curved {
     position: relative;
     font-size: 2.25em;

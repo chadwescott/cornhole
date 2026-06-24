@@ -1,9 +1,12 @@
 <div [class.team1]="teamNumber() == 1" [class.team2]="teamNumber() == 2" class="score-component bag"
   [attr.color-scheme]="team().teamColor.colorScheme">
   <div class="players">
-    @for (player of team().players; track player) {
+    @for (player of team().players; track player; let i = $index) {
     <div>
-      {{player.firstName}} {{player.lastName}}
+      <span class="player-name">{{player.firstName}} {{player.lastName}}</span>
+      @if (team().players.length > 1 && i === throwIndex()) {
+      <span class="throwing-badge">Throwing</span>
+      }
     </div>
     }
   </div>
