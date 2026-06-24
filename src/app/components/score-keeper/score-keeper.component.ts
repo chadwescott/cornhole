@@ -91,7 +91,7 @@ export class ScoreKeeperComponent implements OnInit {
         await this.deleteActiveFirestoreGame();
         this.game = null;
         await this.gameService.completeGame(game);
-        this.game = this.gameService.createGame(game.team1, game.team2);
+        this.game = this.gameService.createGame(game.team1, game.team2, game.event_id);
         this.firestoreGameId = null;
         localStorage.removeItem(this.firestoreGameIdKey);
         await this.activateLastRound(this.game);

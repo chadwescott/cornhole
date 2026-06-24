@@ -188,8 +188,9 @@ export class GameService {
     return team;
   }
 
-  createGame(team1: Team, team2: Team): Game {
+  createGame(team1: Team, team2: Team, eventId: number | null = null): Game {
     const game = new Game(team1, team2);
+    game.event_id = eventId;
     this.games.push(game);
     this.addRound(game);
     this.saveGames();
@@ -565,6 +566,7 @@ export class GameService {
   resetGame(game: Game): Game {
     this.games.splice(this.games.indexOf(game), 1);
     const newGame = this.createGame(game.team1, game.team2);
+    newGame.event_id = game.event_id;
     this.resetStats(newGame);
     this.saveGames();
     return newGame;
