@@ -3,12 +3,10 @@ import { Routes } from '@angular/router';
 import { EventDetailsComponent } from './components/event-details/event-details.component';
 import { EventsComponent } from './components/events/events.component';
 import { GamesComponent } from './components/games/games.component';
-import { IndividualStatsComponent } from './components/individual-stats/individual-stats.component';
 import { LiveGamesComponent } from './components/live-games/live-games.component';
-import { OverallStatsComponent } from './components/overall-stats/overall-stats.component';
 import { PlayersComponent } from './components/players/players.component';
 import { ScoreKeeperComponent } from './components/score-keeper/score-keeper.component';
-import { TeamStatsComponent } from './components/team-stats/team-stats.component';
+import { StatsPageComponent } from './components/stats-page/stats-page.component';
 
 export const routes: Routes = [
     {
@@ -41,16 +39,8 @@ export const routes: Routes = [
         component: PlayersComponent
     },
     {
-        path: 'player-stats',
-        component: OverallStatsComponent
-    },
-    {
-        path: 'team-stats',
-        component: TeamStatsComponent
-    },
-    {
-        path: 'individual-stats',
-        component: IndividualStatsComponent
+        path: 'stats',
+        component: StatsPageComponent
     },
     {
         path: '**',

@@ -9,9 +9,15 @@
     @if (!event.complete) {
     <ch-live-games [eventId]="event.id"></ch-live-games>
     }
-    <ch-overall-stats [event]="event"></ch-overall-stats>
-    <ch-team-stats [event]="event"></ch-team-stats>
-    <ch-individual-stats [event]="event"></ch-individual-stats>
+    @if (appStateService.eventTeamStats().length && appStateService.eventIndividualStats().length) {
+    <ch-stats [stats]="appStateService.eventOverallStats()" [title]="'Overall Stats'"></ch-stats>
+    }
+    @if (appStateService.eventTeamStats().length) {
+    <ch-stats [stats]="appStateService.eventTeamStats()" [title]="'Team Stats'"></ch-stats>
+    }
+    @if (appStateService.eventIndividualStats().length) {
+    <ch-stats [stats]="appStateService.eventIndividualStats()" [title]="'Individual Stats'"></ch-stats>
+    }
     <ch-games [event]="event"></ch-games>
     }
 </section>

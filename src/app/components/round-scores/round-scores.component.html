@@ -45,12 +45,12 @@
                             <ch-throw-result-icon [throw]="throw"> </ch-throw-result-icon>
                         </div>
                         }
-                        <div class="score">{{round.team1TotalScore}}</div>
+                        <div class="score">{{round.team1GrossScore}}</div>
                     </div>
                 </td>
                 <td class="team team2 results" [attr.color-scheme]="game().team2.teamColor.colorScheme">
                     <div>
-                        <div class="score">{{round.team2TotalScore}}</div>
+                        <div class="score">{{round.team2GrossScore}}</div>
                         @for (throw of round.team2Throws; track throw) {
                         <div>
                             <ch-throw-result-icon [throw]="throw"> </ch-throw-result-icon>

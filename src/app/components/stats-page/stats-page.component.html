@@ -1,0 +1,13 @@
+<section>
+    <h2>{{ pageTitle }}</h2>
+
+    @if (appStateService.overallStats().length) {
+    <ch-stats [stats]="appStateService.overallStats()" [title]="'Overall Stats'"></ch-stats>
+    }
+    @if (appStateService.teamStats().length) {
+    <ch-stats [stats]="appStateService.teamStats()" [title]="'Team Stats'"></ch-stats>
+    }
+    @if (appStateService.individualStats().length) {
+    <ch-stats [stats]="appStateService.individualStats()" [title]="'Individual Stats'"></ch-stats>
+    }
+</section>
