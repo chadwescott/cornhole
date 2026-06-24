@@ -1,12 +1,10 @@
-:host {
-    --toolbar-height: 56px;
-    display: block;
-}
+@use '../assets/scss/vars.scss' as vars;
 
-@media screen and (min-width: 600px) {
-    :host {
-        --toolbar-height: 64px;
-    }
+:host {
+    --toolbar-height: 3rem;
+    --mat-toolbar-mobile-height: 3rem;
+    --mat-toolbar-standard-height: 3rem;
+    display: block;
 }
 
 mat-toolbar.mat-toolbar {
@@ -35,6 +33,9 @@ mat-icon.menu-icon,
     display: flex;
     align-items: center;
     gap: 0.5em;
+    font-family: "Ranchers", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
 .content {
@@ -54,26 +55,45 @@ mat-icon.menu-icon,
         background-repeat: no-repeat;
         background-position: center;
         background-size: contain;
-        filter: opacity(0.2);
+        filter: opacity(0.3);
         pointer-events: none;
     }
 }
 
 .logo {
     background: black;
-    border: solid 2px white;
-    border-radius: 50%;
+    position: relative;
     height: 2rem;
     width: 2rem;
     display: flex;
     justify-content: center;
     align-items: center;
 
+    border-radius: 50%;
+    border: solid 0.25rem white;
+
+    &::before {
+        content: '';
+        position: absolute;
+        border-radius: 50%;
+        inset: 0;
+        border: solid 1px black;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        border-radius: 50%;
+        inset: -0.25rem;
+        border: solid 1px black;
+    }
+
     .bag {
-        height: .9em;
-        width: .9em;
+        height: .75em;
+        width: .75em;
         border-radius: 0.25rem;
         border: solid 2px black;
+        transform: rotate(-30deg);
     }
 }
 
