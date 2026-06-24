@@ -1,0 +1,19 @@
+.games-container {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+article {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+ch-scoreboard {
+    width: 100%;
+    font-size: 0.75rem;
+}

@@ -1,0 +1,57 @@
+<div class="row" center>
+    <h4>Throws</h4>
+</div>
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>Player</th>
+                <th>T</th>
+                <th>C</th>
+                <th>B</th>
+                <th>M</th>
+                <th>CR</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (player of game().team1.players; track player) {
+            <tr [attr.color-scheme]="game().team1.teamColor.colorScheme" class="bag">
+                <ng-container [ngTemplateOutlet]="statRow"
+                    [ngTemplateOutletContext]="{name: player.firstName + ' ' + player.lastName, stats: player.stats}"></ng-container>
+            </tr>
+            }
+            @if (game().team1.players.length > 1) {
+            <tr [attr.color-scheme]="game().team1.teamColor.colorScheme" class="bag">
+                <ng-container [ngTemplateOutlet]="statRow"
+                    [ngTemplateOutletContext]="{name: 'Total', stats: game().team1.stats}"></ng-container>
+            </tr>
+            }
+            @for (player of game().team2.players; track player) {
+            <tr [attr.color-scheme]="game().team2.teamColor.colorScheme" class="bag">
+                <ng-container [ngTemplateOutlet]="statRow"
+                    [ngTemplateOutletContext]="{name: player.firstName + ' ' + player.lastName, stats: player.stats}"></ng-container>
+            </tr>
+            }
+            @if (game().team2.players.length > 1) {
+            <tr [attr.color-scheme]="game().team2.teamColor.colorScheme" class="bag">
+                <ng-container [ngTemplateOutlet]="statRow"
+                    [ngTemplateOutletContext]="{name: 'Total', stats: game().team2.stats}"></ng-container>
+            </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="6">&nbsp;</td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+<ng-template #statRow let-stats="stats" let-name="name">
+    <td>{{name}}</td>
+    <td class="stat details">{{stats?.totalThrows}}</td>
+    <td class="stat details">{{stats?.throwResults[throwResult.Cornhole]}}</td>
+    <td class="stat details">{{stats?.throwResults[throwResult.OnBoard]}}</td>
+    <td class="stat details">{{stats?.throwResults[throwResult.OffBoard]}}</td>
+    <td class="stat details">{{stats?.cornholeRate | percent: '1.1-1'}}</td>
+</ng-template>

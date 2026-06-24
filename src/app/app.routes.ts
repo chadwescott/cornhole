@@ -4,6 +4,7 @@ import { EventDetailsComponent } from './components/event-details/event-details.
 import { EventsComponent } from './components/events/events.component';
 import { GamesComponent } from './components/games/games.component';
 import { IndividualStatsComponent } from './components/individual-stats/individual-stats.component';
+import { LiveGamesComponent } from './components/live-games/live-games.component';
 import { OverallStatsComponent } from './components/overall-stats/overall-stats.component';
 import { PlayersComponent } from './components/players/players.component';
 import { ScoreKeeperComponent } from './components/score-keeper/score-keeper.component';
@@ -22,6 +23,10 @@ export const routes: Routes = [
     {
         path: 'games',
         component: GamesComponent
+    },
+    {
+        path: 'live-games',
+        component: LiveGamesComponent
     },
     {
         path: 'events',

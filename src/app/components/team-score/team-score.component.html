@@ -1,5 +1,5 @@
 <div [class.team1]="teamNumber() == 1" [class.team2]="teamNumber() == 2" class="score-component bag"
-  [attr.color-scheme]="team().teamColor.colorScheme" [attr.design]="team().teamColor.design">
+  [attr.color-scheme]="team().teamColor.colorScheme">
   <div class="players">
     @for (player of team().players; track player) {
     <div>

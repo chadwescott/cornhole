@@ -6,6 +6,7 @@ import { SupabaseEvent } from '../../models/supabase/supabase-event.model';
 import { EventService } from '../../services/event.service';
 import { GamesComponent } from '../games/games.component';
 import { IndividualStatsComponent } from '../individual-stats/individual-stats.component';
+import { LiveGamesComponent } from '../live-games/live-games.component';
 import { OverallStatsComponent } from '../overall-stats/overall-stats.component';
 import { TeamStatsComponent } from '../team-stats/team-stats.component';
 
@@ -18,6 +19,7 @@ import { TeamStatsComponent } from '../team-stats/team-stats.component';
         CommonModule,
         GamesComponent,
         IndividualStatsComponent,
+        LiveGamesComponent,
         OverallStatsComponent,
         TeamStatsComponent
     ]

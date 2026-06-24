@@ -44,16 +44,18 @@ mat-icon.menu-icon,
 
     &::before {
         content: '';
-        position: absolute;
-        inset: 0;
-        width: 50%;
-        height: 50%;
-        margin: auto;
+        position: fixed;
+        left: 50%;
+        top: calc(var(--toolbar-height) + ((100vh - var(--toolbar-height)) / 2));
+        transform: translate(-50%, -50%);
+        width: min(80vw, 100vh - var(--toolbar-height));
+        height: min(80vw, 100vh - var(--toolbar-height));
         background-image: url('../assets/images/cornhole.png');
         background-repeat: no-repeat;
         background-position: center;
         background-size: contain;
         filter: opacity(0.2);
+        pointer-events: none;
     }
 }
 

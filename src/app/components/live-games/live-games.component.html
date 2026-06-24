@@ -1,0 +1,28 @@
+<section>
+    <h2>{{ pageTitle }}</h2>
+
+    @if (isLoading) {
+    <p>Loading live games...</p>
+    } @else if (errorMessage) {
+    <p class="error">{{ errorMessage }}</p>
+    } @else if (!games.length) {
+    <p>No live games right now.</p>
+    } @else {
+    <div class="games-container">
+        @for (game of games; track $index) {
+        <article>
+            <ch-scoreboard [game]="game"></ch-scoreboard>
+
+            @if (getActiveRound(game); as activeRound) {
+            <ch-round [round]="activeRound" [team1Color]="game.team1.teamColor" [team2Color]="game.team2.teamColor"
+                [disabled]="true">
+            </ch-round>
+            } @else {
+            <p>No rounds yet.</p>
+            }
+            <ch-game-throws [game]="game"></ch-game-throws>
+        </article>
+        }
+    </div>
+    }
+</section>

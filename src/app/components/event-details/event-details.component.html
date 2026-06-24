@@ -6,6 +6,9 @@
     } @else if (event) {
     <h2>{{ event.name }}</h2>
     <p class="event-date">{{ event.event_date | date: 'mediumDate' }}</p>
+    @if (!event.complete) {
+    <ch-live-games [eventId]="event.id"></ch-live-games>
+    }
     <ch-overall-stats [event]="event"></ch-overall-stats>
     <ch-team-stats [event]="event"></ch-team-stats>
     <ch-individual-stats [event]="event"></ch-individual-stats>

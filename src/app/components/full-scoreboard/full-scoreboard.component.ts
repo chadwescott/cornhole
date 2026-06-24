@@ -4,7 +4,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { Game } from '../../models/game.model';
 import { ThrowResult } from '../../models/throw-result.model';
 import { CardComponent } from '../card/card.component';
-import { GameStatsComponent } from '../game-stats/game-stats.component';
+import { GamePointsComponent } from '../game-points/game-points.component';
+import { GameThrowsComponent } from '../game-throws/game-throws.component';
 import { RoundScoresComponent } from '../round-scores/round-scores.component';
 
 @Component({
@@ -14,7 +15,8 @@ import { RoundScoresComponent } from '../round-scores/round-scores.component';
   standalone: true,
   imports: [
     CardComponent,
-    GameStatsComponent,
+    GamePointsComponent,
+    GameThrowsComponent,
     MatButtonModule,
     RoundScoresComponent
   ]
