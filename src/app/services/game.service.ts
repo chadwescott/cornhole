@@ -1,5 +1,4 @@
-import { EnvironmentInjector, inject, Injectable } from '@angular/core';
-import { Firestore } from '@angular/fire/firestore';
+import { inject, Injectable } from '@angular/core';
 
 import { GameConstants } from '../constants/game.constants';
 import { Game } from '../models/game.model';
@@ -15,6 +14,7 @@ import { TeamColor } from '../models/team-color.model';
 import { Team } from '../models/team.model';
 import { ThrowResult } from '../models/throw-result.model';
 import { Throw } from '../models/throw.model';
+import { AppStateService } from './app-state.service';
 import { SupabaseService } from './supabase.service';
 import { TeamService } from './team.service';
 
@@ -26,10 +26,9 @@ type SupabaseRoundThrowInsert = SupabaseRoundThrow;
   providedIn: 'root'
 })
 export class GameService {
-  private readonly environmentInjector = inject(EnvironmentInjector);
-  private readonly firestore = inject(Firestore);
   private readonly supabaseService = inject(SupabaseService);
   private readonly teamService = inject(TeamService);
+  private readonly appStateService = inject(AppStateService);
 
   private readonly teamsKey = 'TEAMS';
   private readonly playersKey = 'PLAYERS';
@@ -38,14 +37,13 @@ export class GameService {
 
   players: Player[] = [];
   teams: Team[] = [];
-  games: Game[] = [];
 
   constructor() {
     const gamesData = localStorage.getItem(this.gamesKey);
     const playersData = localStorage.getItem(this.playersKey);
     const teamsData = localStorage.getItem(this.teamsKey);
 
-    this.games = gamesData ? JSON.parse(gamesData) : [];
+    this.appStateService.game.set(gamesData ? JSON.parse(gamesData) : null);
     this.players = playersData ? JSON.parse(playersData) : [];
     this.teams = teamsData ? JSON.parse(teamsData) : [];
 
@@ -61,15 +59,11 @@ export class GameService {
   clearData(): void {
     this.players = [];
     this.teams = [];
-    this.games = [];
+    this.appStateService.game.set(null);
 
     localStorage.removeItem(this.gamesKey);
     localStorage.removeItem(this.teamsKey);
     localStorage.removeItem(this.playersKey);
-  }
-
-  private savePlayers(): void {
-    localStorage.setItem(this.playersKey, JSON.stringify(this.players));
   }
 
   private saveTeams(): void {
@@ -77,11 +71,7 @@ export class GameService {
   }
 
   saveGames(): void {
-    localStorage.setItem(this.gamesKey, JSON.stringify(this.games));
-  }
-
-  getGames(): Game[] {
-    return this.games;
+    localStorage.setItem(this.gamesKey, JSON.stringify(this.appStateService.game()));
   }
 
   async getGamesFromSupabase(eventId?: number): Promise<SupabaseGame[]> {
@@ -191,7 +181,7 @@ export class GameService {
   createGame(team1: Team, team2: Team, eventId: number | null = null): Game {
     const game = new Game(team1, team2);
     game.event_id = eventId;
-    this.games.push(game);
+    this.appStateService.game.set(game);
     this.addRound(game);
     this.saveGames();
     this.loadGame(game);
@@ -215,7 +205,7 @@ export class GameService {
     round.team2NetScore = Math.max(round.team2GrossScore - round.team1GrossScore, 0);
     round.complete = !round.team1Throws.find(x => !x.result) && !round.team2Throws.find(x => !x.result);
 
-    const game = this.games.find(x => x.rounds.includes(round));
+    const game = this.appStateService.game();
     if (game) {
       this.calculateGameScore(game);
     }
@@ -564,10 +554,10 @@ export class GameService {
   }
 
   resetGame(game: Game): Game {
-    this.games.splice(this.games.indexOf(game), 1);
     const newGame = this.createGame(game.team1, game.team2);
     newGame.event_id = game.event_id;
     this.resetStats(newGame);
+    this.appStateService.game.set(newGame);
     this.saveGames();
     return newGame;
   }

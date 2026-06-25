@@ -18,6 +18,7 @@ import {
 import { Observable } from 'rxjs';
 
 import { DesignOptions } from '../models/design-options.enum';
+import { FirestoreGame } from '../models/firestore-game.model';
 import { Game } from '../models/game.model';
 import { PlayerStats } from '../models/player-stats.model';
 import { Player } from '../models/player.model';
@@ -26,12 +27,14 @@ import { TeamColor } from '../models/team-color.model';
 import { Team } from '../models/team.model';
 import { ThrowResult } from '../models/throw-result.model';
 import { Throw } from '../models/throw.model';
+import { AppStateService } from './app-state.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class FirestoreGameService {
     private readonly firestore = getFirestore(inject(FirebaseApp));
+    private readonly appStateService = inject(AppStateService);
     private readonly gamesCollection = 'games';
     private readonly staleGameWindowMs = 10 * 60 * 1000;
 
@@ -77,7 +80,7 @@ export class FirestoreGameService {
         }
     }
 
-    observeGames(): Observable<Game[]> {
+    observeGames(): Observable<FirestoreGame[]> {
         const gamesRef = collection(this.firestore, this.gamesCollection);
         const gamesQuery = query(
             gamesRef,
@@ -142,11 +145,13 @@ export class FirestoreGameService {
         return firestoreGame;
     }
 
-    private firestoreObjectToGame(data: any): Game {
+    private firestoreObjectToGame(data: any): FirestoreGame {
         const team1 = this.firestoreObjectToTeam(data.team1, 1);
         const team2 = this.firestoreObjectToTeam(data.team2, 2);
 
-        const game = new Game(team1, team2);
+        const game = new FirestoreGame(team1, team2);
+        this.appStateService.firestoreGameId.set(data.docId ?? null);
+        game.docId = data.docId ?? null;
         game.id = data.id ?? null;
         game.event_id = data.event_id ?? null;
         game.rounds = Array.isArray(data.rounds)
@@ -318,8 +323,8 @@ export class FirestoreGameService {
         return null;
     }
 
-    private observeGameQuery(gamesQuery: Query<DocumentData>): Observable<Game[]> {
-        return new Observable<Game[]>(subscriber => {
+    private observeGameQuery(gamesQuery: Query<DocumentData>): Observable<FirestoreGame[]> {
+        return new Observable<FirestoreGame[]>(subscriber => {
             const unsubscribe = onSnapshot(
                 gamesQuery,
                 snapshot => {

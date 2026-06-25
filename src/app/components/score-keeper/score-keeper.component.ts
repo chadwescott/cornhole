@@ -4,6 +4,7 @@ import { TEAM_COLORS } from '../../constants/team-color.constants';
 import { Game } from '../../models/game.model';
 import { Round } from '../../models/round.model';
 import { Team } from '../../models/team.model';
+import { AppStateService } from '../../services/app-state.service';
 import { FirestoreGameService } from '../../services/firestore-game.service';
 import { GameService } from '../../services/game.service';
 import { GameComponent } from '../game/game.component';
@@ -20,17 +21,16 @@ import { GameComponent } from '../game/game.component';
 export class ScoreKeeperComponent implements OnInit {
     game: Game | null = null;
     activeRound: Round | null = null;
-    private firestoreGameId: string | null = null;
+
     private firestoreSyncQueue: Promise<void> = Promise.resolve();
-    private readonly firestoreGameIdKey = 'ACTIVE_FIRESTORE_GAME_ID';
 
     private readonly gameService = inject(GameService);
+    private readonly appStateService = inject(AppStateService);
     private readonly firestoreGameService = inject(FirestoreGameService);
 
     async ngOnInit(): Promise<void> {
-        this.firestoreGameId = localStorage.getItem(this.firestoreGameIdKey);
-
-        this.game = this.gameService.getGames()?.find(x => !x.complete) || null;
+        this.game = this.appStateService.game();
+        console.log(this.game);
         if (this.game) {
             this.gameService.loadGame(this.game);
             await this.activateLastRound(this.game);
@@ -45,8 +45,7 @@ export class ScoreKeeperComponent implements OnInit {
         const team1 = this.gameService.createTeam([], 1, TEAM_COLORS[0]);
         const team2 = this.gameService.createTeam([], 2, TEAM_COLORS[2]);
         this.game = this.gameService.createGame(team1, team2);
-        this.firestoreGameId = null;
-        localStorage.removeItem(this.firestoreGameIdKey);
+        this.appStateService.firestoreGameId.set(null);
         await this.activateLastRound(this.game);
         await this.syncGameToFirestore(this.game);
     }
@@ -67,7 +66,6 @@ export class ScoreKeeperComponent implements OnInit {
     async activateLastRound(game: Game): Promise<void> {
         this.activeRound = game.rounds ? game.rounds[game.rounds.length - 1] : null;
 
-        // Persist the newly active round state in Firestore.
         await this.syncGameToFirestore(game);
     }
 
@@ -88,12 +86,10 @@ export class ScoreKeeperComponent implements OnInit {
     }
 
     async onCompleteGame(game: Game): Promise<void> {
-        await this.deleteActiveFirestoreGame();
-        this.game = null;
         await this.gameService.completeGame(game);
+        await this.deleteActiveGame();
         this.game = this.gameService.createGame(game.team1, game.team2, game.event_id);
-        this.firestoreGameId = null;
-        localStorage.removeItem(this.firestoreGameIdKey);
+        this.appStateService.firestoreGameId.set(null);
         await this.activateLastRound(this.game);
     }
 
@@ -110,14 +106,12 @@ export class ScoreKeeperComponent implements OnInit {
 
     private async syncGameToFirestore(game: Game): Promise<void> {
         this.firestoreSyncQueue = this.firestoreSyncQueue.then(async () => {
-            if (!this.firestoreGameId) {
-                this.firestoreGameId = await this.firestoreGameService.createGame(game);
-                localStorage.setItem(this.firestoreGameIdKey, this.firestoreGameId);
+            if (!this.appStateService.firestoreGameId()) {
+                this.appStateService.firestoreGameId.set(await this.firestoreGameService.createGame(game));
                 return;
             }
 
-            this.firestoreGameId = await this.firestoreGameService.updateGame(this.firestoreGameId, game);
-            localStorage.setItem(this.firestoreGameIdKey, this.firestoreGameId);
+            this.appStateService.firestoreGameId.set(await this.firestoreGameService.updateGame(this.appStateService.firestoreGameId()!, game));
         }).catch(error => {
             console.error('Error syncing game to Firestore:', error);
         });
@@ -125,15 +119,14 @@ export class ScoreKeeperComponent implements OnInit {
         await this.firestoreSyncQueue;
     }
 
-    private async deleteActiveFirestoreGame(): Promise<void> {
+    private async deleteActiveGame(): Promise<void> {
         this.firestoreSyncQueue = this.firestoreSyncQueue.then(async () => {
-            if (!this.firestoreGameId) {
+            if (!this.appStateService.firestoreGameId()) {
                 return;
             }
 
-            await this.firestoreGameService.deleteGame(this.firestoreGameId);
-            this.firestoreGameId = null;
-            localStorage.removeItem(this.firestoreGameIdKey);
+            await this.firestoreGameService.deleteGame(this.appStateService.firestoreGameId()!);
+            this.appStateService.firestoreGameId.set(null);
         }).catch(error => {
             console.error('Error deleting active Firestore game:', error);
         });

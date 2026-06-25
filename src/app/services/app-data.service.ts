@@ -21,6 +21,8 @@ export class AppDataService {
     private readonly teamStatsService = inject(TeamStatsService);
     private readonly overallStatsService = inject(PlayerStatsService);
 
+    private readonly firestoreGameIdKey = 'ACTIVE_FIRESTORE_GAME_ID';
+
     private readonly playerAddedEffect = effect(() => {
         this.appStateService.playerAdded();
         this.refreshPlayers();
@@ -52,10 +54,15 @@ export class AppDataService {
         }
     });
 
+    private readonly firestoreGameIdEffect = effect(() => {
+        this.appStateService.saveDataToStorage(this.firestoreGameIdKey, this.appStateService.firestoreGameId());
+    });
+
     constructor() {
         console.log('AppDataService initialized');
         this.refreshPlayers();
         this.getStatistics();
+        this.appStateService.firestoreGameId.set(this.appStateService.loadDataFromStorage<string>(this.firestoreGameIdKey));
     }
 
     refreshPlayers(): void {

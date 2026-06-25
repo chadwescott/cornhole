@@ -281,6 +281,10 @@ table {
     width: 100%;
     column-gap: 0.5em;
 
+    &[right] {
+        justify-content: flex-end;
+    }
+
     &[center] {
         justify-content: center;
     }

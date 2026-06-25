@@ -1,4 +1,5 @@
 import { Injectable, signal } from '@angular/core';
+import { Game } from '../models/game.model';
 import { Player } from '../models/player.model';
 import { Stats } from '../models/stats.model';
 import { SupabaseEvent } from '../models/supabase/supabase-event.model';
@@ -7,6 +8,7 @@ import { SupabaseEvent } from '../models/supabase/supabase-event.model';
     providedIn: 'root'
 })
 export class AppStateService {
+    game = signal<Game | null>(null);
     players = signal<Player[]>([]);
     playerAdded = signal<number>(0);
     playerDeleted = signal<number>(0);
@@ -17,6 +19,7 @@ export class AppStateService {
     eventIndividualStats = signal<Stats[]>([]);
     eventTeamStats = signal<Stats[]>([]);
     eventOverallStats = signal<Stats[]>([]);
+    firestoreGameId = signal<string | null>(null);
 
     constructor() {
         console.log('AppStateService initialized');
@@ -24,7 +27,16 @@ export class AppStateService {
 
     loadDataFromStorage<T>(key: string): T | null {
         const json = localStorage.getItem(key);
-        return json ? JSON.parse(json) as T : null;
+        if (json === null) {
+            return null;
+        }
+
+        try {
+            return json ? JSON.parse(json) as T : null;
+        } catch (error) {
+            console.error(`Error parsing JSON from localStorage for key "${key}":`, error);
+            return null;
+        }
     }
 
     saveDataToStorage<T>(key: string, data: T): void {

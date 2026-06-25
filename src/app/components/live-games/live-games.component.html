@@ -21,6 +21,16 @@
             <p>No rounds yet.</p>
             }
             <ch-game-throws [game]="game"></ch-game-throws>
+            <div class="row" right>
+                <button type="button" class="button button-icon clickable" aria-label="Load Game" title="Load Game"
+                    (click)="loadGame(game)">
+                    <i class="fas fa-laptop"></i>
+                </button>
+                <button type="button" class="button button-icon clickable" aria-label="Delete Game" title="Delete Game"
+                    (click)="deleteGame(game)">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
         </article>
         }
     </div>
