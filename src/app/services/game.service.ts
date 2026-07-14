@@ -30,48 +30,26 @@ export class GameService {
   private readonly teamService = inject(TeamService);
   private readonly appStateService = inject(AppStateService);
 
-  private readonly teamsKey = 'TEAMS';
-  private readonly playersKey = 'PLAYERS';
-  private readonly gamesKey = 'GAMES';
-
-
-  players: Player[] = [];
-  teams: Team[] = [];
+  private readonly activeGameKey = 'ACTIVE_GAME';
 
   constructor() {
-    const gamesData = localStorage.getItem(this.gamesKey);
-    const playersData = localStorage.getItem(this.playersKey);
-    const teamsData = localStorage.getItem(this.teamsKey);
-
-    this.appStateService.game.set(gamesData ? JSON.parse(gamesData) : null);
-    this.players = playersData ? JSON.parse(playersData) : [];
-    this.teams = teamsData ? JSON.parse(teamsData) : [];
-
-    if (this.players) {
-      this.players.map(x => {
-        if (!x.stats) {
-          x.stats = new PlayerStats();
-        }
-      });
+    const gameData = localStorage.getItem(this.activeGameKey);
+    try {
+      const game = gameData ? JSON.parse(gameData) : null;
+      this.appStateService.game.set(game);
+    } catch (error) {
+      console.error(`Error parsing games data from localStorage:`, error);
     }
   }
 
   clearData(): void {
-    this.players = [];
-    this.teams = [];
     this.appStateService.game.set(null);
 
-    localStorage.removeItem(this.gamesKey);
-    localStorage.removeItem(this.teamsKey);
-    localStorage.removeItem(this.playersKey);
-  }
-
-  private saveTeams(): void {
-    localStorage.setItem(this.teamsKey, JSON.stringify(this.teams));
+    localStorage.removeItem(this.activeGameKey);
   }
 
   saveGames(): void {
-    localStorage.setItem(this.gamesKey, JSON.stringify(this.appStateService.game()));
+    localStorage.setItem(this.activeGameKey, JSON.stringify(this.appStateService.game()));
   }
 
   async getGamesFromSupabase(eventId?: number): Promise<SupabaseGame[]> {
@@ -167,14 +145,11 @@ export class GameService {
   }
 
   setTeamColor(team: Team): void {
-    this.saveTeams();
     this.saveGames();
   }
 
   createTeam(players: Player[], teamNumber: number, teamColor: TeamColor): Team {
     const team = new Team(players, teamNumber, teamColor);
-    this.teams.push(team);
-    this.saveTeams();
     return team;
   }
 

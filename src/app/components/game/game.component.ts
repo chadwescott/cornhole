@@ -57,9 +57,9 @@ export class GameComponent implements OnInit {
   showFullScoreboard = false;
 
   ngOnInit(): void {
-    const team1HasAllIds = this.game().team1.players.every(p => !!p.id);
-    const team2HasAllIds = this.game().team2.players.every(p => !!p.id);
-    this.showOptions = this.game().team1.players.length === 0 || this.game().team2.players.length === 0 || !team1HasAllIds || !team2HasAllIds;
+    const team1HasAllIds = this.game().team1?.players.every(p => !!p.id);
+    const team2HasAllIds = this.game().team2?.players.every(p => !!p.id);
+    this.showOptions = this.game().team1?.players.length === 0 || this.game().team2?.players.length === 0 || !team1HasAllIds || !team2HasAllIds;
   }
 
   onRoundChanged(index: number): void {

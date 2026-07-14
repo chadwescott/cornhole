@@ -30,7 +30,6 @@ export class ScoreKeeperComponent implements OnInit {
 
     async ngOnInit(): Promise<void> {
         this.game = this.appStateService.game();
-        console.log(this.game);
         if (this.game) {
             this.gameService.loadGame(this.game);
             await this.activateLastRound(this.game);
